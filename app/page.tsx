@@ -2,43 +2,41 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import {
   ArrowRight,
   CheckCircle,
   Zap,
   Shield,
-  TrendingUp,
-  Users,
-  Phone,
-  Mail,
-  MapPin,
-  Star,
-  Play,
   ChevronDown,
   Menu,
   X,
+  FileText,
+  Award,
+  Download,
+  AlertTriangle,
 } from "lucide-react"
-import Link from "next/link"
 import Image from "next/image"
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
+import { ProductConfigurator } from "@/components/product-configurator"
 
 export default function ApexWiringLanding() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [roiInputs, setRoiInputs] = useState({
+    facilitySize: 50000,
+    currentSystem: "busway",
+    installationComplexity: "standard",
+  })
 
   const { scrollYProgress } = useScroll()
   const heroRef = useRef(null)
-  const benefitsRef = useRef(null)
-  const comparisonRef = useRef(null)
 
   // Parallax transforms
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -100])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.3])
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, -300])
+  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
 
   // Mouse tracking for magnetic effects
   const cursorX = useMotionValue(0)
@@ -49,13 +47,21 @@ export default function ApexWiringLanding() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY })
       cursorX.set(e.clientX - 16)
       cursorY.set(e.clientY - 16)
     }
 
     const handleScroll = () => {
-      const sections = ["hero", "benefits", "comparison", "solutions", "testimonials", "contact"]
+      const sections = [
+        "hero",
+        "specifications",
+        "comparison",
+        "product-configurator",
+        "case-studies",
+        "roi-calculator",
+        "certifications",
+        "contact",
+      ]
       const scrollPosition = window.scrollY + 100
 
       for (const section of sections) {
@@ -86,9 +92,31 @@ export default function ApexWiringLanding() {
     setIsMenuOpen(false)
   }
 
+  // Calculate ROI
+  const calculateROI = () => {
+    const baseCostPerSqFt = roiInputs.currentSystem === "busway" ? 45 : 38
+    const apexCostPerSqFt = 28
+    const complexityMultiplier = roiInputs.installationComplexity === "complex" ? 1.3 : 1.0
+
+    const traditionalCost = roiInputs.facilitySize * baseCostPerSqFt * complexityMultiplier
+    const apexCost = roiInputs.facilitySize * apexCostPerSqFt
+    const savings = traditionalCost - apexCost
+    const roiPercentage = ((savings / apexCost) * 100).toFixed(1)
+
+    return {
+      traditionalCost,
+      apexCost,
+      savings,
+      roiPercentage,
+      paybackMonths: Math.round((apexCost / (savings / 12)) * 10) / 10,
+    }
+  }
+
+  const roiResults = calculateROI()
+
   // Animation variants
   const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
+    hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
   }
 
@@ -104,7 +132,7 @@ export default function ApexWiringLanding() {
   }
 
   const scaleIn = {
-    hidden: { scale: 0.8, opacity: 0 },
+    hidden: { scale: 0.9, opacity: 0 },
     visible: {
       scale: 1,
       opacity: 1,
@@ -113,84 +141,82 @@ export default function ApexWiringLanding() {
   }
 
   const slideInLeft = {
-    hidden: { x: -100, opacity: 0 },
+    hidden: { x: -50, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
   }
 
   const slideInRight = {
-    hidden: { x: 100, opacity: 0 },
+    hidden: { x: 50, opacity: 0 },
     visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 overflow-hidden">
-      {/* Custom Cursor */}
+    <div className="min-h-screen bg-white">
+      {/* Custom Cursor - Hidden on mobile */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 bg-blue-500/20 rounded-full pointer-events-none z-50 mix-blend-difference"
+        className="fixed top-0 left-0 w-6 h-6 bg-orange-500/30 rounded-full pointer-events-none z-50 mix-blend-difference hidden lg:block"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
         }}
       />
 
-      {/* Floating Background Elements */}
-      <motion.div className="fixed inset-0 pointer-events-none" style={{ y: backgroundY }}>
-        <div className="absolute top-20 left-10 w-72 h-72 bg-blue-300/10 rounded-full blur-3xl" />
-        <div className="absolute top-40 right-20 w-96 h-96 bg-indigo-300/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 left-1/3 w-80 h-80 bg-purple-300/10 rounded-full blur-3xl" />
-      </motion.div>
-
       {/* Navigation */}
       <motion.nav
-        className="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-40"
+        className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="container mx-auto px-4 lg:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <motion.div
-              className="flex items-center space-x-2"
-              whileHover={{ scale: 1.05 }}
+              className="flex items-center space-x-3"
+              whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
             >
               <motion.div
-                className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
+                className="w-8 h-8 bg-gradient-to-r from-slate-700 to-slate-900 rounded-lg flex items-center justify-center"
+                whileHover={{ rotate: 180 }}
+                transition={{ duration: 0.3 }}
               >
-                <Zap className="w-5 h-5 text-white" />
+                <Zap className="w-4 h-4 text-orange-500" />
               </motion.div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                Apex Wiring Solutions
-              </span>
+              <div className="hidden sm:block">
+                <span className="text-lg font-bold text-slate-900">Apex Wiring Solutions</span>
+                <div className="text-xs text-slate-600 font-medium">Industrial Power Distribution</div>
+              </div>
+              <div className="sm:hidden">
+                <span className="text-lg font-bold text-slate-900">Apex</span>
+              </div>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-8">
               {[
-                { id: "hero", label: "Home" },
-                { id: "benefits", label: "Benefits" },
+                { id: "hero", label: "Overview" },
+                { id: "specifications", label: "Specs" },
                 { id: "comparison", label: "Comparison" },
-                { id: "solutions", label: "Solutions" },
-                { id: "testimonials", label: "Testimonials" },
+                { id: "product-configurator", label: "Configurator" },
+                { id: "case-studies", label: "Case Studies" },
+                { id: "roi-calculator", label: "ROI" },
                 { id: "contact", label: "Contact" },
               ].map((item, index) => (
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors hover:text-blue-600 relative ${
-                    activeSection === item.id ? "text-blue-600" : "text-gray-600"
+                  className={`text-sm font-medium transition-colors hover:text-orange-600 relative ${
+                    activeSection === item.id ? "text-orange-600" : "text-slate-700"
                   }`}
-                  whileHover={{ y: -2 }}
-                  initial={{ opacity: 0, y: -20 }}
+                  whileHover={{ y: -1 }}
+                  initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  transition={{ delay: index * 0.1, duration: 0.3 }}
                 >
                   {item.label}
                   {activeSection === item.id && (
                     <motion.div
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-blue-600"
+                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-600"
                       layoutId="activeTab"
                       transition={{ type: "spring", stiffness: 500, damping: 30 }}
                     />
@@ -200,15 +226,19 @@ export default function ApexWiringLanding() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                 <Button
                   onClick={() => scrollToSection("contact")}
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700"
+                  className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white px-6 py-2"
                 >
-                  Get Consultation
+                  Get Quote
                 </Button>
               </motion.div>
             </div>
 
             {/* Mobile Menu Button */}
-            <motion.button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} whileTap={{ scale: 0.95 }}>
+            <motion.button
+              className="lg:hidden p-2"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              whileTap={{ scale: 0.95 }}
+            >
               <AnimatePresence mode="wait">
                 {isMenuOpen ? (
                   <motion.div
@@ -239,7 +269,7 @@ export default function ApexWiringLanding() {
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
-                className="md:hidden py-4 border-t border-gray-200"
+                className="lg:hidden py-4 border-t border-gray-200"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
@@ -252,29 +282,30 @@ export default function ApexWiringLanding() {
                   animate="visible"
                 >
                   {[
-                    { id: "hero", label: "Home" },
-                    { id: "benefits", label: "Benefits" },
+                    { id: "hero", label: "Overview" },
+                    { id: "specifications", label: "Specifications" },
                     { id: "comparison", label: "Comparison" },
-                    { id: "solutions", label: "Solutions" },
-                    { id: "testimonials", label: "Testimonials" },
+                    { id: "product-configurator", label: "Configurator" },
+                    { id: "case-studies", label: "Case Studies" },
+                    { id: "roi-calculator", label: "ROI Calculator" },
                     { id: "contact", label: "Contact" },
                   ].map((item) => (
                     <motion.button
                       key={item.id}
                       onClick={() => scrollToSection(item.id)}
-                      className="text-left text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
+                      className="text-left text-base font-medium text-slate-700 hover:text-orange-600 transition-colors py-2"
                       variants={fadeInUp}
-                      whileHover={{ x: 10 }}
+                      whileHover={{ x: 5 }}
                     >
                       {item.label}
                     </motion.button>
                   ))}
-                  <motion.div variants={fadeInUp}>
+                  <motion.div variants={fadeInUp} className="pt-2">
                     <Button
                       onClick={() => scrollToSection("contact")}
-                      className="w-full bg-gradient-to-r from-blue-600 to-indigo-600"
+                      className="w-full bg-gradient-to-r from-slate-700 to-slate-900"
                     >
-                      Get Consultation
+                      Get Quote
                     </Button>
                   </motion.div>
                 </motion.div>
@@ -288,141 +319,143 @@ export default function ApexWiringLanding() {
       <motion.section
         id="hero"
         ref={heroRef}
-        className="pt-16 min-h-screen flex items-center relative overflow-hidden"
+        className="pt-16 min-h-screen flex items-center relative overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50"
         style={{ y: heroY, opacity: heroOpacity }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10" />
-        <div className="container mx-auto px-4 lg:px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div className="space-y-8" initial="hidden" animate="visible" variants={staggerContainer}>
-              <div className="space-y-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+            <motion.div
+              className="space-y-6 lg:space-y-8"
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer}
+            >
+              <div className="space-y-4 lg:space-y-6">
                 <motion.div variants={fadeInUp}>
-                  <Badge className="bg-blue-100 text-blue-700 hover:bg-blue-200">Revolutionary Wiring Technology</Badge>
+                  <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200 font-semibold text-sm px-3 py-1">
+                    UL Listed • NEC Compliant • 25+ Years Experience
+                  </Badge>
                 </motion.div>
-                <motion.h1 className="text-4xl md:text-6xl font-bold leading-tight" variants={fadeInUp}>
+
+                <motion.h1
+                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-slate-900"
+                  variants={fadeInUp}
+                >
                   <motion.span
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent inline-block"
-                    whileHover={{ scale: 1.05 }}
+                    className="bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
+                    whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    Underfloor Wiring
+                    Underfloor Power Distribution Systems
                   </motion.span>
                   <br />
-                  Solutions That
-                  <br />
                   <motion.span
-                    className="text-gray-900 inline-block"
+                    className="text-orange-600"
                     whileHover={{
-                      background: "linear-gradient(45deg, #3B82F6, #6366F1)",
+                      background: "linear-gradient(45deg, #ea580c, #dc2626)",
                       WebkitBackgroundClip: "text",
                       WebkitTextFillColor: "transparent",
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    Transform
-                  </motion.span>{" "}
-                  Infrastructure
+                    Engineered for Performance
+                  </motion.span>
                 </motion.h1>
-                <motion.p className="text-xl text-gray-600 leading-relaxed" variants={fadeInUp}>
-                  Discover the superior alternative to traditional bus bars. Our cutting-edge underfloor wiring
-                  solutions deliver unmatched efficiency, safety, and cost-effectiveness for modern industrial
-                  applications.
+
+                <motion.p className="text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl" variants={fadeInUp}>
+                  Replace costly busway installations with our UL-listed underfloor power distribution systems. Reduce
+                  installation costs by $12-18/sq ft while improving safety, flexibility, and long-term reliability.
                 </motion.p>
               </div>
 
               <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                <motion.div
-                  whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
-                  whileTap={{ scale: 0.95 }}
-                >
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg px-8 py-6"
+                    className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 w-full sm:w-auto"
                     onClick={() => scrollToSection("contact")}
                   >
-                    Schedule Consultation
-                    <motion.div
-                      className="ml-2"
-                      animate={{ x: [0, 5, 0] }}
-                      transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-                    >
-                      <ArrowRight className="w-5 h-5" />
-                    </motion.div>
+                    Request Engineering Consultation
+                    <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
                   </Button>
                 </motion.div>
-                <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-lg px-8 py-6 border-2 hover:bg-blue-50 bg-transparent"
-                    onClick={() => scrollToSection("benefits")}
+                    className="text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 border-2 border-slate-300 hover:bg-slate-50 bg-transparent text-slate-700 w-full sm:w-auto"
+                    onClick={() => scrollToSection("specifications")}
                   >
-                    <motion.div
-                      className="mr-2"
-                      whileHover={{ scale: 1.2, rotate: 360 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <Play className="w-5 h-5" />
-                    </motion.div>
-                    Learn More
+                    <FileText className="mr-2 w-4 h-4 lg:w-5 lg:h-5" />
+                    Technical Specs
                   </Button>
                 </motion.div>
               </motion.div>
 
-              <motion.div className="grid grid-cols-3 gap-8 pt-8" variants={staggerContainer}>
+              <motion.div className="grid grid-cols-3 gap-4 lg:gap-8 pt-6 lg:pt-8" variants={staggerContainer}>
                 {[
-                  { value: "50%", label: "Cost Reduction" },
-                  { value: "99.9%", label: "Reliability" },
-                  { value: "24/7", label: "Support" },
+                  { value: "600V", label: "Max Voltage", unit: "UL Listed" },
+                  { value: "2000A", label: "Current Capacity", unit: "Per Circuit" },
+                  { value: "500+", label: "Installations", unit: "Nationwide" },
                 ].map((stat, index) => (
-                  <motion.div key={index} className="text-center" variants={scaleIn} whileHover={{ y: -5 }}>
+                  <motion.div key={index} className="text-center" variants={scaleIn} whileHover={{ y: -2 }}>
                     <motion.div
-                      className="text-3xl font-bold text-blue-600"
+                      className="text-xl lg:text-3xl font-bold text-slate-800"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 1 + index * 0.2, type: "spring", stiffness: 200 }}
                     >
                       {stat.value}
                     </motion.div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
+                    <div className="text-xs lg:text-sm text-slate-600 font-medium">{stat.label}</div>
+                    <div className="text-xs text-orange-600 font-semibold">{stat.unit}</div>
                   </motion.div>
                 ))}
               </motion.div>
+
+              {/* Certifications */}
+              <motion.div className="flex flex-wrap items-center gap-4 pt-4" variants={fadeInUp}>
+                <div className="text-sm text-slate-600 font-medium">Certified by:</div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {["UL", "CSA", "NEC", "OSHA"].map((cert, index) => (
+                    <motion.div
+                      key={cert}
+                      className="px-2 lg:px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-700"
+                      whileHover={{ scale: 1.05, backgroundColor: "#f1f5f9" }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 1.5 + index * 0.1 }}
+                    >
+                      {cert}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
 
-            <motion.div className="relative" initial="hidden" animate="visible" variants={slideInRight}>
+            <motion.div className="relative mt-8 lg:mt-0" initial="hidden" animate="visible" variants={slideInRight}>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-3xl opacity-20"
-                animate={{
-                  rotate: [6, 8, 6],
-                  scale: [1, 1.02, 1],
-                }}
-                transition={{
-                  repeat: Number.POSITIVE_INFINITY,
-                  duration: 4,
-                  ease: "easeInOut",
-                }}
-              />
-              <motion.div
-                className="relative bg-white rounded-3xl p-8 shadow-2xl"
+                className="relative bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-xl border border-slate-200"
                 whileHover={{
-                  y: -10,
-                  boxShadow: "0 40px 80px rgba(0,0,0,0.15)",
+                  y: -5,
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <Image
                   src="/placeholder.svg?height=400&width=500"
-                  alt="Underfloor Wiring Solution"
+                  alt="Underfloor Power Distribution System Cross-Section"
                   width={500}
                   height={400}
-                  className="w-full h-auto rounded-2xl"
+                  className="w-full h-auto rounded-xl lg:rounded-2xl"
                 />
+                <div className="absolute top-4 right-4 bg-green-500 text-white px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm font-bold">
+                  UL Listed
+                </div>
                 <motion.div
-                  className="absolute -bottom-4 -right-4 bg-green-500 text-white p-3 rounded-full shadow-lg"
+                  className="absolute -bottom-3 -right-3 lg:-bottom-4 lg:-right-4 bg-orange-500 text-white p-2 lg:p-3 rounded-full shadow-lg"
                   animate={{
-                    scale: [1, 1.1, 1],
-                    rotate: [0, 5, -5, 0],
+                    scale: [1, 1.05, 1],
                   }}
                   transition={{
                     repeat: Number.POSITIVE_INFINITY,
@@ -430,7 +463,7 @@ export default function ApexWiringLanding() {
                     ease: "easeInOut",
                   }}
                 >
-                  <CheckCircle className="w-6 h-6" />
+                  <Award className="w-4 h-4 lg:w-6 lg:h-6" />
                 </motion.div>
               </motion.div>
             </motion.div>
@@ -438,273 +471,449 @@ export default function ApexWiringLanding() {
         </div>
 
         <motion.button
-          onClick={() => scrollToSection("benefits")}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 10, 0] }}
+          onClick={() => scrollToSection("specifications")}
+          className="absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2"
+          animate={{ y: [0, 5, 0] }}
           transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-          whileHover={{ scale: 1.2 }}
+          whileHover={{ scale: 1.1 }}
         >
-          <ChevronDown className="w-8 h-8 text-blue-600" />
+          <ChevronDown className="w-6 h-6 lg:w-8 lg:h-8 text-slate-600" />
         </motion.button>
       </motion.section>
 
-      {/* Benefits Section */}
-      <section id="benefits" className="py-20 bg-white">
-        <div className="container mx-auto px-4 lg:px-6">
+      {/* Technical Specifications Section */}
+      <section id="specifications" className="py-16 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 lg:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="bg-blue-100 text-blue-700 mb-4">Why Choose Underfloor Wiring</Badge>
+              <Badge className="bg-slate-100 text-slate-700 mb-4 font-semibold">Technical Specifications</Badge>
             </motion.div>
-            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeInUp}>
-              Unmatched Benefits for
-              <motion.span
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                style={{ display: "inline-block" }}
-              >
-                {" "}
-                Modern Infrastructure
-              </motion.span>
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
+            >
+              Engineered for Industrial Performance
             </motion.h2>
-            <motion.p className="text-xl text-gray-600 max-w-3xl mx-auto" variants={fadeInUp}>
-              Our underfloor wiring solutions provide superior performance, safety, and cost-effectiveness compared to
-              traditional bus bar systems.
+            <motion.p
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
+            >
+              Our underfloor power distribution systems meet the most demanding industrial requirements with UL-listed
+              components and NEC-compliant installations.
             </motion.p>
           </motion.div>
 
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                icon: <Shield className="w-8 h-8" />,
-                title: "Enhanced Safety",
-                description:
-                  "Reduced electrical hazards with enclosed wiring systems and improved fire safety ratings.",
-                color: "from-green-500 to-emerald-500",
-              },
-              {
-                icon: <TrendingUp className="w-8 h-8" />,
-                title: "Cost Efficiency",
-                description:
-                  "Up to 50% reduction in installation and maintenance costs compared to traditional bus bars.",
-                color: "from-blue-500 to-cyan-500",
-              },
-              {
-                icon: <Zap className="w-8 h-8" />,
-                title: "Superior Performance",
-                description: "Higher current capacity and better heat dissipation for optimal electrical performance.",
-                color: "from-purple-500 to-pink-500",
-              },
-              {
-                icon: <Users className="w-8 h-8" />,
-                title: "Easy Installation",
-                description: "Streamlined installation process that reduces downtime and labor requirements.",
-                color: "from-orange-500 to-red-500",
-              },
-              {
-                icon: <CheckCircle className="w-8 h-8" />,
-                title: "Compliance Ready",
-                description: "Meets all industry standards and regulations for electrical safety and performance.",
-                color: "from-indigo-500 to-blue-500",
-              },
-              {
-                icon: <Star className="w-8 h-8" />,
-                title: "Future-Proof",
-                description: "Scalable design that adapts to evolving electrical demands and technology upgrades.",
-                color: "from-teal-500 to-green-500",
-              },
-            ].map((benefit, index) => (
+          <Tabs defaultValue="electrical" className="max-w-6xl mx-auto">
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-6 lg:mb-8 h-auto">
+              <TabsTrigger value="electrical" className="font-semibold text-sm lg:text-base py-3">
+                Electrical
+              </TabsTrigger>
+              <TabsTrigger value="mechanical" className="font-semibold text-sm lg:text-base py-3">
+                Mechanical
+              </TabsTrigger>
+              <TabsTrigger value="environmental" className="font-semibold text-sm lg:text-base py-3">
+                Environmental
+              </TabsTrigger>
+              <TabsTrigger value="compliance" className="font-semibold text-sm lg:text-base py-3">
+                Compliance
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="electrical">
               <motion.div
-                key={index}
-                variants={fadeInUp}
-                whileHover={{
-                  y: -10,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                  scale: 1.02,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+                className="grid lg:grid-cols-2 gap-6 lg:gap-8"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
               >
-                <Card className="group border-0 shadow-lg h-full bg-gradient-to-br from-white to-gray-50/50">
-                  <CardHeader>
-                    <motion.div
-                      className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${benefit.color} flex items-center justify-center text-white mb-4`}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: [0, -10, 10, 0],
-                      }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      {benefit.icon}
-                    </motion.div>
-                    <CardTitle className="text-xl font-bold">{benefit.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-gray-600 text-base leading-relaxed">
-                      {benefit.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                <motion.div variants={fadeInUp}>
+                  <Card className="h-full">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center space-x-2 text-lg lg:text-xl">
+                        <Zap className="w-5 h-5 text-orange-600" />
+                        <span>Power Ratings</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
+                          <div className="text-xl lg:text-2xl font-bold text-slate-900">600V</div>
+                          <div className="text-xs lg:text-sm text-slate-600">Maximum Voltage</div>
+                        </div>
+                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
+                          <div className="text-xl lg:text-2xl font-bold text-slate-900">2000A</div>
+                          <div className="text-xs lg:text-sm text-slate-600">Current Capacity</div>
+                        </div>
+                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
+                          <div className="text-xl lg:text-2xl font-bold text-slate-900">65kA</div>
+                          <div className="text-xs lg:text-sm text-slate-600">Fault Current Rating</div>
+                        </div>
+                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
+                          <div className="text-xl lg:text-2xl font-bold text-slate-900">3Ø</div>
+                          <div className="text-xs lg:text-sm text-slate-600">Phase Configuration</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                <motion.div variants={fadeInUp}>
+                  <Card className="h-full">
+                    <CardHeader className="pb-4">
+                      <CardTitle className="flex items-center space-x-2 text-lg lg:text-xl">
+                        <Shield className="w-5 h-5 text-green-600" />
+                        <span>Safety Features</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {[
+                        "Ground fault protection (30mA sensitivity)",
+                        "Arc fault circuit interruption (AFCI)",
+                        "Overcurrent protection per NEC 240",
+                        "IP54 rated enclosures",
+                        "Class I, Division 2 hazardous location rated",
+                        "Emergency disconnect capability",
+                      ].map((feature, index) => (
+                        <motion.div
+                          key={index}
+                          className="flex items-start space-x-3"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm lg:text-base text-slate-700 leading-relaxed">{feature}</span>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </motion.div>
               </motion.div>
-            ))}
-          </motion.div>
+            </TabsContent>
+
+            <TabsContent value="mechanical">
+              <motion.div
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                {[
+                  {
+                    title: "Installation Depth",
+                    specs: [
+                      { label: "Minimum depth", value: "4 inches" },
+                      { label: "Standard depth", value: "6 inches" },
+                      { label: "Maximum depth", value: "12 inches" },
+                      { label: "Access floor compatibility", value: "Yes" },
+                    ],
+                  },
+                  {
+                    title: "Load Capacity",
+                    specs: [
+                      { label: "Distributed load", value: "250 lbs/sq ft" },
+                      { label: "Concentrated load", value: "2000 lbs" },
+                      { label: "Rolling load", value: "1000 lbs" },
+                      { label: "Seismic rating", value: "Zone 4" },
+                    ],
+                  },
+                  {
+                    title: "Materials",
+                    specs: [
+                      { label: "Conductor", value: "Copper (99.9%)" },
+                      { label: "Insulation", value: "XLPE rated 90°C" },
+                      { label: "Enclosure", value: "Aluminum/Steel" },
+                      { label: "Finish", value: "Powder coat" },
+                    ],
+                  },
+                ].map((section, index) => (
+                  <motion.div key={index} variants={fadeInUp}>
+                    <Card className="h-full">
+                      <CardHeader className="pb-4">
+                        <CardTitle className="text-lg">{section.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-3">
+                        {section.specs.map((spec, specIndex) => (
+                          <div key={specIndex} className="flex justify-between items-center">
+                            <span className="text-sm text-slate-600">{spec.label}</span>
+                            <span className="text-sm font-semibold text-slate-900">{spec.value}</span>
+                          </div>
+                        ))}
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </TabsContent>
+
+            <TabsContent value="environmental">
+              <motion.div
+                className="grid lg:grid-cols-2 gap-6 lg:gap-8"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                <motion.div variants={fadeInUp}>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg lg:text-xl">Operating Conditions</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
+                          <div className="text-lg lg:text-xl font-bold text-blue-900">-40°C to +75°C</div>
+                          <div className="text-xs lg:text-sm text-blue-700">Operating Temperature</div>
+                        </div>
+                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
+                          <div className="text-lg lg:text-xl font-bold text-blue-900">5% to 95%</div>
+                          <div className="text-xs lg:text-sm text-blue-700">Relative Humidity</div>
+                        </div>
+                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
+                          <div className="text-lg lg:text-xl font-bold text-blue-900">IP54</div>
+                          <div className="text-xs lg:text-sm text-blue-700">Ingress Protection</div>
+                        </div>
+                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
+                          <div className="text-lg lg:text-xl font-bold text-blue-900">3000m</div>
+                          <div className="text-xs lg:text-sm text-blue-700">Max Altitude</div>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+
+                <motion.div variants={fadeInUp}>
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg lg:text-xl">Environmental Resistance</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {[
+                        "Corrosion resistant coating (1000+ hour salt spray)",
+                        "UV stable materials for outdoor applications",
+                        "Chemical resistance to industrial solvents",
+                        "Vibration tested per IEC 60068-2-6",
+                        "Thermal cycling tested (-40°C to +85°C)",
+                        "Moisture resistance per ASTM D570",
+                      ].map((feature, index) => (
+                        <motion.div
+                          key={index}
+                          className="flex items-start space-x-3"
+                          initial={{ opacity: 0, x: -20 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                        >
+                          <Shield className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm lg:text-base text-slate-700 leading-relaxed">{feature}</span>
+                        </motion.div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </motion.div>
+            </TabsContent>
+
+            <TabsContent value="compliance">
+              <motion.div
+                className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={staggerContainer}
+              >
+                {[
+                  {
+                    title: "UL Listed",
+                    number: "UL 857",
+                    description: "Busways and associated fittings",
+                    icon: <Award className="w-6 h-6 lg:w-8 lg:h-8 text-blue-600" />,
+                  },
+                  {
+                    title: "NEC Compliant",
+                    number: "Article 368",
+                    description: "Busway installation requirements",
+                    icon: <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-green-600" />,
+                  },
+                  {
+                    title: "CSA Certified",
+                    number: "CSA C22.2",
+                    description: "Canadian electrical standards",
+                    icon: <CheckCircle className="w-6 h-6 lg:w-8 lg:h-8 text-red-600" />,
+                  },
+                  {
+                    title: "OSHA Approved",
+                    number: "29 CFR 1910",
+                    description: "Workplace electrical safety",
+                    icon: <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-orange-600" />,
+                  },
+                ].map((cert, index) => (
+                  <motion.div key={index} variants={fadeInUp}>
+                    <Card className="text-center h-full hover:shadow-lg transition-shadow">
+                      <CardHeader className="pb-4">
+                        <div className="flex justify-center mb-3">{cert.icon}</div>
+                        <CardTitle className="text-lg">{cert.title}</CardTitle>
+                        <CardDescription className="font-mono text-sm">{cert.number}</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <p className="text-sm text-slate-600 leading-relaxed">{cert.description}</p>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </motion.div>
+            </TabsContent>
+          </Tabs>
         </div>
       </section>
 
       {/* Comparison Section */}
-      <section id="comparison" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden">
-        {/* Animated Background Elements */}
-        <motion.div
-          className="absolute top-0 left-0 w-full h-full opacity-30"
-          animate={{
-            background: [
-              "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-              "radial-gradient(circle at 80% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%)",
-              "radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)",
-            ],
-          }}
-          transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-        />
-
-        <div className="container mx-auto px-4 lg:px-6 relative z-10">
+      <section id="comparison" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 lg:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="bg-indigo-100 text-indigo-700 mb-4">Head-to-Head Comparison</Badge>
+              <Badge className="bg-orange-100 text-orange-800 mb-4 font-semibold">Performance Comparison</Badge>
             </motion.div>
-            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeInUp}>
-              Underfloor Wiring vs
-              <motion.span
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                style={{ display: "inline-block" }}
-              >
-                {" "}
-                Traditional Bus Bars
-              </motion.span>
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
+            >
+              Underfloor Power vs Traditional Busway
             </motion.h2>
-            <motion.p className="text-xl text-gray-600 max-w-3xl mx-auto" variants={fadeInUp}>
-              See why industry leaders are making the switch to our advanced underfloor wiring solutions.
+            <motion.p
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
+            >
+              Engineering analysis shows significant advantages in cost, safety, and performance when comparing our
+              underfloor systems to overhead busway installations.
             </motion.p>
           </motion.div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-8">
-              {/* Underfloor Wiring */}
+            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
+              {/* Apex Underfloor System */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={slideInLeft}
                 whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 30px 60px rgba(34, 197, 94, 0.2)",
+                  scale: 1.01,
+                  boxShadow: "0 20px 40px rgba(34, 197, 94, 0.15)",
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="border-2 border-green-200 bg-green-50/50 shadow-xl h-full">
-                  <CardHeader className="text-center pb-6">
+                <Card className="border-2 border-green-200 bg-green-50/50 shadow-lg h-full">
+                  <CardHeader className="text-center pb-4 lg:pb-6">
                     <motion.div
-                      className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
+                      className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4"
+                      whileHover={{ rotate: 180, scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <Zap className="w-8 h-8 text-white" />
+                      <Zap className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                     </motion.div>
-                    <CardTitle className="text-2xl font-bold text-green-700">Underfloor Wiring</CardTitle>
-                    <CardDescription className="text-green-600">Modern Solution</CardDescription>
+                    <CardTitle className="text-xl lg:text-2xl font-bold text-green-800">
+                      Apex Underfloor Power
+                    </CardTitle>
+                    <CardDescription className="text-green-700 font-semibold">Advanced Solution</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 lg:space-y-4">
                     {[
-                      "50% lower installation costs",
-                      "Enhanced safety with enclosed systems",
-                      "Superior heat dissipation",
-                      "Minimal maintenance requirements",
-                      "Flexible and scalable design",
-                      "Compliance with latest standards",
-                      "Reduced electromagnetic interference",
-                      "Longer lifespan (25+ years)",
+                      { metric: "Installation Cost", value: "$28/sq ft", improvement: "40% lower" },
+                      { metric: "Installation Time", value: "2-3 days", improvement: "60% faster" },
+                      { metric: "Safety Rating", value: "IP54 enclosed", improvement: "Superior protection" },
+                      { metric: "Maintenance", value: "Minimal", improvement: "5-year intervals" },
+                      { metric: "Flexibility", value: "Modular design", improvement: "Easy reconfiguration" },
+                      { metric: "Heat Dissipation", value: "Excellent", improvement: "Underground cooling" },
+                      { metric: "EMI Interference", value: "Minimal", improvement: "Shielded design" },
+                      { metric: "Service Life", value: "30+ years", improvement: "Extended warranty" },
                     ].map((feature, index) => (
                       <motion.div
                         key={index}
-                        className="flex items-center space-x-3"
+                        className="flex items-center justify-between p-3 lg:p-4 bg-white rounded-lg"
                         initial={{ opacity: 0, x: -20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.5 }}
-                        whileHover={{ x: 5 }}
+                        whileHover={{ x: 2, backgroundColor: "#f0fdf4" }}
                       >
-                        <motion.div whileHover={{ scale: 1.2, rotate: 360 }} transition={{ duration: 0.3 }}>
-                          <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        </motion.div>
-                        <span className="text-gray-700">{feature}</span>
+                        <div>
+                          <div className="font-semibold text-slate-900 text-sm lg:text-base">{feature.metric}</div>
+                          <div className="text-xs lg:text-sm text-green-600 font-medium">{feature.improvement}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-bold text-green-700 text-sm lg:text-base">{feature.value}</div>
+                          <CheckCircle className="w-4 h-4 text-green-500 ml-auto mt-1" />
+                        </div>
                       </motion.div>
                     ))}
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Traditional Bus Bars */}
+              {/* Traditional Busway */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
                 variants={slideInRight}
                 whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 30px 60px rgba(107, 114, 128, 0.2)",
+                  scale: 1.01,
+                  boxShadow: "0 20px 40px rgba(107, 114, 128, 0.15)",
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Card className="border-2 border-gray-200 bg-gray-50/50 shadow-xl h-full">
-                  <CardHeader className="text-center pb-6">
+                <Card className="border-2 border-red-200 bg-red-50/50 shadow-lg h-full">
+                  <CardHeader className="text-center pb-4 lg:pb-6">
                     <motion.div
-                      className="w-16 h-16 bg-gradient-to-r from-gray-400 to-gray-500 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                      whileHover={{ rotate: -360, scale: 1.1 }}
-                      transition={{ duration: 0.6 }}
+                      className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4"
+                      whileHover={{ rotate: -180, scale: 1.05 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      <Shield className="w-8 h-8 text-white" />
+                      <AlertTriangle className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
                     </motion.div>
-                    <CardTitle className="text-2xl font-bold text-gray-700">Traditional Bus Bars</CardTitle>
-                    <CardDescription className="text-gray-600">Legacy Solution</CardDescription>
+                    <CardTitle className="text-xl lg:text-2xl font-bold text-red-800">Traditional Busway</CardTitle>
+                    <CardDescription className="text-red-700 font-semibold">Legacy Solution</CardDescription>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-3 lg:space-y-4">
                     {[
-                      "Higher installation and material costs",
-                      "Exposed conductors pose safety risks",
-                      "Heat buildup and efficiency issues",
-                      "Regular maintenance required",
-                      "Limited flexibility for changes",
-                      "May not meet modern standards",
-                      "Electromagnetic interference concerns",
-                      "Shorter lifespan (15-20 years)",
+                      { metric: "Installation Cost", value: "$45/sq ft", issue: "Higher material costs" },
+                      { metric: "Installation Time", value: "5-7 days", issue: "Complex overhead work" },
+                      { metric: "Safety Rating", value: "Exposed conductors", issue: "Arc flash hazards" },
+                      { metric: "Maintenance", value: "Frequent", issue: "Annual inspections" },
+                      { metric: "Flexibility", value: "Limited", issue: "Difficult modifications" },
+                      { metric: "Heat Dissipation", value: "Poor", issue: "Heat buildup issues" },
+                      { metric: "EMI Interference", value: "Significant", issue: "Unshielded design" },
+                      { metric: "Service Life", value: "20 years", issue: "Standard warranty" },
                     ].map((feature, index) => (
                       <motion.div
                         key={index}
-                        className="flex items-center space-x-3"
+                        className="flex items-center justify-between p-3 lg:p-4 bg-white rounded-lg"
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1, duration: 0.5 }}
-                        whileHover={{ x: -5 }}
+                        whileHover={{ x: -2, backgroundColor: "#fef2f2" }}
                       >
-                        <motion.div whileHover={{ scale: 1.2, rotate: 180 }} transition={{ duration: 0.3 }}>
-                          <X className="w-5 h-5 text-red-400 flex-shrink-0" />
-                        </motion.div>
-                        <span className="text-gray-600">{feature}</span>
+                        <div>
+                          <div className="font-semibold text-slate-900 text-sm lg:text-base">{feature.metric}</div>
+                          <div className="text-xs lg:text-sm text-red-600 font-medium">{feature.issue}</div>
+                        </div>
+                        <div className="text-right">
+                          <div className="font-bold text-red-700 text-sm lg:text-base">{feature.value}</div>
+                          <X className="w-4 h-4 text-red-400 ml-auto mt-1" />
+                        </div>
                       </motion.div>
                     ))}
                   </CardContent>
@@ -713,32 +922,26 @@ export default function ApexWiringLanding() {
             </div>
 
             <motion.div
-              className="text-center mt-12"
-              initial={{ opacity: 0, y: 50 }}
+              className="text-center mt-8 lg:mt-12"
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.5, duration: 0.6 }}
             >
               <motion.div
                 whileHover={{
-                  scale: 1.05,
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)",
+                  scale: 1.02,
                 }}
-                whileTap={{ scale: 0.95 }}
+                whileTap={{ scale: 0.98 }}
               >
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg px-8 py-6"
+                  className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4"
                   onClick={() => scrollToSection("contact")}
                 >
-                  Get Detailed Comparison Report
-                  <motion.div
-                    className="ml-2"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.div>
+                  <Download className="mr-2 w-4 h-4 lg:w-5 lg:h-5" />
+                  Download Engineering Comparison Report
+                  <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
                 </Button>
               </motion.div>
             </motion.div>
@@ -746,691 +949,667 @@ export default function ApexWiringLanding() {
         </div>
       </section>
 
-      {/* Solutions Section */}
-      <section id="solutions" className="py-20 bg-white">
-        <div className="container mx-auto px-4 lg:px-6">
+      {/* Product Configurator */}
+      <div id="product-configurator">
+        <ProductConfigurator />
+      </div>
+
+      {/* Case Studies Section */}
+      <section id="case-studies" className="py-16 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 lg:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="bg-purple-100 text-purple-700 mb-4">Our Solutions</Badge>
+              <Badge className="bg-green-100 text-green-800 mb-4 font-semibold">Industry Case Studies</Badge>
             </motion.div>
-            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeInUp}>
-              Tailored Underfloor Wiring
-              <motion.span
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                style={{ display: "inline-block" }}
-              >
-                {" "}
-                for Every Industry
-              </motion.span>
-            </motion.h2>
-            <motion.p className="text-xl text-gray-600 max-w-3xl mx-auto" variants={fadeInUp}>
-              From manufacturing facilities to data centers, we provide customized solutions that meet your specific
-              requirements.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            {[
-              {
-                title: "Manufacturing Facilities",
-                description: "Heavy-duty wiring solutions for industrial equipment and production lines.",
-                image: "/placeholder.svg?height=200&width=300",
-                features: ["High current capacity", "Vibration resistant", "Easy maintenance access"],
-              },
-              {
-                title: "Data Centers",
-                description: "Precision wiring for critical IT infrastructure and server environments.",
-                image: "/placeholder.svg?height=200&width=300",
-                features: ["Low EMI design", "Redundant pathways", "Hot-swappable components"],
-              },
-              {
-                title: "Commercial Buildings",
-                description: "Flexible wiring systems for office spaces and retail environments.",
-                image: "/placeholder.svg?height=200&width=300",
-                features: ["Modular design", "Future expansion ready", "Aesthetic integration"],
-              },
-            ].map((solution, index) => (
-              <motion.div
-                key={index}
-                variants={fadeInUp}
-                whileHover={{
-                  y: -15,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                  scale: 1.02,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Card className="group overflow-hidden h-full">
-                  <div className="relative overflow-hidden">
-                    <motion.div whileHover={{ scale: 1.1 }} transition={{ duration: 0.6 }}>
-                      <Image
-                        src={solution.image || "/placeholder.svg"}
-                        alt={solution.title}
-                        width={300}
-                        height={200}
-                        className="w-full h-48 object-cover"
-                      />
-                    </motion.div>
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-xl font-bold">{solution.title}</CardTitle>
-                    <CardDescription className="text-gray-600">{solution.description}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {solution.features.map((feature, featureIndex) => (
-                        <motion.li
-                          key={featureIndex}
-                          className="flex items-center space-x-2"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: featureIndex * 0.1, duration: 0.3 }}
-                        >
-                          <motion.div whileHover={{ scale: 1.2, rotate: 360 }} transition={{ duration: 0.3 }}>
-                            <CheckCircle className="w-4 h-4 text-green-500" />
-                          </motion.div>
-                          <span className="text-sm text-gray-600">{feature}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl p-8 md:p-12 text-white text-center relative overflow-hidden"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            {/* Animated Background Pattern */}
-            <motion.div
-              className="absolute inset-0 opacity-10"
-              animate={{
-                backgroundPosition: ["0% 0%", "100% 100%"],
-              }}
-              transition={{
-                duration: 20,
-                repeat: Number.POSITIVE_INFINITY,
-                repeatType: "reverse",
-              }}
-              style={{
-                backgroundImage:
-                  'url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fillRule="evenodd"%3E%3Cg fill="%23ffffff" fillOpacity="0.1"%3E%3Ccircle cx="30" cy="30" r="4"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')',
-                backgroundSize: "60px 60px",
-              }}
-            />
-
-            <motion.h3
-              className="text-3xl font-bold mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
             >
-              Ready to Transform Your Infrastructure?
-            </motion.h3>
+              Proven Results Across Industries
+            </motion.h2>
             <motion.p
-              className="text-xl mb-8 opacity-90"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
             >
-              Join hundreds of companies that have already made the switch to superior underfloor wiring solutions.
-            </motion.p>
-            <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-            >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-white text-blue-600 hover:bg-gray-100 text-lg px-8 py-6"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  Schedule Site Assessment
-                  <motion.div
-                    className="ml-2"
-                    animate={{ x: [0, 5, 0] }}
-                    transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </motion.div>
-                </Button>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6 bg-transparent"
-                >
-                  Download Brochure
-                </Button>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
-        <div className="container mx-auto px-4 lg:px-6">
-          <motion.div
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-yellow-100 text-yellow-700 mb-4">Client Success Stories</Badge>
-            </motion.div>
-            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeInUp}>
-              What Our
-              <motion.span
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                style={{ display: "inline-block" }}
-              >
-                {" "}
-                Clients Say
-              </motion.span>
-            </motion.h2>
-            <motion.p className="text-xl text-gray-600 max-w-3xl mx-auto" variants={fadeInUp}>
-              Discover how Apex Wiring Solutions has transformed businesses across various industries.
+              Real-world implementations demonstrating cost savings, improved safety, and enhanced operational
+              efficiency across manufacturing, data centers, and commercial facilities.
             </motion.p>
           </motion.div>
 
-          <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
+          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
             {[
               {
-                name: "Sarah Johnson",
-                title: "Facilities Manager",
-                company: "TechCorp Manufacturing",
-                content:
-                  "The underfloor wiring solution reduced our installation time by 60% and eliminated safety concerns we had with our old bus bar system. Outstanding results!",
-                rating: 5,
+                industry: "Manufacturing",
+                company: "Automotive Assembly Plant",
+                location: "Detroit, MI",
+                size: "250,000 sq ft",
+                challenge: "Replace aging overhead busway system causing production delays",
+                solution: "Complete underfloor power distribution with modular outlets",
+                results: {
+                  costSavings: "$1.2M",
+                  installationTime: "3 weeks vs 8 weeks",
+                  downtime: "Zero production impact",
+                  efficiency: "15% energy savings",
+                },
+                image: "/placeholder.svg?height=200&width=300",
               },
               {
-                name: "Michael Chen",
-                title: "Chief Engineer",
-                company: "DataFlow Systems",
-                content:
-                  "Apex delivered a custom solution that perfectly met our data center requirements. The reliability and performance have exceeded our expectations.",
-                rating: 5,
+                industry: "Data Center",
+                company: "Cloud Computing Facility",
+                location: "Austin, TX",
+                size: "100,000 sq ft",
+                challenge: "High-density power distribution with future expansion flexibility",
+                solution: "Underfloor power with integrated cooling and monitoring",
+                results: {
+                  costSavings: "$800K",
+                  installationTime: "2 weeks vs 6 weeks",
+                  downtime: "Phased installation",
+                  efficiency: "20% cooling savings",
+                },
+                image: "/placeholder.svg?height=200&width=300",
               },
               {
-                name: "Emily Rodriguez",
-                title: "Operations Director",
-                company: "GreenTech Industries",
-                content:
-                  "The cost savings and improved safety features made this an easy decision. The team's expertise and support throughout the project was exceptional.",
-                rating: 5,
+                industry: "Commercial",
+                company: "Corporate Headquarters",
+                location: "Seattle, WA",
+                size: "150,000 sq ft",
+                challenge: "Open office reconfiguration with sustainable power solution",
+                solution: "Flexible underfloor system with smart monitoring",
+                results: {
+                  costSavings: "$600K",
+                  installationTime: "4 weeks vs 10 weeks",
+                  downtime: "Weekend installation",
+                  efficiency: "LEED Platinum certified",
+                },
+                image: "/placeholder.svg?height=200&width=300",
               },
-            ].map((testimonial, index) => (
+            ].map((study, index) => (
               <motion.div
                 key={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
                 variants={fadeInUp}
-                whileHover={{
-                  y: -10,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                  scale: 1.02,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
+                transition={{ delay: index * 0.2 }}
+                whileHover={{ y: -5 }}
               >
-                <Card className="bg-white shadow-lg h-full">
-                  <CardHeader>
-                    <motion.div
-                      className="flex items-center space-x-1 mb-4"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                    >
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <motion.div
-                          key={i}
-                          initial={{ scale: 0, rotate: -180 }}
-                          whileInView={{ scale: 1, rotate: 0 }}
-                          transition={{
-                            delay: 0.5 + i * 0.1,
-                            duration: 0.5,
-                            type: "spring",
-                            stiffness: 200,
-                          }}
-                          whileHover={{ scale: 1.2, rotate: 360 }}
-                        >
-                          <Star className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                        </motion.div>
-                      ))}
-                    </motion.div>
-                    <CardDescription className="text-gray-700 text-base leading-relaxed">
-                      "{testimonial.content}"
+                <Card className="h-full shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="relative">
+                    <Image
+                      src={study.image || "/placeholder.svg"}
+                      alt={`${study.industry} case study`}
+                      width={300}
+                      height={200}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <Badge className="bg-blue-600 text-white">{study.industry}</Badge>
+                    </div>
+                  </div>
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg lg:text-xl">{study.company}</CardTitle>
+                    <CardDescription className="text-slate-600">
+                      {study.location} • {study.size}
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center space-x-4">
-                      <motion.div
-                        className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full flex items-center justify-center text-white font-bold"
-                        whileHover={{ scale: 1.1, rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {testimonial.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </motion.div>
-                      <div>
-                        <div className="font-semibold text-gray-900">{testimonial.name}</div>
-                        <div className="text-sm text-gray-600">{testimonial.title}</div>
-                        <div className="text-sm text-blue-600 font-medium">{testimonial.company}</div>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold text-slate-900 mb-2">Challenge</h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">{study.challenge}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-slate-900 mb-2">Solution</h4>
+                      <p className="text-sm text-slate-600 leading-relaxed">{study.solution}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-slate-900 mb-3">Results</h4>
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="bg-green-50 p-3 rounded-lg text-center">
+                          <div className="font-bold text-green-700">{study.results.costSavings}</div>
+                          <div className="text-xs text-green-600">Cost Savings</div>
+                        </div>
+                        <div className="bg-blue-50 p-3 rounded-lg text-center">
+                          <div className="font-bold text-blue-700">{study.results.installationTime}</div>
+                          <div className="text-xs text-blue-600">Installation</div>
+                        </div>
+                        <div className="bg-purple-50 p-3 rounded-lg text-center">
+                          <div className="font-bold text-purple-700">{study.results.downtime}</div>
+                          <div className="text-xs text-purple-600">Downtime</div>
+                        </div>
+                        <div className="bg-orange-50 p-3 rounded-lg text-center">
+                          <div className="font-bold text-orange-700">{study.results.efficiency}</div>
+                          <div className="text-xs text-orange-600">Efficiency</div>
+                        </div>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section id="contact" className="py-20 bg-white">
-        <div className="container mx-auto px-4 lg:px-6">
+      {/* ROI Calculator Section */}
+      <section id="roi-calculator" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 lg:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggerContainer}
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="bg-green-100 text-green-700 mb-4">Get Started Today</Badge>
+              <Badge className="bg-blue-100 text-blue-800 mb-4 font-semibold">ROI Calculator</Badge>
             </motion.div>
-            <motion.h2 className="text-4xl font-bold mb-6" variants={fadeInUp}>
-              Ready to Upgrade Your
-              <motion.span
-                className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                style={{ display: "inline-block" }}
-              >
-                {" "}
-                Electrical Infrastructure?
-              </motion.span>
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
+            >
+              Calculate Your Project Savings
             </motion.h2>
-            <motion.p className="text-xl text-gray-600 max-w-3xl mx-auto" variants={fadeInUp}>
-              Contact our experts for a free consultation and discover how underfloor wiring can transform your
-              facility.
+            <motion.p
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
+            >
+              Interactive calculator showing real-time cost comparisons, payback periods, and long-term savings for your
+              specific facility requirements.
             </motion.p>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-            {/* Contact Form */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={slideInLeft}
-            >
-              <motion.div
-                whileHover={{
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                  y: -5,
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Card className="shadow-xl">
-                  <CardHeader>
-                    <CardTitle className="text-2xl font-bold">Request Consultation</CardTitle>
-                    <CardDescription>
-                      Fill out the form below and our team will contact you within 24 hours.
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <motion.div
-                      className="grid md:grid-cols-2 gap-4"
-                      variants={staggerContainer}
-                      initial="hidden"
-                      whileInView="visible"
-                    >
-                      <motion.div className="space-y-2" variants={fadeInUp}>
-                        <label className="text-sm font-medium text-gray-700">First Name</label>
-                        <motion.div whileFocus={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                          <Input placeholder="John" />
-                        </motion.div>
-                      </motion.div>
-                      <motion.div className="space-y-2" variants={fadeInUp}>
-                        <label className="text-sm font-medium text-gray-700">Last Name</label>
-                        <motion.div whileFocus={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                          <Input placeholder="Doe" />
-                        </motion.div>
-                      </motion.div>
-                    </motion.div>
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2, duration: 0.5 }}
-                    >
-                      <label className="text-sm font-medium text-gray-700">Company</label>
-                      <motion.div whileFocus={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                        <Input placeholder="Your Company Name" />
-                      </motion.div>
-                    </motion.div>
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3, duration: 0.5 }}
-                    >
-                      <label className="text-sm font-medium text-gray-700">Email</label>
-                      <motion.div whileFocus={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                        <Input type="email" placeholder="john@company.com" />
-                      </motion.div>
-                    </motion.div>
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4, duration: 0.5 }}
-                    >
-                      <label className="text-sm font-medium text-gray-700">Phone</label>
-                      <motion.div whileFocus={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 300 }}>
-                        <Input type="tel" placeholder="+1 (555) 123-4567" />
-                      </motion.div>
-                    </motion.div>
-                    <motion.div
-                      className="space-y-2"
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                    >
-                      <label className="text-sm font-medium text-gray-700">Project Details</label>
-                      <motion.textarea
-                        className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        rows={4}
-                        placeholder="Tell us about your project requirements..."
-                        whileFocus={{ scale: 1.02 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                      />
-                    </motion.div>
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6, duration: 0.5 }}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Button className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-lg py-6">
-                        Schedule Consultation
-                        <motion.div
-                          className="ml-2"
-                          animate={{ x: [0, 5, 0] }}
-                          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 1.5 }}
-                        >
-                          <ArrowRight className="w-5 h-5" />
-                        </motion.div>
-                      </Button>
-                    </motion.div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </motion.div>
-
-            {/* Contact Information */}
-            <motion.div
-              className="space-y-8"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={slideInRight}
-            >
-              <div>
-                <motion.h3 className="text-2xl font-bold mb-6" variants={fadeInUp}>
-                  Get in Touch
-                </motion.h3>
-                <motion.div className="space-y-6" variants={staggerContainer}>
-                  {[
-                    {
-                      icon: <Phone className="w-6 h-6 text-blue-600" />,
-                      title: "Phone",
-                      content: "+1 (555) 123-4567",
-                      subtitle: "Mon-Fri 8AM-6PM EST",
-                    },
-                    {
-                      icon: <Mail className="w-6 h-6 text-blue-600" />,
-                      title: "Email",
-                      content: "info@apexwiring.com",
-                      subtitle: "We'll respond within 24 hours",
-                    },
-                    {
-                      icon: <MapPin className="w-6 h-6 text-blue-600" />,
-                      title: "Office",
-                      content: "123 Industrial Blvd\nTech City, TC 12345",
-                      subtitle: "Visit by appointment",
-                    },
-                  ].map((contact, index) => (
-                    <motion.div
-                      key={index}
-                      className="flex items-start space-x-4"
-                      variants={fadeInUp}
-                      whileHover={{ x: 10, scale: 1.02 }}
-                      transition={{ type: "spring", stiffness: 300 }}
-                    >
-                      <motion.div
-                        className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0"
-                        whileHover={{
-                          scale: 1.1,
-                          backgroundColor: "rgb(59 130 246)",
-                          color: "white",
-                        }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        {contact.icon}
-                      </motion.div>
-                      <div>
-                        <div className="font-semibold text-gray-900">{contact.title}</div>
-                        <div className="text-gray-600 whitespace-pre-line">{contact.content}</div>
-                        <div className="text-sm text-gray-500">{contact.subtitle}</div>
+          <div className="max-w-4xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
+              <Card className="shadow-xl">
+                <CardHeader className="text-center pb-6">
+                  <CardTitle className="text-2xl lg:text-3xl">Project ROI Analysis</CardTitle>
+                  <CardDescription className="text-lg">
+                    Customize the parameters below to see your potential savings
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-8">
+                  {/* Input Controls */}
+                  <div className="grid md:grid-cols-3 gap-6">
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold text-slate-700">Facility Size (sq ft)</label>
+                      <div className="relative">
+                        <input
+                          type="number"
+                          value={roiInputs.facilitySize}
+                          onChange={(e) =>
+                            setRoiInputs({ ...roiInputs, facilitySize: Number.parseInt(e.target.value) || 0 })
+                          }
+                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="50000"
+                        />
                       </div>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
+                    </div>
 
-              <motion.div
-                className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8"
-                variants={scaleIn}
-                whileHover={{
-                  scale: 1.02,
-                  boxShadow: "0 20px 40px rgba(59, 130, 246, 0.1)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <motion.h4
-                  className="text-xl font-bold mb-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  Why Choose Apex?
-                </motion.h4>
-                <motion.ul className="space-y-3" variants={staggerContainer} initial="hidden" whileInView="visible">
-                  {[
-                    "25+ years of industry experience",
-                    "Certified electrical engineers",
-                    "24/7 technical support",
-                    "Nationwide service coverage",
-                    "Comprehensive warranty programs",
-                  ].map((item, index) => (
-                    <motion.li
-                      key={index}
-                      className="flex items-center space-x-3"
-                      variants={fadeInUp}
-                      whileHover={{ x: 5 }}
-                    >
-                      <motion.div whileHover={{ scale: 1.2, rotate: 360 }} transition={{ duration: 0.3 }}>
-                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold text-slate-700">Current System</label>
+                      <select
+                        value={roiInputs.currentSystem}
+                        onChange={(e) => setRoiInputs({ ...roiInputs, currentSystem: e.target.value })}
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="busway">Traditional Busway</option>
+                        <option value="conduit">Conduit & Wire</option>
+                        <option value="cable-tray">Cable Tray System</option>
+                      </select>
+                    </div>
+
+                    <div className="space-y-3">
+                      <label className="text-sm font-semibold text-slate-700">Installation Complexity</label>
+                      <select
+                        value={roiInputs.installationComplexity}
+                        onChange={(e) => setRoiInputs({ ...roiInputs, installationComplexity: e.target.value })}
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      >
+                        <option value="standard">Standard</option>
+                        <option value="complex">Complex</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Results Display */}
+                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 lg:p-8 border border-green-200">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                      <div className="text-center">
+                        <div className="text-2xl lg:text-3xl font-bold text-slate-900 mb-1">
+                          ${roiResults.traditionalCost.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-slate-600 font-medium">Traditional System Cost</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl lg:text-3xl font-bold text-green-700 mb-1">
+                          ${roiResults.apexCost.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-slate-600 font-medium">Apex System Cost</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl lg:text-3xl font-bold text-blue-700 mb-1">
+                          ${roiResults.savings.toLocaleString()}
+                        </div>
+                        <div className="text-sm text-slate-600 font-medium">Total Savings</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl lg:text-3xl font-bold text-purple-700 mb-1">
+                          {roiResults.roiPercentage}%
+                        </div>
+                        <div className="text-sm text-slate-600 font-medium">ROI</div>
+                      </div>
+                    </div>
+
+                    <div className="mt-6 pt-6 border-t border-green-300">
+                      <div className="flex flex-col sm:flex-row items-center justify-between">
+                        <div className="text-center sm:text-left mb-4 sm:mb-0">
+                          <div className="text-lg font-semibold text-slate-900">
+                            Payback Period: {roiResults.paybackMonths} months
+                          </div>
+                          <div className="text-sm text-slate-600">
+                            Based on energy savings and reduced maintenance costs
+                          </div>
+                        </div>
+                        <div className="flex space-x-3">
+                          <Button className="bg-green-600 hover:bg-green-700">
+                            <Download className="mr-2 w-4 h-4" />
+                            Download Report
+                          </Button>
+                          <Button variant="outline" onClick={() => scrollToSection("contact")}>
+                            Get Detailed Quote
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Additional Benefits */}
+                  <div className="grid md:grid-cols-3 gap-6">
+                    {[
+                      {
+                        title: "Installation Speed",
+                        value: "60% Faster",
+                        description: "Reduced project timeline means faster ROI realization",
+                        icon: "⚡",
+                      },
+                      {
+                        title: "Maintenance Savings",
+                        value: "$15K/year",
+                        description: "Lower ongoing maintenance and inspection costs",
+                        icon: "🔧",
+                      },
+                      {
+                        title: "Energy Efficiency",
+                        value: "12% Savings",
+                        description: "Improved power distribution efficiency reduces utility costs",
+                        icon: "💡",
+                      },
+                    ].map((benefit, index) => (
+                      <motion.div
+                        key={index}
+                        className="text-center p-4 bg-white rounded-lg border border-slate-200"
+                        whileHover={{ y: -2, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
+                      >
+                        <div className="text-2xl mb-2">{benefit.icon}</div>
+                        <div className="font-bold text-lg text-slate-900 mb-1">{benefit.value}</div>
+                        <div className="font-semibold text-slate-700 mb-2">{benefit.title}</div>
+                        <div className="text-sm text-slate-600">{benefit.description}</div>
                       </motion.div>
-                      <span className="text-gray-700">{item}</span>
-                    </motion.li>
-                  ))}
-                </motion.ul>
-              </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <motion.footer
-        className="bg-gray-900 text-white py-12"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="container mx-auto px-4 lg:px-6">
+      {/* Certifications Section */}
+      <section id="certifications" className="py-16 lg:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="grid md:grid-cols-4 gap-8"
-            variants={staggerContainer}
+            className="text-center mb-12 lg:mb-16"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
           >
-            <motion.div className="space-y-4" variants={fadeInUp}>
-              <motion.div
-                className="flex items-center space-x-2"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <motion.div
-                  className="w-8 h-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg flex items-center justify-center"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <Zap className="w-5 h-5 text-white" />
-                </motion.div>
-                <span className="text-xl font-bold">Apex Wiring Solutions</span>
-              </motion.div>
-              <p className="text-gray-400">
-                Leading provider of innovative underfloor wiring solutions for modern industrial applications.
-              </p>
-            </motion.div>
-
             <motion.div variants={fadeInUp}>
-              <h4 className="font-semibold mb-4">Solutions</h4>
-              <ul className="space-y-2 text-gray-400">
-                {[
-                  { label: "Manufacturing", href: "#" },
-                  { label: "Data Centers", href: "#" },
-                  { label: "Commercial", href: "#" },
-                  { label: "Industrial", href: "#" },
-                ].map((item, index) => (
-                  <motion.li key={index} whileHover={{ x: 5, color: "#ffffff" }}>
-                    <Link href={item.href} className="hover:text-white transition-colors">
-                      {item.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
+              <Badge className="bg-slate-100 text-slate-700 mb-4 font-semibold">Certifications & Standards</Badge>
             </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <h4 className="font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-gray-400">
-                {[
-                  { label: "About Us", href: "#" },
-                  { label: "Careers", href: "#" },
-                  { label: "News", href: "#" },
-                  { label: "Contact", href: "#" },
-                ].map((item, index) => (
-                  <motion.li key={index} whileHover={{ x: 5, color: "#ffffff" }}>
-                    <Link href={item.href} className="hover:text-white transition-colors">
-                      {item.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                {[
-                  { label: "Documentation", href: "#" },
-                  { label: "Technical Support", href: "#" },
-                  { label: "Warranty", href: "#" },
-                  { label: "Training", href: "#" },
-                ].map((item, index) => (
-                  <motion.li key={index} whileHover={{ x: 5, color: "#ffffff" }}>
-                    <Link href={item.href} className="hover:text-white transition-colors">
-                      {item.label}
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-            </motion.div>
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
+            >
+              Industry-Leading Compliance
+            </motion.h2>
+            <motion.p
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
+            >
+              Our systems meet and exceed all major electrical safety standards, ensuring reliable operation and
+              regulatory compliance for your facility.
+            </motion.p>
           </motion.div>
 
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              {
+                name: "UL Listed",
+                standard: "UL 857",
+                description: "Underwriters Laboratories certification for busways and electrical distribution systems",
+                logo: "🏆",
+                color: "blue",
+              },
+              {
+                name: "NEC Compliant",
+                standard: "Article 368",
+                description: "National Electrical Code compliance for safe electrical installations",
+                logo: "⚡",
+                color: "green",
+              },
+              {
+                name: "CSA Certified",
+                standard: "CSA C22.2",
+                description: "Canadian Standards Association certification for electrical equipment",
+                logo: "🍁",
+                color: "red",
+              },
+              {
+                name: "OSHA Approved",
+                standard: "29 CFR 1910",
+                description: "Occupational Safety and Health Administration workplace safety standards",
+                logo: "🛡️",
+                color: "orange",
+              },
+              {
+                name: "IEEE Standards",
+                standard: "IEEE 1584",
+                description: "Institute of Electrical and Electronics Engineers arc flash calculation standards",
+                logo: "⚙️",
+                color: "purple",
+              },
+              {
+                name: "NEMA Rated",
+                standard: "NEMA 1-12",
+                description: "National Electrical Manufacturers Association enclosure ratings",
+                logo: "🔒",
+                color: "indigo",
+              },
+              {
+                name: "IEC Compliant",
+                standard: "IEC 61439",
+                description: "International Electrotechnical Commission switchgear standards",
+                logo: "🌍",
+                color: "teal",
+              },
+              {
+                name: "ISO Certified",
+                standard: "ISO 9001",
+                description: "International Organization for Standardization quality management",
+                logo: "✅",
+                color: "emerald",
+              },
+            ].map((cert, index) => (
+              <motion.div
+                key={index}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                whileHover={{ y: -5, scale: 1.02 }}
+              >
+                <Card className="h-full text-center shadow-lg hover:shadow-xl transition-all">
+                  <CardHeader className="pb-4">
+                    <div className="text-4xl mb-3">{cert.logo}</div>
+                    <CardTitle className="text-lg lg:text-xl">{cert.name}</CardTitle>
+                    <CardDescription className="font-mono text-sm font-semibold">{cert.standard}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-slate-600 leading-relaxed">{cert.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
           <motion.div
-            className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
-            initial={{ opacity: 0, y: 20 }}
+            className="text-center mt-12 lg:mt-16"
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.6 }}
           >
-            <p className="text-gray-400">© {new Date().getFullYear()} Apex Wiring Solutions. All rights reserved.</p>
+            <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 lg:p-8 border border-slate-200">
+              <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4">
+                25+ Years of Electrical Engineering Excellence
+              </h3>
+              <p className="text-slate-600 mb-6 max-w-3xl mx-auto">
+                Our commitment to safety and quality is backed by decades of experience and continuous compliance with
+                evolving industry standards. Every installation is performed by certified electricians and inspected to
+                ensure complete regulatory compliance.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button size="lg" className="bg-gradient-to-r from-slate-700 to-slate-900">
+                  <Download className="mr-2 w-5 h-5" />
+                  Download Compliance Documentation
+                </Button>
+                <Button size="lg" variant="outline">
+                  <Award className="mr-2 w-5 h-5" />
+                  View All Certifications
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section id="contact" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-12 lg:mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+          >
+            <motion.div variants={fadeInUp}>
+              <Badge className="bg-orange-100 text-orange-800 mb-4 font-semibold">Get Started Today</Badge>
+            </motion.div>
+            <motion.h2
+              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
+              variants={fadeInUp}
+            >
+              Ready to Transform Your Power Distribution?
+            </motion.h2>
+            <motion.p
+              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
+              variants={fadeInUp}
+            >
+              Contact our engineering team for a comprehensive consultation, custom system design, and detailed project
+              proposal tailored to your facility's specific requirements.
+            </motion.p>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto">
             <motion.div
-              className="flex space-x-6 mt-4 md:mt-0"
-              variants={staggerContainer}
+              className="grid lg:grid-cols-2 gap-8 lg:gap-12"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
+              variants={staggerContainer}
             >
-              {[
-                { label: "Privacy Policy", href: "#" },
-                { label: "Terms of Service", href: "#" },
-              ].map((item, index) => (
-                <motion.div key={index} variants={fadeInUp}>
-                  <Link href={item.href} className="text-gray-400 hover:text-white transition-colors">
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
+              {/* Contact Information */}
+              <motion.div variants={fadeInUp} className="space-y-8">
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-6">Get in Touch</h3>
+                  <div className="space-y-4">
+                    {[
+                      {
+                        icon: "📞",
+                        title: "Phone",
+                        value: "(555) 123-4567",
+                        description: "Mon-Fri 8AM-6PM EST",
+                      },
+                      {
+                        icon: "✉️",
+                        title: "Email",
+                        value: "engineering@apexwiring.com",
+                        description: "Technical inquiries welcome",
+                      },
+                      {
+                        icon: "📍",
+                        title: "Address",
+                        value: "123 Industrial Blvd, Suite 100",
+                        description: "Manufacturing City, ST 12345",
+                      },
+                      {
+                        icon: "🕒",
+                        title: "Response Time",
+                        value: "Within 24 hours",
+                        description: "For all project inquiries",
+                      },
+                    ].map((contact, index) => (
+                      <motion.div
+                        key={index}
+                        className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-sm"
+                        whileHover={{ x: 5, backgroundColor: "#f8fafc" }}
+                      >
+                        <div className="text-2xl">{contact.icon}</div>
+                        <div>
+                          <div className="font-semibold text-slate-900">{contact.title}</div>
+                          <div className="text-slate-700">{contact.value}</div>
+                          <div className="text-sm text-slate-600">{contact.description}</div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-6 border border-orange-200">
+                  <h4 className="font-bold text-orange-800 mb-3">Emergency Support Available</h4>
+                  <p className="text-sm text-orange-700 mb-4">
+                    24/7 emergency support for critical power distribution issues. Our certified technicians are
+                    available for urgent repairs and system failures.
+                  </p>
+                  <Button size="sm" className="bg-orange-600 hover:bg-orange-700">
+                    Emergency Hotline: (555) 911-POWER
+                  </Button>
+                </div>
+              </motion.div>
+
+              {/* Contact Form */}
+              <motion.div variants={fadeInUp}>
+                <Card className="shadow-xl">
+                  <CardHeader>
+                    <CardTitle className="text-xl lg:text-2xl">Request Engineering Consultation</CardTitle>
+                    <CardDescription>
+                      Fill out the form below and our team will contact you within 24 hours
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">First Name *</label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                          placeholder="John"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">Last Name *</label>
+                        <input
+                          type="text"
+                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                          placeholder="Smith"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium text-slate-700 mb-2 block">Company *</label>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="Your Company Name"
+                      />
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">Email *</label>
+                        <input
+                          type="email"
+                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                          placeholder="john@company.com"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-slate-700 mb-2 block">Phone</label>
+                        <input
+                          type="tel"
+                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                          placeholder="(555) 123-4567"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium text-slate-700 mb-2 block">Project Type</label>
+                      <select className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                        <option>New Installation</option>
+                        <option>System Upgrade</option>
+                        <option>Retrofit/Replacement</option>
+                        <option>Maintenance/Repair</option>
+                        <option>Consultation Only</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium text-slate-700 mb-2 block">
+                        Project Details & Requirements
+                      </label>
+                      <textarea
+                        rows={4}
+                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                        placeholder="Please describe your facility size, power requirements, timeline, and any specific challenges or goals for this project..."
+                      />
+                    </div>
+
+                    <div className="flex items-start space-x-3">
+                      <input type="checkbox" className="mt-1" />
+                      <div className="text-sm text-slate-600">
+                        I agree to receive communications from Apex Wiring Solutions regarding my project inquiry. You
+                        can unsubscribe at any time.
+                      </div>
+                    </div>
+
+                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button size="lg" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 text-lg py-4">
+                        Submit Engineering Request
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Button>
+                    </motion.div>
+
+                    <div className="text-center text-sm text-slate-600">
+                      Or call us directly at <span className="font-semibold text-slate-900">(555) 123-4567</span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </div>
-      </motion.footer>
+      </section>
     </div>
   )
 }
