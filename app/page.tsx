@@ -1,1612 +1,1775 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { PowerFlexBrand } from "@/components/powerflex-brand"
 import {
-  ArrowRight,
-  CheckCircle,
-  Zap,
-  Shield,
-  ChevronDown,
-  Menu,
   X,
-  FileText,
-  Award,
+  Phone,
+  Mail,
+  MapPin,
   Download,
-  AlertTriangle,
+  FileText,
+  Shield,
+  ArrowRight,
+  Clock,
+  Star,
+  Zap,
+  Award,
+  CheckCircle,
+  ExternalLink,
+  ImageIcon,
+  Building,
+  Users,
+  Target,
+  Lightbulb,
+  BarChart3,
 } from "lucide-react"
-import Image from "next/image"
-import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion"
-import { ProductConfigurator } from "@/components/product-configurator"
 
 export default function ApexWiringLanding() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState("hero")
-  const [roiInputs, setRoiInputs] = useState({
-    facilitySize: 50000,
-    currentSystem: "busway",
-    installationComplexity: "standard",
-  })
-
-  const { scrollYProgress } = useScroll()
-  const heroRef = useRef(null)
-
-  // Parallax transforms
-  const heroY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8])
-
-  // Mouse tracking for magnetic effects
-  const cursorX = useMotionValue(0)
-  const cursorY = useMotionValue(0)
-  const springConfig = { damping: 25, stiffness: 700 }
-  const cursorXSpring = useSpring(cursorX, springConfig)
-  const cursorYSpring = useSpring(cursorY, springConfig)
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      cursorX.set(e.clientX - 16)
-      cursorY.set(e.clientY - 16)
-    }
-
-    const handleScroll = () => {
-      const sections = [
-        "hero",
-        "specifications",
-        "comparison",
-        "product-configurator",
-        "case-studies",
-        "roi-calculator",
-        "certifications",
-        "contact",
-      ]
-      const scrollPosition = window.scrollY + 100
-
-      for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const { offsetTop, offsetHeight } = element
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(section)
-            break
-          }
-        }
-      }
-    }
-
-    window.addEventListener("mousemove", handleMouseMove)
-    window.addEventListener("scroll", handleScroll)
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("scroll", handleScroll)
-    }
-  }, [cursorX, cursorY])
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" })
-    }
-    setIsMenuOpen(false)
-  }
-
-  // Calculate ROI
-  const calculateROI = () => {
-    const baseCostPerSqFt = roiInputs.currentSystem === "busway" ? 45 : 38
-    const apexCostPerSqFt = 28
-    const complexityMultiplier = roiInputs.installationComplexity === "complex" ? 1.3 : 1.0
-
-    const traditionalCost = roiInputs.facilitySize * baseCostPerSqFt * complexityMultiplier
-    const apexCost = roiInputs.facilitySize * apexCostPerSqFt
-    const savings = traditionalCost - apexCost
-    const roiPercentage = ((savings / apexCost) * 100).toFixed(1)
-
-    return {
-      traditionalCost,
-      apexCost,
-      savings,
-      roiPercentage,
-      paybackMonths: Math.round((apexCost / (savings / 12)) * 10) / 10,
-    }
-  }
-
-  const roiResults = calculateROI()
-
-  // Animation variants
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  }
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  }
-
-  const scaleIn = {
-    hidden: { scale: 0.9, opacity: 0 },
-    visible: {
-      scale: 1,
-      opacity: 1,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  }
-
-  const slideInLeft = {
-    hidden: { x: -50, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
-  }
-
-  const slideInRight = {
-    hidden: { x: 50, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
-  }
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Custom Cursor - Hidden on mobile */}
-      <motion.div
-        className="fixed top-0 left-0 w-6 h-6 bg-orange-500/30 rounded-full pointer-events-none z-50 mix-blend-difference hidden lg:block"
-        style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
-        }}
-      />
-
-      {/* Navigation */}
-      <motion.nav
-        className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40"
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <motion.div
-              className="flex items-center space-x-3"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 400, damping: 10 }}
-            >
-              <motion.div
-                className="w-8 h-8 bg-gradient-to-r from-slate-700 to-slate-900 rounded-lg flex items-center justify-center"
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Zap className="w-4 h-4 text-orange-500" />
-              </motion.div>
-              <div className="hidden sm:block">
-                <span className="text-lg font-bold text-slate-900">Apex Wiring Solutions</span>
-                <div className="text-xs text-slate-600 font-medium">Industrial Power Distribution</div>
-              </div>
-              <div className="sm:hidden">
-                <span className="text-lg font-bold text-slate-900">Apex</span>
-              </div>
-            </motion.div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
-              {[
-                { id: "hero", label: "Overview" },
-                { id: "specifications", label: "Specs" },
-                { id: "comparison", label: "Comparison" },
-                { id: "product-configurator", label: "Configurator" },
-                { id: "case-studies", label: "Case Studies" },
-                { id: "roi-calculator", label: "ROI" },
-                { id: "contact", label: "Contact" },
-              ].map((item, index) => (
-                <motion.button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`text-sm font-medium transition-colors hover:text-orange-600 relative ${
-                    activeSection === item.id ? "text-orange-600" : "text-slate-700"
-                  }`}
-                  whileHover={{ y: -1 }}
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.3 }}
-                >
-                  {item.label}
-                  {activeSection === item.id && (
-                    <motion.div
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-orange-600"
-                      layoutId="activeTab"
-                      transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                    />
-                  )}
-                </motion.button>
-              ))}
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Button
-                  onClick={() => scrollToSection("contact")}
-                  className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white px-6 py-2"
-                >
-                  Get Quote
-                </Button>
-              </motion.div>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="lg:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              whileTap={{ scale: 0.95 }}
-            >
-              <AnimatePresence mode="wait">
-                {isMenuOpen ? (
-                  <motion.div
-                    key="close"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <X className="w-6 h-6" />
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="menu"
-                    initial={{ rotate: 90, opacity: 0 }}
-                    animate={{ rotate: 0, opacity: 1 }}
-                    exit={{ rotate: -90, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <Menu className="w-6 h-6" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          </div>
-
-          {/* Mobile Navigation */}
-          <AnimatePresence>
-            {isMenuOpen && (
-              <motion.div
-                className="lg:hidden py-4 border-t border-gray-200"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <motion.div
-                  className="flex flex-col space-y-4"
-                  variants={staggerContainer}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  {[
-                    { id: "hero", label: "Overview" },
-                    { id: "specifications", label: "Specifications" },
-                    { id: "comparison", label: "Comparison" },
-                    { id: "product-configurator", label: "Configurator" },
-                    { id: "case-studies", label: "Case Studies" },
-                    { id: "roi-calculator", label: "ROI Calculator" },
-                    { id: "contact", label: "Contact" },
-                  ].map((item) => (
-                    <motion.button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className="text-left text-base font-medium text-slate-700 hover:text-orange-600 transition-colors py-2"
-                      variants={fadeInUp}
-                      whileHover={{ x: 5 }}
-                    >
-                      {item.label}
-                    </motion.button>
-                  ))}
-                  <motion.div variants={fadeInUp} className="pt-2">
-                    <Button
-                      onClick={() => scrollToSection("contact")}
-                      className="w-full bg-gradient-to-r from-slate-700 to-slate-900"
-                    >
-                      Get Quote
-                    </Button>
-                  </motion.div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </motion.nav>
-
+    <div className="min-h-screen bg-white font-inter">
       {/* Hero Section */}
-      <motion.section
-        id="hero"
-        ref={heroRef}
-        className="pt-16 min-h-screen flex items-center relative overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50"
-        style={{ y: heroY, opacity: heroOpacity }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            <motion.div
-              className="space-y-6 lg:space-y-8"
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer}
-            >
-              <div className="space-y-4 lg:space-y-6">
-                <motion.div variants={fadeInUp}>
-                  <Badge className="bg-orange-100 text-orange-800 hover:bg-orange-200 font-semibold text-sm px-3 py-1">
-                    UL Listed • NEC Compliant • 25+ Years Experience
-                  </Badge>
-                </motion.div>
+      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
 
-                <motion.h1
-                  className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight text-slate-900"
-                  variants={fadeInUp}
-                >
-                  <motion.span
-                    className="bg-gradient-to-r from-slate-700 to-slate-900 bg-clip-text text-transparent"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    Underfloor Power Distribution Systems
-                  </motion.span>
-                  <br />
-                  <motion.span
-                    className="text-orange-600"
-                    whileHover={{
-                      background: "linear-gradient(45deg, #ea580c, #dc2626)",
-                      WebkitBackgroundClip: "text",
-                      WebkitTextFillColor: "transparent",
-                    }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    Engineered for Performance
-                  </motion.span>
-                </motion.h1>
+        {/* Floating Elements */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-40 left-20 w-24 h-24 bg-orange-500/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
 
-                <motion.p className="text-lg lg:text-xl text-slate-600 leading-relaxed max-w-2xl" variants={fadeInUp}>
-                  Replace costly busway installations with our UL-listed underfloor power distribution systems. Reduce
-                  installation costs by $12-18/sq ft while improving safety, flexibility, and long-term reliability.
-                </motion.p>
-              </div>
+        <div className="relative container mx-auto px-4 py-24">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-20 h-28 group">
+                    <img
+                      src="/apex-logo.svg"
+                      alt="Apex Wiring Solutions"
+                      className="w-full h-full object-contain filter invert transition-transform group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0 px-4 py-2 text-sm font-medium">
+                      <PowerFlexBrand size="sm" className="text-white" /> by APEX WIRING SOLUTIONS
+                    </Badge>
+                    <p className="text-gray-300 text-sm font-medium tracking-wide">CONNECTIONS WITHOUT COMPROMISE</p>
+                  </div>
+                </div>
 
-              <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeInUp}>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                <div className="space-y-6">
+                  <h1 className="text-6xl md:text-8xl font-bebas font-bold leading-none">
+                    <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                      UNDERFLOOR
+                    </span>
+                    <br />
+                    <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                      POWER
+                    </span>
+                  </h1>
+
+                  <p className="text-2xl md:text-3xl text-orange-400 font-light">The real alternative to power track</p>
+
+                  <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
+                    Apex Wiring Solutions delivers cutting-edge electrical innovation for modern commercial spaces. Our
+                    underfloor modular wiring represents a quantum leap in power distribution technology.
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 w-full sm:w-auto"
-                    onClick={() => scrollToSection("contact")}
+                    className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
                   >
-                    Request Engineering Consultation
-                    <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
+                    Get Quote
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
-                </motion.div>
-                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4 border-2 border-slate-300 hover:bg-slate-50 bg-transparent text-slate-700 w-full sm:w-auto"
-                    onClick={() => scrollToSection("specifications")}
+                    className="border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 px-8 py-4 text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-300"
                   >
-                    <FileText className="mr-2 w-4 h-4 lg:w-5 lg:h-5" />
-                    Technical Specs
+                    View Products
                   </Button>
-                </motion.div>
-              </motion.div>
-
-              <motion.div className="grid grid-cols-3 gap-4 lg:gap-8 pt-6 lg:pt-8" variants={staggerContainer}>
-                {[
-                  { value: "600V", label: "Max Voltage", unit: "UL Listed" },
-                  { value: "2000A", label: "Current Capacity", unit: "Per Circuit" },
-                  { value: "500+", label: "Installations", unit: "Nationwide" },
-                ].map((stat, index) => (
-                  <motion.div key={index} className="text-center" variants={scaleIn} whileHover={{ y: -2 }}>
-                    <motion.div
-                      className="text-xl lg:text-3xl font-bold text-slate-800"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 1 + index * 0.2, type: "spring", stiffness: 200 }}
-                    >
-                      {stat.value}
-                    </motion.div>
-                    <div className="text-xs lg:text-sm text-slate-600 font-medium">{stat.label}</div>
-                    <div className="text-xs text-orange-600 font-semibold">{stat.unit}</div>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              {/* Certifications */}
-              <motion.div className="flex flex-wrap items-center gap-4 pt-4" variants={fadeInUp}>
-                <div className="text-sm text-slate-600 font-medium">Certified by:</div>
-                <div className="flex flex-wrap items-center gap-2">
-                  {["UL", "CSA", "NEC", "OSHA"].map((cert, index) => (
-                    <motion.div
-                      key={cert}
-                      className="px-2 lg:px-3 py-1 bg-slate-100 rounded-full text-xs font-bold text-slate-700"
-                      whileHover={{ scale: 1.05, backgroundColor: "#f1f5f9" }}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 1.5 + index * 0.1 }}
-                    >
-                      {cert}
-                    </motion.div>
-                  ))}
                 </div>
-              </motion.div>
-            </motion.div>
 
-            <motion.div className="relative mt-8 lg:mt-0" initial="hidden" animate="visible" variants={slideInRight}>
-              <motion.div
-                className="relative bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-xl border border-slate-200"
-                whileHover={{
-                  y: -5,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Image
-                  src="/placeholder.svg?height=400&width=500"
-                  alt="Underfloor Power Distribution System Cross-Section"
-                  width={500}
-                  height={400}
-                  className="w-full h-auto rounded-xl lg:rounded-2xl"
+                {/* Stats */}
+                <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-700">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-orange-400">£3,834</div>
+                    <div className="text-sm text-gray-400">Cost Savings</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-orange-400">36hrs</div>
+                    <div className="text-sm text-gray-400">Time Saved</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-orange-400">0min</div>
+                    <div className="text-sm text-gray-400">Termination</div>
+                  </div>
+                </div>
+
+                {/* Contact Info */}
+                <div className="text-gray-400 text-sm space-y-1 pt-4">
+                  <p>+44 (0) 191 378 7900</p>
+                  <p>info@apexwiringsolutions.co.uk</p>
+                  <p>www.apexwiringsolutions.co.uk</p>
+                </div>
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-orange-500/20 to-slate-500/20 rounded-3xl blur-3xl"></div>
+                <img
+                  src="/placeholder.svg?height=700&width=900"
+                  alt="PowerFlex Underfloor Power System Installation"
+                  className="relative w-full h-auto rounded-3xl shadow-2xl border border-white/10"
                 />
-                <div className="absolute top-4 right-4 bg-green-500 text-white px-2 lg:px-3 py-1 rounded-full text-xs lg:text-sm font-bold">
-                  UL Listed
-                </div>
-                <motion.div
-                  className="absolute -bottom-3 -right-3 lg:-bottom-4 lg:-right-4 bg-orange-500 text-white p-2 lg:p-3 rounded-full shadow-lg"
-                  animate={{
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    repeat: Number.POSITIVE_INFINITY,
-                    duration: 2,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Award className="w-4 h-4 lg:w-6 lg:h-6" />
-                </motion.div>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
+      </section>
 
-        <motion.button
-          onClick={() => scrollToSection("specifications")}
-          className="absolute bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2"
-          animate={{ y: [0, 5, 0] }}
-          transition={{ repeat: Number.POSITIVE_INFINITY, duration: 2 }}
-          whileHover={{ scale: 1.1 }}
-        >
-          <ChevronDown className="w-6 h-6 lg:w-8 lg:h-8 text-slate-600" />
-        </motion.button>
-      </motion.section>
+      {/* Key Benefits Section */}
+      <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-6 py-3 rounded-full text-sm font-semibold mb-6">
+                <Star className="h-4 w-4" />
+                Why Choose <PowerFlexBrand size="sm" className="text-orange-700 ml-1" />
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
+                Revolutionary Power Distribution
+              </h2>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Experience the future of commercial power infrastructure with our cutting-edge underfloor solutions that
+                deliver unprecedented efficiency, flexibility, and cost savings.
+              </p>
+            </div>
 
-      {/* Technical Specifications Section */}
-      <section id="specifications" className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-slate-100 text-slate-700 mb-4 font-semibold">Technical Specifications</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Engineered for Industrial Performance
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Our underfloor power distribution systems meet the most demanding industrial requirements with UL-listed
-              components and NEC-compliant installations.
-            </motion.p>
-          </motion.div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+              {[
+                {
+                  icon: Clock,
+                  title: "0 Minute Termination",
+                  desc: "Zero labour costs for connections",
+                },
+                { icon: Zap, title: "Modular Design", desc: "Enhanced flexibility and scalability" },
+                { icon: Shield, title: "Enhanced Safety", desc: "Secure and reliable connections" },
+                { icon: Award, title: "Cost Savings", desc: "£3,834 savings on 50 desk installation" },
+              ].map((benefit, index) => (
+                <Card
+                  key={index}
+                  className="group hover:shadow-xl transition-all duration-300 border-0 bg-white/80 backdrop-blur-sm hover:-translate-y-2"
+                >
+                  <CardContent className="p-8 text-center">
+                    <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                      <benefit.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bebas font-bold text-slate-900 mb-3">{benefit.title}</h3>
+                    <p className="text-gray-600 leading-relaxed">{benefit.desc}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
 
-          <Tabs defaultValue="electrical" className="max-w-6xl mx-auto">
-            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-6 lg:mb-8 h-auto">
-              <TabsTrigger value="electrical" className="font-semibold text-sm lg:text-base py-3">
-                Electrical
-              </TabsTrigger>
-              <TabsTrigger value="mechanical" className="font-semibold text-sm lg:text-base py-3">
-                Mechanical
-              </TabsTrigger>
-              <TabsTrigger value="environmental" className="font-semibold text-sm lg:text-base py-3">
-                Environmental
-              </TabsTrigger>
-              <TabsTrigger value="compliance" className="font-semibold text-sm lg:text-base py-3">
-                Compliance
-              </TabsTrigger>
-            </TabsList>
+            {/* Cost Comparison */}
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-8">
+                    WE SAVE YOU
+                    <span className="block text-orange-500">TIME & MONEY</span>
+                  </h2>
+                </div>
 
-            <TabsContent value="electrical">
-              <motion.div
-                className="grid lg:grid-cols-2 gap-6 lg:gap-8"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={staggerContainer}
-              >
-                <motion.div variants={fadeInUp}>
-                  <Card className="h-full">
-                    <CardHeader className="pb-4">
-                      <CardTitle className="flex items-center space-x-2 text-lg lg:text-xl">
-                        <Zap className="w-5 h-5 text-orange-600" />
-                        <span>Power Ratings</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-3 lg:gap-4">
-                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
-                          <div className="text-xl lg:text-2xl font-bold text-slate-900">600V</div>
-                          <div className="text-xs lg:text-sm text-slate-600">Maximum Voltage</div>
+                <Card className="bg-white border-0 shadow-xl">
+                  <CardHeader className="bg-gradient-to-r from-slate-50 to-gray-50">
+                    <CardTitle className="text-2xl font-bebas font-bold text-slate-900">
+                      <PowerFlexBrand size="md" className="text-slate-900" /> vs Traditional Track
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="space-y-6">
+                      {[
+                        { time: "0 Minute", cost: "£0", label: "PowerFlex Termination", highlight: true },
+                        { time: "5 Minute", cost: "£3", label: "Quick Termination", highlight: false },
+                        { time: "25 Minute", cost: "£16", label: "Traditional Termination", highlight: false },
+                      ].map((item, index) => (
+                        <div
+                          key={index}
+                          className={`flex justify-between items-center py-4 px-6 rounded-xl ${item.highlight ? "bg-orange-50 border-2 border-orange-200" : "bg-gray-50"}`}
+                        >
+                          <span className="font-semibold text-gray-700">{item.time} Termination</span>
+                          <span className={`font-bold text-lg ${item.highlight ? "text-orange-600" : "text-gray-600"}`}>
+                            {item.cost} Labour
+                          </span>
                         </div>
-                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
-                          <div className="text-xl lg:text-2xl font-bold text-slate-900">2000A</div>
-                          <div className="text-xs lg:text-sm text-slate-600">Current Capacity</div>
-                        </div>
-                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
-                          <div className="text-xl lg:text-2xl font-bold text-slate-900">65kA</div>
-                          <div className="text-xs lg:text-sm text-slate-600">Fault Current Rating</div>
-                        </div>
-                        <div className="bg-slate-50 p-3 lg:p-4 rounded-lg text-center">
-                          <div className="text-xl lg:text-2xl font-bold text-slate-900">3Ø</div>
-                          <div className="text-xs lg:text-sm text-slate-600">Phase Configuration</div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-2xl">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bebas font-bold mb-8 text-center">50 DESK INSTALLATION COMPARISON</h3>
+                    <div className="grid grid-cols-2 gap-8 mb-8">
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-gray-300">Traditional Track:</h4>
+                        <div className="space-y-2">
+                          <p className="text-orange-400 font-semibold">Materials: £7,918</p>
+                          <p className="text-orange-400 font-semibold">Labour: £1,946</p>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-gray-300">
+                          <PowerFlexBrand size="sm" className="text-gray-300" /> System:
+                        </h4>
+                        <div className="space-y-2">
+                          <p className="text-green-400 font-semibold">Materials: £5,343</p>
+                          <p className="text-green-400 font-semibold">Labour: £857</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-center py-8 border-t border-gray-600">
+                      <div className="text-5xl font-bebas font-bold text-orange-400 mb-2">£3,834 SAVED</div>
+                      <div className="text-2xl text-white">36 HOURS SAVED</div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
 
-                <motion.div variants={fadeInUp}>
-                  <Card className="h-full">
-                    <CardHeader className="pb-4">
-                      <CardTitle className="flex items-center space-x-2 text-lg lg:text-xl">
-                        <Shield className="w-5 h-5 text-green-600" />
-                        <span>Safety Features</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      {[
-                        "Ground fault protection (30mA sensitivity)",
-                        "Arc fault circuit interruption (AFCI)",
-                        "Overcurrent protection per NEC 240",
-                        "IP54 rated enclosures",
-                        "Class I, Division 2 hazardous location rated",
-                        "Emergency disconnect capability",
-                      ].map((feature, index) => (
-                        <motion.div
-                          key={index}
-                          className="flex items-start space-x-3"
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm lg:text-base text-slate-700 leading-relaxed">{feature}</span>
-                        </motion.div>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </motion.div>
-            </TabsContent>
+              <div className="space-y-8">
+                <Card className="bg-white border-0 shadow-xl overflow-hidden">
+                  <CardContent className="p-0">
+                    <img
+                      src="/placeholder.svg?height=400&width=600"
+                      alt="Installation Time Comparison Chart"
+                      className="w-full h-64 object-cover"
+                    />
+                  </CardContent>
+                </Card>
+                <Card className="bg-white border-0 shadow-xl overflow-hidden">
+                  <CardContent className="p-0">
+                    <img
+                      src="/placeholder.svg?height=300&width=600"
+                      alt="PowerFlex System Architecture"
+                      className="w-full h-48 object-cover"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <TabsContent value="mechanical">
-              <motion.div
-                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={staggerContainer}
-              >
-                {[
-                  {
-                    title: "Installation Depth",
-                    specs: [
-                      { label: "Minimum depth", value: "4 inches" },
-                      { label: "Standard depth", value: "6 inches" },
-                      { label: "Maximum depth", value: "12 inches" },
-                      { label: "Access floor compatibility", value: "Yes" },
-                    ],
-                  },
-                  {
-                    title: "Load Capacity",
-                    specs: [
-                      { label: "Distributed load", value: "250 lbs/sq ft" },
-                      { label: "Concentrated load", value: "2000 lbs" },
-                      { label: "Rolling load", value: "1000 lbs" },
-                      { label: "Seismic rating", value: "Zone 4" },
-                    ],
-                  },
-                  {
-                    title: "Materials",
-                    specs: [
-                      { label: "Conductor", value: "Copper (99.9%)" },
-                      { label: "Insulation", value: "XLPE rated 90°C" },
-                      { label: "Enclosure", value: "Aluminum/Steel" },
-                      { label: "Finish", value: "Powder coat" },
-                    ],
-                  },
-                ].map((section, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
-                    <Card className="h-full">
-                      <CardHeader className="pb-4">
-                        <CardTitle className="text-lg">{section.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-3">
-                        {section.specs.map((spec, specIndex) => (
-                          <div key={specIndex} className="flex justify-between items-center">
-                            <span className="text-sm text-slate-600">{spec.label}</span>
-                            <span className="text-sm font-semibold text-slate-900">{spec.value}</span>
+      {/* Unified Product Showcase */}
+      <section className="py-32 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-slate-100 text-slate-700 px-6 py-3 rounded-full text-sm font-semibold mb-6">
+                <Zap className="h-4 w-4" />
+                Complete Product Range
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
+                <PowerFlexBrand size="lg" className="text-slate-900" /> Distribution Systems
+              </h2>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Engineered for excellence. Our comprehensive range of modular power distribution components sets the
+                standard for modern commercial environments.
+              </p>
+            </div>
+
+            {/* Unified Product Tabs */}
+            <Card className="bg-gradient-to-br from-slate-50 via-white to-gray-50 border-0 shadow-2xl rounded-3xl overflow-hidden">
+              <CardContent className="p-12">
+                <Tabs defaultValue="master" className="w-full">
+                  <TabsList className="grid w-full grid-cols-4 mb-12 bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg h-16">
+                    <TabsTrigger
+                      value="master"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                    >
+                      <Building className="h-4 w-4 mr-2" />
+                      MASTER DISTRIBUTION
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="slave"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                    >
+                      <Users className="h-4 w-4 mr-2" />
+                      SLAVE DISTRIBUTION
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="tee"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                    >
+                      <Target className="h-4 w-4 mr-2" />
+                      TEE DISTRIBUTORS
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="leads"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                    >
+                      <Lightbulb className="h-4 w-4 mr-2" />
+                      POWER LEADS
+                    </TabsTrigger>
+                  </TabsList>
+
+                  {/* Master Distribution Tab */}
+                  <TabsContent value="master" className="mt-0">
+                    <div className="mb-12">
+                      <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                        <div className="space-y-6">
+                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
+                            Centralised Power Distribution
+                          </h3>
+                          <p className="text-lg text-gray-700 leading-relaxed">
+                            Master Distribution Boxes provide centralised solutions for connecting multiple workstations
+                            in commercial environments. Engineered to simplify installation and reduce deployment time.
+                          </p>
+                          <div className="grid grid-cols-1 gap-4">
+                            {[
+                              "Single point connection architecture",
+                              "Clamped or pluggable configurations",
+                              "Self-locking disconnect mechanism",
+                            ].map((feature, index) => (
+                              <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                <span className="text-gray-700 font-medium">{feature}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </TabsContent>
+                        </div>
 
-            <TabsContent value="environmental">
-              <motion.div
-                className="grid lg:grid-cols-2 gap-6 lg:gap-8"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={staggerContainer}
-              >
-                <motion.div variants={fadeInUp}>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg lg:text-xl">Operating Conditions</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-3 lg:gap-4">
-                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
-                          <div className="text-lg lg:text-xl font-bold text-blue-900">-40°C to +75°C</div>
-                          <div className="text-xs lg:text-sm text-blue-700">Operating Temperature</div>
-                        </div>
-                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
-                          <div className="text-lg lg:text-xl font-bold text-blue-900">5% to 95%</div>
-                          <div className="text-xs lg:text-sm text-blue-700">Relative Humidity</div>
-                        </div>
-                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
-                          <div className="text-lg lg:text-xl font-bold text-blue-900">IP54</div>
-                          <div className="text-xs lg:text-sm text-blue-700">Ingress Protection</div>
-                        </div>
-                        <div className="text-center p-3 lg:p-4 bg-blue-50 rounded-lg">
-                          <div className="text-lg lg:text-xl font-bold text-blue-900">3000m</div>
-                          <div className="text-xs lg:text-sm text-blue-700">Max Altitude</div>
+                        <div className="grid grid-cols-2 gap-6">
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <ImageIcon className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Master Distribution Box"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                View Gallery
+                              </Button>
+                            </CardContent>
+                          </Card>
+
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <FileText className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Wiring Schematic"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download PDF
+                              </Button>
+                            </CardContent>
+                          </Card>
                         </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
+                    </div>
 
-                <motion.div variants={fadeInUp}>
-                  <Card>
-                    <CardHeader>
-                      <CardTitle className="text-lg lg:text-xl">Environmental Resistance</CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-3">
-                      {[
-                        "Corrosion resistant coating (1000+ hour salt spray)",
-                        "UV stable materials for outdoor applications",
-                        "Chemical resistance to industrial solvents",
-                        "Vibration tested per IEC 60068-2-6",
-                        "Thermal cycling tested (-40°C to +85°C)",
-                        "Moisture resistance per ASTM D570",
-                      ].map((feature, index) => (
-                        <motion.div
-                          key={index}
-                          className="flex items-start space-x-3"
-                          initial={{ opacity: 0, x: -20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          transition={{ delay: index * 0.1 }}
+                    {/* Master Distribution Products */}
+                    <Tabs defaultValue="6-port" className="w-full">
+                      <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-gray-200">
+                        <TabsTrigger
+                          value="6-port"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
                         >
-                          <Shield className="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm lg:text-base text-slate-700 leading-relaxed">{feature}</span>
-                        </motion.div>
-                      ))}
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </motion.div>
-            </TabsContent>
+                          6 PORT MASTER
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="9-port"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          9 PORT MASTER
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="10-port"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          10 PORT MASTER
+                        </TabsTrigger>
+                      </TabsList>
 
-            <TabsContent value="compliance">
-              <motion.div
-                className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={staggerContainer}
-              >
-                {[
-                  {
-                    title: "UL Listed",
-                    number: "UL 857",
-                    description: "Busways and associated fittings",
-                    icon: <Award className="w-6 h-6 lg:w-8 lg:h-8 text-blue-600" />,
-                  },
-                  {
-                    title: "NEC Compliant",
-                    number: "Article 368",
-                    description: "Busway installation requirements",
-                    icon: <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-green-600" />,
-                  },
-                  {
-                    title: "CSA Certified",
-                    number: "CSA C22.2",
-                    description: "Canadian electrical standards",
-                    icon: <CheckCircle className="w-6 h-6 lg:w-8 lg:h-8 text-red-600" />,
-                  },
-                  {
-                    title: "OSHA Approved",
-                    number: "29 CFR 1910",
-                    description: "Workplace electrical safety",
-                    icon: <Shield className="w-6 h-6 lg:w-8 lg:h-8 text-orange-600" />,
-                  },
-                ].map((cert, index) => (
-                  <motion.div key={index} variants={fadeInUp}>
-                    <Card className="text-center h-full hover:shadow-lg transition-shadow">
-                      <CardHeader className="pb-4">
-                        <div className="flex justify-center mb-3">{cert.icon}</div>
-                        <CardTitle className="text-lg">{cert.title}</CardTitle>
-                        <CardDescription className="font-mono text-sm">{cert.number}</CardDescription>
+                      <TabsContent value="6-port" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  6 Port Master Distribution
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  MDB.0339.N.6 (length)
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Home Run", value: "38mm ³⁄₄ B.L.N + 1 x CPC" },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Power Outputs", value: "6 Port (3 Pin)" },
+                                        { label: "Rated Current", value: "32A" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="6 Port Master Distribution"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">Mechanical Coding: A Black</span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+
+                      <TabsContent value="9-port" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  9 Port Master Distribution
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  MDB.0340.N.6 (length)
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Home Run", value: "38mm 27 x L, E, N + 1 x CPC" },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Power Outputs", value: "9 Port (3 Pin)" },
+                                        { label: "Rated Current", value: "32A" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="9 Port Master Distribution"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">Mechanical Coding: A Black</span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+
+                      <TabsContent value="10-port" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  10 Port Master Distribution
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  SDB.0006.Y.6.1
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        {
+                                          label: "Description",
+                                          value: "1 x power in, 1 x through power, 10 x power out",
+                                        },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Power Outputs", value: "10 Port (3 Pin)" },
+                                        { label: "Rated Current", value: "32A" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="10 Port Master Distribution"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">Mechanical Coding: A Black</span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+                    </Tabs>
+                  </TabsContent>
+
+                  {/* Slave Distribution Tab */}
+                  <TabsContent value="slave" className="mt-0">
+                    <div className="mb-12">
+                      <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                        <div className="space-y-6">
+                          <h3 className="text-4xl font-bebas font-bold text-slate-900">Single Circuit Distribution</h3>
+                          <p className="text-lg text-gray-700 leading-relaxed">
+                            Single Circuit Slave Distribution Boxes provide centralised connection for multiple
+                            workstations. Engineered for simplified wiring with single point connection architecture.
+                          </p>
+                          <div className="grid grid-cols-1 gap-4">
+                            {[
+                              "Through power capability",
+                              "ISO 9001:2015 certified",
+                              "IEC 61535:2009+A1:2013 compliant",
+                            ].map((feature, index) => (
+                              <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                <span className="text-gray-700 font-medium">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <ImageIcon className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Slave Distribution Box"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                View Gallery
+                              </Button>
+                            </CardContent>
+                          </Card>
+
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <FileText className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Wiring Schematic"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download PDF
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Slave Distribution Products */}
+                    <Tabs defaultValue="4-port" className="w-full">
+                      <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-gray-200">
+                        <TabsTrigger
+                          value="4-port"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          4 PORT SLAVE
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="6-port"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          6 PORT SLAVE
+                        </TabsTrigger>
+                      </TabsList>
+
+                      <TabsContent value="4-port" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  4 Port Slave Distribution
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  SDB.0004.Y.6.1
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        {
+                                          label: "Description",
+                                          value: "1 x power in, 1 x through power, 4 x power out",
+                                        },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Power Outputs", value: "4 Port (3 Pin)" },
+                                        { label: "Rated Current", value: "32A" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="4 Port Slave Distribution"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">
+                                    Standard: IEC 61535:2009+A1:2013
+                                  </span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+
+                      <TabsContent value="6-port" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  6 Port Slave Distribution
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  SDB.0005.Y.6.1
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        {
+                                          label: "Description",
+                                          value: "1 x power in, 1 x through power, 6 x power out",
+                                        },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Power Outputs", value: "6 Port (3 Pin)" },
+                                        { label: "Rated Current", value: "32A" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="6 Port Slave Distribution"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">QMS: ISO 9001:2015</span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+                    </Tabs>
+                  </TabsContent>
+
+                  {/* Tee Distributors Tab */}
+                  <TabsContent value="tee" className="mt-0">
+                    <div className="mb-12">
+                      <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                        <div className="space-y-6">
+                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
+                            3 Pole <PowerFlexBrand size="lg" className="text-slate-900" /> Tee
+                          </h3>
+                          <p className="text-lg text-gray-700 leading-relaxed">
+                            ENSTO XL Tee distributor with 1 power input and 2 power outputs. Seamless integration with
+                            other connectors for simplified wiring and reduced installation time.
+                          </p>
+                          <div className="grid grid-cols-1 gap-4">
+                            {["Integrated plug-in connector", "Quick connection capability"].map((feature, index) => (
+                              <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                <span className="text-gray-700 font-medium">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <ImageIcon className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="3 Pole PowerFlex Tee"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                View Gallery
+                              </Button>
+                            </CardContent>
+                          </Card>
+
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <FileText className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Tee Schematic"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download PDF
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Card className="border-0 shadow-xl bg-white">
+                      <CardHeader className="pb-6">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <CardTitle className="text-2xl font-bebas text-slate-900">3 Pole ENSTO XL Tee</CardTitle>
+                            <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                              1.4.E.3.0.BKT
+                            </CardDescription>
+                          </div>
+                          <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                            32A Rated
+                          </Badge>
+                        </div>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-sm text-slate-600 leading-relaxed">{cert.description}</p>
+                        <div className="grid lg:grid-cols-4 gap-8">
+                          <div className="lg:col-span-3">
+                            <div className="grid md:grid-cols-2 gap-8">
+                              <div className="space-y-4">
+                                <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                <div className="space-y-3">
+                                  {[
+                                    { label: "Description", value: "3 Pole Ensto XL Tee - XLAD3" },
+                                    { label: "Power Outputs", value: "1 x input left, 2 x outputs" },
+                                    { label: "Rated Current", value: "32A" },
+                                    { label: "Rated Voltage", value: "250/400V" },
+                                  ].map((spec, index) => (
+                                    <div key={index} className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg">
+                                      <span className="text-gray-600 font-medium">{spec.label}</span>
+                                      <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                <div className="space-y-3">
+                                  {[
+                                    { label: "Frequency", value: "50Hz" },
+                                    { label: "Max Operating Temp", value: "+70°C" },
+                                    { label: "Protection (IP)", value: "IP2XD" },
+                                    { label: "Mechanical Coding", value: "A Black" },
+                                  ].map((spec, index) => (
+                                    <div key={index} className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg">
+                                      <span className="text-gray-600 font-medium">{spec.label}</span>
+                                      <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="space-y-4">
+                            <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                              <CardContent className="p-6">
+                                <img
+                                  src="/placeholder.svg?height=150&width=200"
+                                  alt="3 Pole ENSTO XL Tee"
+                                  className="w-full h-32 object-cover rounded-lg mb-4"
+                                />
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                >
+                                  <Download className="h-4 w-4 mr-2" />
+                                  Download Specs
+                                </Button>
+                              </CardContent>
+                            </Card>
+                          </div>
+                        </div>
+                        <div className="mt-8 pt-6 border-t border-gray-200">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                              <span className="text-sm text-gray-600 font-medium">
+                                Lockable: Integrated Plug-in Connector
+                              </span>
+                            </div>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                            >
+                              <ExternalLink className="h-4 w-4 mr-2" />
+                              View Full Details
+                            </Button>
+                          </div>
+                        </div>
                       </CardContent>
                     </Card>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </TabsContent>
-          </Tabs>
+                  </TabsContent>
+
+                  {/* Power Leads Tab */}
+                  <TabsContent value="leads" className="mt-0">
+                    <div className="mb-12">
+                      <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
+                        <div className="space-y-6">
+                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
+                            3 Pole <PowerFlexBrand size="lg" className="text-slate-900" /> Leads
+                          </h3>
+                          <p className="text-lg text-gray-700 leading-relaxed">
+                            Armoured connection and extender leads for flexible power distribution. Engineered for quick
+                            installation and reliable performance in commercial environments.
+                          </p>
+                          <div className="grid grid-cols-1 gap-4">
+                            {["3 Pole armoured construction", "Quick installation capability"].map((feature, index) => (
+                              <div key={index} className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-sm">
+                                <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                <span className="text-gray-700 font-medium">{feature}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-6">
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <ImageIcon className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Connection Lead</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Connection Lead"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <ExternalLink className="h-4 w-4 mr-2" />
+                                View Gallery
+                              </Button>
+                            </CardContent>
+                          </Card>
+
+                          <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex items-center gap-2 mb-4">
+                                <ImageIcon className="h-4 w-4 text-gray-500" />
+                                <span className="text-sm text-gray-500 font-medium">Extender Lead</span>
+                              </div>
+                              <img
+                                src="/placeholder.svg?height=200&width=250"
+                                alt="Extender Lead"
+                                className="w-full h-32 object-cover rounded-lg mb-4"
+                              />
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                              >
+                                <Download className="h-4 w-4 mr-2" />
+                                Download PDF
+                              </Button>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Power Leads Products */}
+                    <Tabs defaultValue="connection" className="w-full">
+                      <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-gray-200">
+                        <TabsTrigger
+                          value="connection"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          CONNECTION LEAD
+                        </TabsTrigger>
+                        <TabsTrigger
+                          value="extender"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                        >
+                          EXTENDER LEAD
+                        </TabsTrigger>
+                      </TabsList>
+
+                      <TabsContent value="connection" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  3 Pole Connection Lead
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  CON3PA40P3G6S(length)
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        {
+                                          label: "Description",
+                                          value: "3 Pole (3 x 6mm) ENSTO XL Armoured Connection Lead",
+                                        },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Rated Current", value: "32A" },
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                        { label: "Application", value: "Free wiring to power outlets" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="3 Pole Connection Lead"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">
+                                    Armoured construction for durability
+                                  </span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+
+                      <TabsContent value="extender" className="mt-0">
+                        <Card className="border-0 shadow-xl bg-white">
+                          <CardHeader className="pb-6">
+                            <div className="flex items-center justify-between">
+                              <div>
+                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                  3 Pole Extender Lead
+                                </CardTitle>
+                                <CardDescription className="text-gray-600 font-mono text-sm mt-2">
+                                  EXT3PA40P3G6S(length)
+                                </CardDescription>
+                              </div>
+                              <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2">
+                                32A Rated
+                              </Badge>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid lg:grid-cols-4 gap-8">
+                              <div className="lg:col-span-3">
+                                <div className="grid md:grid-cols-2 gap-8">
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        {
+                                          label: "Description",
+                                          value: "3 Pole (3 x 6mm) ENSTO XL Armoured Extender Lead",
+                                        },
+                                        { label: "CSA", value: "6mm²" },
+                                        { label: "Rated Current", value: "32A" },
+                                        { label: "Rated Voltage", value: "250/400V" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                  <div className="space-y-4">
+                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <div className="space-y-3">
+                                      {[
+                                        { label: "Frequency", value: "50Hz" },
+                                        { label: "Max Operating Temp", value: "+70°C" },
+                                        { label: "Protection (IP)", value: "IP2XD" },
+                                        { label: "Application", value: "Power distribution extension" },
+                                      ].map((spec, index) => (
+                                        <div
+                                          key={index}
+                                          className="flex justify-between py-3 px-4 bg-gray-50 rounded-lg"
+                                        >
+                                          <span className="text-gray-600 font-medium">{spec.label}</span>
+                                          <span className="text-slate-900 font-semibold">{spec.value}</span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="space-y-4">
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <img
+                                      src="/placeholder.svg?height=150&width=200"
+                                      alt="3 Pole Extender Lead"
+                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                    />
+                                    <Button
+                                      variant="ghost"
+                                      size="sm"
+                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
+                                    >
+                                      <Download className="h-4 w-4 mr-2" />
+                                      Download Specs
+                                    </Button>
+                                  </CardContent>
+                                </Card>
+                              </div>
+                            </div>
+                            <div className="mt-8 pt-6 border-t border-gray-200">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-3 h-3 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">
+                                    Connector on one end, female on other
+                                  </span>
+                                </div>
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="border-orange-200 text-orange-600 hover:bg-orange-50 bg-transparent font-semibold"
+                                >
+                                  <ExternalLink className="h-4 w-4 mr-2" />
+                                  View Full Details
+                                </Button>
+                              </div>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </TabsContent>
+                    </Tabs>
+                  </TabsContent>
+                </Tabs>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </section>
 
       {/* Comparison Section */}
-      <section id="comparison" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-orange-100 text-orange-800 mb-4 font-semibold">Performance Comparison</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Underfloor Power vs Traditional Busway
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Engineering analysis shows significant advantages in cost, safety, and performance when comparing our
-              underfloor systems to overhead busway installations.
-            </motion.p>
-          </motion.div>
-
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-6 lg:gap-8">
-              {/* Apex Underfloor System */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={slideInLeft}
-                whileHover={{
-                  scale: 1.01,
-                  boxShadow: "0 20px 40px rgba(34, 197, 94, 0.15)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Card className="border-2 border-green-200 bg-green-50/50 shadow-lg h-full">
-                  <CardHeader className="text-center pb-4 lg:pb-6">
-                    <motion.div
-                      className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-green-600 to-emerald-600 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4"
-                      whileHover={{ rotate: 180, scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Zap className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </motion.div>
-                    <CardTitle className="text-xl lg:text-2xl font-bold text-green-800">
-                      Apex Underfloor Power
-                    </CardTitle>
-                    <CardDescription className="text-green-700 font-semibold">Advanced Solution</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3 lg:space-y-4">
-                    {[
-                      { metric: "Installation Cost", value: "$28/sq ft", improvement: "40% lower" },
-                      { metric: "Installation Time", value: "2-3 days", improvement: "60% faster" },
-                      { metric: "Safety Rating", value: "IP54 enclosed", improvement: "Superior protection" },
-                      { metric: "Maintenance", value: "Minimal", improvement: "5-year intervals" },
-                      { metric: "Flexibility", value: "Modular design", improvement: "Easy reconfiguration" },
-                      { metric: "Heat Dissipation", value: "Excellent", improvement: "Underground cooling" },
-                      { metric: "EMI Interference", value: "Minimal", improvement: "Shielded design" },
-                      { metric: "Service Life", value: "30+ years", improvement: "Extended warranty" },
-                    ].map((feature, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-center justify-between p-3 lg:p-4 bg-white rounded-lg"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                        whileHover={{ x: 2, backgroundColor: "#f0fdf4" }}
-                      >
-                        <div>
-                          <div className="font-semibold text-slate-900 text-sm lg:text-base">{feature.metric}</div>
-                          <div className="text-xs lg:text-sm text-green-600 font-medium">{feature.improvement}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-bold text-green-700 text-sm lg:text-base">{feature.value}</div>
-                          <CheckCircle className="w-4 h-4 text-green-500 ml-auto mt-1" />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </motion.div>
-
-              {/* Traditional Busway */}
-              <motion.div
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={slideInRight}
-                whileHover={{
-                  scale: 1.01,
-                  boxShadow: "0 20px 40px rgba(107, 114, 128, 0.15)",
-                }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                <Card className="border-2 border-red-200 bg-red-50/50 shadow-lg h-full">
-                  <CardHeader className="text-center pb-4 lg:pb-6">
-                    <motion.div
-                      className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-3 lg:mb-4"
-                      whileHover={{ rotate: -180, scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <AlertTriangle className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </motion.div>
-                    <CardTitle className="text-xl lg:text-2xl font-bold text-red-800">Traditional Busway</CardTitle>
-                    <CardDescription className="text-red-700 font-semibold">Legacy Solution</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-3 lg:space-y-4">
-                    {[
-                      { metric: "Installation Cost", value: "$45/sq ft", issue: "Higher material costs" },
-                      { metric: "Installation Time", value: "5-7 days", issue: "Complex overhead work" },
-                      { metric: "Safety Rating", value: "Exposed conductors", issue: "Arc flash hazards" },
-                      { metric: "Maintenance", value: "Frequent", issue: "Annual inspections" },
-                      { metric: "Flexibility", value: "Limited", issue: "Difficult modifications" },
-                      { metric: "Heat Dissipation", value: "Poor", issue: "Heat buildup issues" },
-                      { metric: "EMI Interference", value: "Significant", issue: "Unshielded design" },
-                      { metric: "Service Life", value: "20 years", issue: "Standard warranty" },
-                    ].map((feature, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-center justify-between p-3 lg:p-4 bg-white rounded-lg"
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                        whileHover={{ x: -2, backgroundColor: "#fef2f2" }}
-                      >
-                        <div>
-                          <div className="font-semibold text-slate-900 text-sm lg:text-base">{feature.metric}</div>
-                          <div className="text-xs lg:text-sm text-red-600 font-medium">{feature.issue}</div>
-                        </div>
-                        <div className="text-right">
-                          <div className="font-bold text-red-700 text-sm lg:text-base">{feature.value}</div>
-                          <X className="w-4 h-4 text-red-400 ml-auto mt-1" />
-                        </div>
-                      </motion.div>
-                    ))}
-                  </CardContent>
-                </Card>
-              </motion.div>
+      <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-100 to-slate-100 text-slate-700 px-6 py-3 rounded-full text-sm font-semibold mb-6">
+                <BarChart3 className="h-4 w-4" />
+                Performance Comparison
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
+                Why Choose <PowerFlexBrand size="lg" className="text-slate-900" />?
+              </h2>
+              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                See how our revolutionary underfloor power systems outperform traditional overhead solutions across
+                every critical metric that matters to your business.
+              </p>
             </div>
 
-            <motion.div
-              className="text-center mt-8 lg:mt-12"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5, duration: 0.6 }}
-            >
-              <motion.div
-                whileHover={{
-                  scale: 1.02,
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Button
-                  size="lg"
-                  className="bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-base lg:text-lg px-6 lg:px-8 py-3 lg:py-4"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  <Download className="mr-2 w-4 h-4 lg:w-5 lg:h-5" />
-                  Download Engineering Comparison Report
-                  <ArrowRight className="ml-2 w-4 h-4 lg:w-5 lg:h-5" />
-                </Button>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Product Configurator */}
-      <div id="product-configurator">
-        <ProductConfigurator />
-      </div>
-
-      {/* Case Studies Section */}
-      <section id="case-studies" className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-green-100 text-green-800 mb-4 font-semibold">Industry Case Studies</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Proven Results Across Industries
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Real-world implementations demonstrating cost savings, improved safety, and enhanced operational
-              efficiency across manufacturing, data centers, and commercial facilities.
-            </motion.p>
-          </motion.div>
-
-          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
-            {[
-              {
-                industry: "Manufacturing",
-                company: "Automotive Assembly Plant",
-                location: "Detroit, MI",
-                size: "250,000 sq ft",
-                challenge: "Replace aging overhead busway system causing production delays",
-                solution: "Complete underfloor power distribution with modular outlets",
-                results: {
-                  costSavings: "$1.2M",
-                  installationTime: "3 weeks vs 8 weeks",
-                  downtime: "Zero production impact",
-                  efficiency: "15% energy savings",
-                },
-                image: "/placeholder.svg?height=200&width=300",
-              },
-              {
-                industry: "Data Center",
-                company: "Cloud Computing Facility",
-                location: "Austin, TX",
-                size: "100,000 sq ft",
-                challenge: "High-density power distribution with future expansion flexibility",
-                solution: "Underfloor power with integrated cooling and monitoring",
-                results: {
-                  costSavings: "$800K",
-                  installationTime: "2 weeks vs 6 weeks",
-                  downtime: "Phased installation",
-                  efficiency: "20% cooling savings",
-                },
-                image: "/placeholder.svg?height=200&width=300",
-              },
-              {
-                industry: "Commercial",
-                company: "Corporate Headquarters",
-                location: "Seattle, WA",
-                size: "150,000 sq ft",
-                challenge: "Open office reconfiguration with sustainable power solution",
-                solution: "Flexible underfloor system with smart monitoring",
-                results: {
-                  costSavings: "$600K",
-                  installationTime: "4 weeks vs 10 weeks",
-                  downtime: "Weekend installation",
-                  efficiency: "LEED Platinum certified",
-                },
-                image: "/placeholder.svg?height=200&width=300",
-              },
-            ].map((study, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.2 }}
-                whileHover={{ y: -5 }}
-              >
-                <Card className="h-full shadow-lg hover:shadow-xl transition-shadow">
-                  <div className="relative">
-                    <Image
-                      src={study.image || "/placeholder.svg"}
-                      alt={`${study.industry} case study`}
-                      width={300}
-                      height={200}
-                      className="w-full h-48 object-cover rounded-t-lg"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-blue-600 text-white">{study.industry}</Badge>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+              {/* PowerFlex Advantages */}
+              <Card className="border-0 shadow-2xl bg-gradient-to-br from-green-50 to-emerald-50 overflow-hidden">
+                <CardHeader className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <CheckCircle className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl font-bebas font-bold">
+                        <PowerFlexBrand size="md" className="text-white" /> Underfloor System
+                      </CardTitle>
+                      <CardDescription className="text-green-100 text-lg">Modern Modular Solution</CardDescription>
                     </div>
                   </div>
-                  <CardHeader className="pb-4">
-                    <CardTitle className="text-lg lg:text-xl">{study.company}</CardTitle>
-                    <CardDescription className="text-slate-600">
-                      {study.location} • {study.size}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Challenge</h4>
-                      <p className="text-sm text-slate-600 leading-relaxed">{study.challenge}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 mb-2">Solution</h4>
-                      <p className="text-sm text-slate-600 leading-relaxed">{study.solution}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-slate-900 mb-3">Results</h4>
-                      <div className="grid grid-cols-2 gap-3">
-                        <div className="bg-green-50 p-3 rounded-lg text-center">
-                          <div className="font-bold text-green-700">{study.results.costSavings}</div>
-                          <div className="text-xs text-green-600">Cost Savings</div>
-                        </div>
-                        <div className="bg-blue-50 p-3 rounded-lg text-center">
-                          <div className="font-bold text-blue-700">{study.results.installationTime}</div>
-                          <div className="text-xs text-blue-600">Installation</div>
-                        </div>
-                        <div className="bg-purple-50 p-3 rounded-lg text-center">
-                          <div className="font-bold text-purple-700">{study.results.downtime}</div>
-                          <div className="text-xs text-purple-600">Downtime</div>
-                        </div>
-                        <div className="bg-orange-50 p-3 rounded-lg text-center">
-                          <div className="font-bold text-orange-700">{study.results.efficiency}</div>
-                          <div className="text-xs text-orange-600">Efficiency</div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ROI Calculator Section */}
-      <section id="roi-calculator" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-blue-100 text-blue-800 mb-4 font-semibold">ROI Calculator</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Calculate Your Project Savings
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Interactive calculator showing real-time cost comparisons, payback periods, and long-term savings for your
-              specific facility requirements.
-            </motion.p>
-          </motion.div>
-
-          <div className="max-w-4xl mx-auto">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeInUp}>
-              <Card className="shadow-xl">
-                <CardHeader className="text-center pb-6">
-                  <CardTitle className="text-2xl lg:text-3xl">Project ROI Analysis</CardTitle>
-                  <CardDescription className="text-lg">
-                    Customize the parameters below to see your potential savings
-                  </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-8">
-                  {/* Input Controls */}
-                  <div className="grid md:grid-cols-3 gap-6">
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold text-slate-700">Facility Size (sq ft)</label>
-                      <div className="relative">
-                        <input
-                          type="number"
-                          value={roiInputs.facilitySize}
-                          onChange={(e) =>
-                            setRoiInputs({ ...roiInputs, facilitySize: Number.parseInt(e.target.value) || 0 })
-                          }
-                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          placeholder="50000"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold text-slate-700">Current System</label>
-                      <select
-                        value={roiInputs.currentSystem}
-                        onChange={(e) => setRoiInputs({ ...roiInputs, currentSystem: e.target.value })}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="busway">Traditional Busway</option>
-                        <option value="conduit">Conduit & Wire</option>
-                        <option value="cable-tray">Cable Tray System</option>
-                      </select>
-                    </div>
-
-                    <div className="space-y-3">
-                      <label className="text-sm font-semibold text-slate-700">Installation Complexity</label>
-                      <select
-                        value={roiInputs.installationComplexity}
-                        onChange={(e) => setRoiInputs({ ...roiInputs, installationComplexity: e.target.value })}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="standard">Standard</option>
-                        <option value="complex">Complex</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Results Display */}
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 lg:p-8 border border-green-200">
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                      <div className="text-center">
-                        <div className="text-2xl lg:text-3xl font-bold text-slate-900 mb-1">
-                          ${roiResults.traditionalCost.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-slate-600 font-medium">Traditional System Cost</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl lg:text-3xl font-bold text-green-700 mb-1">
-                          ${roiResults.apexCost.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-slate-600 font-medium">Apex System Cost</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl lg:text-3xl font-bold text-blue-700 mb-1">
-                          ${roiResults.savings.toLocaleString()}
-                        </div>
-                        <div className="text-sm text-slate-600 font-medium">Total Savings</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl lg:text-3xl font-bold text-purple-700 mb-1">
-                          {roiResults.roiPercentage}%
-                        </div>
-                        <div className="text-sm text-slate-600 font-medium">ROI</div>
-                      </div>
-                    </div>
-
-                    <div className="mt-6 pt-6 border-t border-green-300">
-                      <div className="flex flex-col sm:flex-row items-center justify-between">
-                        <div className="text-center sm:text-left mb-4 sm:mb-0">
-                          <div className="text-lg font-semibold text-slate-900">
-                            Payback Period: {roiResults.paybackMonths} months
-                          </div>
-                          <div className="text-sm text-slate-600">
-                            Based on energy savings and reduced maintenance costs
-                          </div>
-                        </div>
-                        <div className="flex space-x-3">
-                          <Button className="bg-green-600 hover:bg-green-700">
-                            <Download className="mr-2 w-4 h-4" />
-                            Download Report
-                          </Button>
-                          <Button variant="outline" onClick={() => scrollToSection("contact")}>
-                            Get Detailed Quote
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Additional Benefits */}
-                  <div className="grid md:grid-cols-3 gap-6">
+                <CardContent className="p-8">
+                  <ul className="space-y-4">
                     {[
-                      {
-                        title: "Installation Speed",
-                        value: "60% Faster",
-                        description: "Reduced project timeline means faster ROI realization",
-                        icon: "⚡",
-                      },
-                      {
-                        title: "Maintenance Savings",
-                        value: "$15K/year",
-                        description: "Lower ongoing maintenance and inspection costs",
-                        icon: "🔧",
-                      },
-                      {
-                        title: "Energy Efficiency",
-                        value: "12% Savings",
-                        description: "Improved power distribution efficiency reduces utility costs",
-                        icon: "💡",
-                      },
-                    ].map((benefit, index) => (
-                      <motion.div
-                        key={index}
-                        className="text-center p-4 bg-white rounded-lg border border-slate-200"
-                        whileHover={{ y: -2, boxShadow: "0 4px 12px rgba(0,0,0,0.1)" }}
-                      >
-                        <div className="text-2xl mb-2">{benefit.icon}</div>
-                        <div className="font-bold text-lg text-slate-900 mb-1">{benefit.value}</div>
-                        <div className="font-semibold text-slate-700 mb-2">{benefit.title}</div>
-                        <div className="text-sm text-slate-600">{benefit.description}</div>
-                      </motion.div>
+                      "0 minute termination - zero labour costs",
+                      "Completely hidden infrastructure",
+                      "Modular design for enhanced flexibility",
+                      "Rapid installation - minimise disruption",
+                      "Optimised materials - reduced waste",
+                      "Secure and reliable connections",
+                      "Enhanced safety features",
+                      "Future-proof scalable design",
+                    ].map((advantage, index) => (
+                      <li key={index} className="flex items-start gap-4 p-3 bg-white rounded-lg shadow-sm">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700 font-medium">{advantage}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
                 </CardContent>
               </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Certifications Section */}
-      <section id="certifications" className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-slate-100 text-slate-700 mb-4 font-semibold">Certifications & Standards</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Industry-Leading Compliance
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Our systems meet and exceed all major electrical safety standards, ensuring reliable operation and
-              regulatory compliance for your facility.
-            </motion.p>
-          </motion.div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {[
-              {
-                name: "UL Listed",
-                standard: "UL 857",
-                description: "Underwriters Laboratories certification for busways and electrical distribution systems",
-                logo: "🏆",
-                color: "blue",
-              },
-              {
-                name: "NEC Compliant",
-                standard: "Article 368",
-                description: "National Electrical Code compliance for safe electrical installations",
-                logo: "⚡",
-                color: "green",
-              },
-              {
-                name: "CSA Certified",
-                standard: "CSA C22.2",
-                description: "Canadian Standards Association certification for electrical equipment",
-                logo: "🍁",
-                color: "red",
-              },
-              {
-                name: "OSHA Approved",
-                standard: "29 CFR 1910",
-                description: "Occupational Safety and Health Administration workplace safety standards",
-                logo: "🛡️",
-                color: "orange",
-              },
-              {
-                name: "IEEE Standards",
-                standard: "IEEE 1584",
-                description: "Institute of Electrical and Electronics Engineers arc flash calculation standards",
-                logo: "⚙️",
-                color: "purple",
-              },
-              {
-                name: "NEMA Rated",
-                standard: "NEMA 1-12",
-                description: "National Electrical Manufacturers Association enclosure ratings",
-                logo: "🔒",
-                color: "indigo",
-              },
-              {
-                name: "IEC Compliant",
-                standard: "IEC 61439",
-                description: "International Electrotechnical Commission switchgear standards",
-                logo: "🌍",
-                color: "teal",
-              },
-              {
-                name: "ISO Certified",
-                standard: "ISO 9001",
-                description: "International Organization for Standardization quality management",
-                logo: "✅",
-                color: "emerald",
-              },
-            ].map((cert, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-100px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -5, scale: 1.02 }}
-              >
-                <Card className="h-full text-center shadow-lg hover:shadow-xl transition-all">
-                  <CardHeader className="pb-4">
-                    <div className="text-4xl mb-3">{cert.logo}</div>
-                    <CardTitle className="text-lg lg:text-xl">{cert.name}</CardTitle>
-                    <CardDescription className="font-mono text-sm font-semibold">{cert.standard}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-slate-600 leading-relaxed">{cert.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div
-            className="text-center mt-12 lg:mt-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-          >
-            <div className="bg-gradient-to-r from-slate-50 to-blue-50 rounded-xl p-6 lg:p-8 border border-slate-200">
-              <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4">
-                25+ Years of Electrical Engineering Excellence
-              </h3>
-              <p className="text-slate-600 mb-6 max-w-3xl mx-auto">
-                Our commitment to safety and quality is backed by decades of experience and continuous compliance with
-                evolving industry standards. Every installation is performed by certified electricians and inspected to
-                ensure complete regulatory compliance.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-to-r from-slate-700 to-slate-900">
-                  <Download className="mr-2 w-5 h-5" />
-                  Download Compliance Documentation
-                </Button>
-                <Button size="lg" variant="outline">
-                  <Award className="mr-2 w-5 h-5" />
-                  View All Certifications
-                </Button>
-              </div>
+              {/* Traditional Track Systems */}
+              <Card className="border-0 shadow-2xl bg-gradient-to-br from-red-50 to-pink-50 overflow-hidden">
+                <CardHeader className="bg-gradient-to-r from-red-500 to-pink-600 text-white p-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
+                      <X className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-2xl font-bebas font-bold">Traditional Power Track</CardTitle>
+                      <CardDescription className="text-red-100 text-lg">Legacy Overhead Solution</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <ul className="space-y-4">
+                    {[
+                      "25 minute termination - £16 labour cost",
+                      "Visible cable trays and conduits",
+                      "Limited workspace flexibility",
+                      "Disruption during modifications",
+                      "Higher material and labour costs",
+                      "Complex installation requirements",
+                      "Aesthetic limitations",
+                      "Higher long-term maintenance",
+                    ].map((disadvantage, index) => (
+                      <li key={index} className="flex items-start gap-4 p-3 bg-white rounded-lg shadow-sm">
+                        <X className="w-5 h-5 text-red-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700 font-medium">{disadvantage}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
             </div>
-          </motion.div>
+
+            <div className="text-center">
+              <Card className="inline-block bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0 shadow-2xl">
+                <CardContent className="p-12">
+                  <div className="flex items-center gap-8">
+                    <div className="text-center">
+                      <div className="text-5xl font-bebas font-bold mb-2">£3,834</div>
+                      <div className="text-xl text-orange-100">Total Savings</div>
+                    </div>
+                    <div className="w-px h-16 bg-orange-300"></div>
+                    <div className="text-center">
+                      <div className="text-5xl font-bebas font-bold mb-2">36</div>
+                      <div className="text-xl text-orange-100">Hours Saved</div>
+                    </div>
+                  </div>
+                  <p className="text-xl mt-6 text-orange-100">on a typical 50 desk installation</p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 to-blue-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12 lg:mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="bg-orange-100 text-orange-800 mb-4 font-semibold">Get Started Today</Badge>
-            </motion.div>
-            <motion.h2
-              className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 lg:mb-6 text-slate-900"
-              variants={fadeInUp}
-            >
-              Ready to Transform Your Power Distribution?
-            </motion.h2>
-            <motion.p
-              className="text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed"
-              variants={fadeInUp}
-            >
-              Contact our engineering team for a comprehensive consultation, custom system design, and detailed project
-              proposal tailored to your facility's specific requirements.
-            </motion.p>
-          </motion.div>
+      <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+        {/* Background Elements */}
+        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-5"></div>
+        <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-500/5 rounded-full blur-2xl"></div>
 
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggerContainer}
-            >
+        <div className="relative container mx-auto px-4">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-20">
+              <div className="flex items-center justify-center gap-6 mb-8">
+                <div className="w-20 h-28">
+                  <img
+                    src="/apex-logo.svg"
+                    alt="Apex Wiring Solutions"
+                    className="w-full h-full object-contain filter invert"
+                  />
+                </div>
+              </div>
+              <h2 className="text-5xl md:text-6xl font-bebas font-bold mb-6">
+                CONNECTIONS WITHOUT
+                <span className="block text-orange-400">COMPROMISE</span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
+                Ready to revolutionise your power distribution? Our experts are standing by to help you discover how
+                <PowerFlexBrand size="md" className="text-orange-400 mx-2" /> can transform your commercial space with
+                cutting-edge efficiency.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
               {/* Contact Information */}
-              <motion.div variants={fadeInUp} className="space-y-8">
+              <div className="space-y-12">
                 <div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-6">Get in Touch</h3>
-                  <div className="space-y-4">
+                  <h3 className="text-4xl font-bebas font-bold mb-8 text-gradient bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                    GET IN TOUCH
+                  </h3>
+                  <div className="space-y-8">
                     {[
-                      {
-                        icon: "📞",
-                        title: "Phone",
-                        value: "(555) 123-4567",
-                        description: "Mon-Fri 8AM-6PM EST",
-                      },
-                      {
-                        icon: "✉️",
-                        title: "Email",
-                        value: "engineering@apexwiring.com",
-                        description: "Technical inquiries welcome",
-                      },
-                      {
-                        icon: "📍",
-                        title: "Address",
-                        value: "123 Industrial Blvd, Suite 100",
-                        description: "Manufacturing City, ST 12345",
-                      },
-                      {
-                        icon: "🕒",
-                        title: "Response Time",
-                        value: "Within 24 hours",
-                        description: "For all project inquiries",
-                      },
+                      { icon: Phone, title: "Phone", info: "+44 (0) 191 378 7900" },
+                      { icon: Mail, title: "Email", info: "info@apexwiringsolutions.co.uk" },
+                      { icon: MapPin, title: "Website", info: "www.apexwiringsolutions.co.uk" },
                     ].map((contact, index) => (
-                      <motion.div
+                      <div
                         key={index}
-                        className="flex items-start space-x-4 p-4 bg-white rounded-lg shadow-sm"
-                        whileHover={{ x: 5, backgroundColor: "#f8fafc" }}
+                        className="flex items-start gap-6 p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 hover:bg-white/10 transition-all duration-300"
                       >
-                        <div className="text-2xl">{contact.icon}</div>
-                        <div>
-                          <div className="font-semibold text-slate-900">{contact.title}</div>
-                          <div className="text-slate-700">{contact.value}</div>
-                          <div className="text-sm text-slate-600">{contact.description}</div>
+                        <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                          <contact.icon className="h-6 w-6 text-white" />
                         </div>
-                      </motion.div>
+                        <div>
+                          <h4 className="font-bebas font-bold text-lg mb-2">{contact.title}</h4>
+                          <p className="text-gray-300 text-lg">{contact.info}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 rounded-lg p-6 border border-orange-200">
-                  <h4 className="font-bold text-orange-800 mb-3">Emergency Support Available</h4>
-                  <p className="text-sm text-orange-700 mb-4">
-                    24/7 emergency support for critical power distribution issues. Our certified technicians are
-                    available for urgent repairs and system failures.
-                  </p>
-                  <Button size="sm" className="bg-orange-600 hover:bg-orange-700">
-                    Emergency Hotline: (555) 911-POWER
-                  </Button>
-                </div>
-              </motion.div>
-
-              {/* Contact Form */}
-              <motion.div variants={fadeInUp}>
-                <Card className="shadow-xl">
-                  <CardHeader>
-                    <CardTitle className="text-xl lg:text-2xl">Request Engineering Consultation</CardTitle>
-                    <CardDescription>
-                      Fill out the form below and our team will contact you within 24 hours
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">First Name *</label>
-                        <input
-                          type="text"
-                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                          placeholder="John"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">Last Name *</label>
-                        <input
-                          type="text"
-                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                          placeholder="Smith"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-slate-700 mb-2 block">Company *</label>
-                      <input
-                        type="text"
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="Your Company Name"
-                      />
-                    </div>
-
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">Email *</label>
-                        <input
-                          type="email"
-                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                          placeholder="john@company.com"
-                        />
-                      </div>
-                      <div>
-                        <label className="text-sm font-medium text-slate-700 mb-2 block">Phone</label>
-                        <input
-                          type="tel"
-                          className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                          placeholder="(555) 123-4567"
-                        />
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-slate-700 mb-2 block">Project Type</label>
-                      <select className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
-                        <option>New Installation</option>
-                        <option>System Upgrade</option>
-                        <option>Retrofit/Replacement</option>
-                        <option>Maintenance/Repair</option>
-                        <option>Consultation Only</option>
-                      </select>
-                    </div>
-
-                    <div>
-                      <label className="text-sm font-medium text-slate-700 mb-2 block">
-                        Project Details & Requirements
-                      </label>
-                      <textarea
-                        rows={4}
-                        className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-                        placeholder="Please describe your facility size, power requirements, timeline, and any specific challenges or goals for this project..."
-                      />
-                    </div>
-
-                    <div className="flex items-start space-x-3">
-                      <input type="checkbox" className="mt-1" />
-                      <div className="text-sm text-slate-600">
-                        I agree to receive communications from Apex Wiring Solutions regarding my project inquiry. You
-                        can unsubscribe at any time.
-                      </div>
-                    </div>
-
-                    <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                      <Button size="lg" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 text-lg py-4">
-                        Submit Engineering Request
-                        <ArrowRight className="ml-2 w-5 h-5" />
-                      </Button>
-                    </motion.div>
-
-                    <div className="text-center text-sm text-slate-600">
-                      Or call us directly at <span className="font-semibold text-slate-900">(555) 123-4567</span>
-                    </div>
+                <Card className="bg-white/5 backdrop-blur-sm border-white/10 overflow-hidden">
+                  <CardContent className="p-0">
+                    <img
+                      src="/placeholder.svg?height=300&width=500"
+                      alt="PowerFlex Installation Showcase"
+                      className="w-full h-64 object-cover"
+                    />
                   </CardContent>
                 </Card>
-              </motion.div>
-            </motion.div>
+              </div>
+
+              {/* Contact Form */}
+              <Card className="bg-white text-slate-900 border-0 shadow-2xl">
+                <CardHeader className="p-8 bg-gradient-to-r from-gray-50 to-white">
+                  <CardTitle className="text-3xl font-bebas font-bold">Request Information</CardTitle>
+                  <CardDescription className="text-lg text-gray-600 mt-2">
+                    Get in touch to learn more about <PowerFlexBrand size="sm" className="text-gray-600" /> solutions
+                    for your project. Our experts will respond within 24 hours.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="p-8">
+                  <form className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <Label htmlFor="first-name" className="text-sm font-semibold text-gray-700">
+                          First Name
+                        </Label>
+                        <Input
+                          id="first-name"
+                          placeholder="John"
+                          className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="last-name" className="text-sm font-semibold text-gray-700">
+                          Last Name
+                        </Label>
+                        <Input
+                          id="last-name"
+                          placeholder="Doe"
+                          className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                        Email Address
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="john@company.com"
+                        className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company" className="text-sm font-semibold text-gray-700">
+                        Company
+                      </Label>
+                      <Input
+                        id="company"
+                        placeholder="Your Company Name"
+                        className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="project-type" className="text-sm font-semibold text-gray-700">
+                        Project Type
+                      </Label>
+                      <Input
+                        id="project-type"
+                        placeholder="Office fit-out, new build, refurbishment..."
+                        className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="message" className="text-sm font-semibold text-gray-700">
+                        Message
+                      </Label>
+                      <Textarea
+                        id="message"
+                        placeholder="Tell us about your power distribution requirements..."
+                        rows={4}
+                        className="border-gray-200 focus:border-orange-500 focus:ring-orange-500 resize-none"
+                      />
+                    </div>
+                    <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg py-4 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group">
+                      Send Enquiry
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
