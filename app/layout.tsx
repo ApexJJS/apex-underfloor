@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Bebas_Neue } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
 
 const inter = Inter({
@@ -8,11 +8,6 @@ const inter = Inter({
   variable: "--font-inter",
 })
 
-const bebasNeue = Bebas_Neue({
-  weight: "400",
-  subsets: ["latin"],
-  variable: "--font-bebas",
-})
 
 export const metadata: Metadata = {
   title: "Apex Wiring Solutions - Professional Power Distribution",
@@ -27,8 +22,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${bebasNeue.variable}`}>
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className={`${inter.variable}`}>
+      <head>
+        <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
+      </head>
+      <body className={inter.className} suppressHydrationWarning={true}>{children}</body>
     </html>
   )
 }

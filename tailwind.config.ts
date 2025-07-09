@@ -20,7 +20,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        bebas: ["var(--font-bebas)"],
+        bebas: ["bebas-neue-pro", "bebas-neue", "sans-serif"],
         inter: ["var(--font-inter)"],
       },
       colors: {
@@ -70,7 +70,7 @@ const config = {
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {

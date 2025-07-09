@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -33,12 +33,145 @@ import {
 } from "lucide-react"
 
 export default function ApexWiringLanding() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    company: '',
+    projectType: '',
+    message: ''
+  })
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isDarkSection, setIsDarkSection] = useState(true)
+
+  // Handle navigation color change based on scroll position
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY
+      const heroSection = document.getElementById('hero')
+      const contactSection = document.getElementById('contact')
+      
+      if (heroSection && contactSection) {
+        const heroRect = heroSection.getBoundingClientRect()
+        const contactRect = contactSection.getBoundingClientRect()
+        
+        // Check if we're in a dark section (hero or contact)
+        const inDarkSection = heroRect.bottom > 100 || contactRect.top < 100
+        setIsDarkSection(inDarkSection)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll() // Initial check
+    
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {}
+    
+    if (!formData.firstName.trim()) errors.firstName = 'First name is required'
+    if (!formData.lastName.trim()) errors.lastName = 'Last name is required'
+    if (!formData.email.trim()) errors.email = 'Email is required'
+    else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email is invalid'
+    if (!formData.company.trim()) errors.company = 'Company is required'
+    if (!formData.message.trim()) errors.message = 'Message is required'
+    
+    setFormErrors(errors)
+    return Object.keys(errors).length === 0
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!validateForm()) return
+    
+    setIsSubmitting(true)
+    // TODO: Implement actual form submission
+    setTimeout(() => {
+      setIsSubmitting(false)
+      alert('Thank you for your enquiry! We will get back to you within 24 hours.')
+    }, 1000)
+  }
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
+    if (formErrors[field]) {
+      setFormErrors(prev => ({ ...prev, [field]: '' }))
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-white font-inter">
+    <div className="min-h-screen bg-white font-inter" suppressHydrationWarning={true}>
+      {/* Floating Navigation */}
+      <nav className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50">
+        <div className="relative flex items-center">
+          {/* Left Nav Bar */}
+          <div className={`backdrop-blur-md rounded-l-full pl-8 pr-24 py-3 shadow-xl transition-all duration-300 ${
+            isDarkSection 
+              ? 'bg-slate-800/90 border border-white/20' 
+              : 'bg-white/90 border border-gray-200/50'
+          }`}>
+            <div className="flex items-center space-x-6">
+              <a href="#benefits" className={`transition-colors text-sm font-medium ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-gray-700 hover:text-orange-600'
+              }`}>Benefits</a>
+              <a href="#products" className={`transition-colors text-sm font-medium ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-gray-700 hover:text-orange-600'
+              }`}>Products</a>
+            </div>
+          </div>
+          
+          {/* Right Nav Bar */}
+          <div className={`backdrop-blur-md rounded-r-full pr-8 pl-24 py-3 shadow-xl transition-all duration-300 ${
+            isDarkSection 
+              ? 'bg-slate-800/90 border border-white/20' 
+              : 'bg-white/90 border border-gray-200/50'
+          }`}>
+            <div className="flex items-center space-x-6">
+              <a href="#comparison" className={`transition-colors text-sm font-medium ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-gray-700 hover:text-orange-600'
+              }`}>Comparison</a>
+              <a href="#contact" className={`transition-colors text-sm font-medium ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-gray-700 hover:text-orange-600'
+              }`}>Contact</a>
+            </div>
+          </div>
+          
+          {/* Center Logo Circle - positioned above nav bars */}
+          <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+            <a 
+              href="#hero" 
+              className={`w-24 h-24 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 backdrop-blur-md cursor-pointer hover:scale-105 ${
+                isDarkSection 
+                  ? 'bg-slate-800/90 border border-white/20 hover:bg-slate-700/90' 
+                  : 'bg-white/90 border border-gray-200/50 hover:bg-gray-50/90'
+              }`}
+            >
+              <img
+                src="/apex-logo.svg"
+                alt="Apex Wiring Solutions"
+                className={`w-16 h-16 object-contain transition-all duration-300 ${
+                  isDarkSection 
+                    ? 'filter invert' 
+                    : ''
+                }`}
+              />
+            </a>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+      <section id="hero" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
         <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-10"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
 
@@ -50,34 +183,18 @@ export default function ApexWiringLanding() {
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="w-20 h-28 group">
-                    <img
-                      src="/apex-logo.svg"
-                      alt="Apex Wiring Solutions"
-                      className="w-full h-full object-contain filter invert transition-transform group-hover:scale-105"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Badge className="bg-gradient-to-r from-orange-500 to-orange-600 text-white border-0 px-4 py-2 text-sm font-medium">
-                      <PowerFlexBrand size="sm" className="text-white" /> by APEX WIRING SOLUTIONS
-                    </Badge>
-                    <p className="text-gray-300 text-sm font-medium tracking-wide">CONNECTIONS WITHOUT COMPROMISE</p>
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <h1 className="text-6xl md:text-8xl font-bebas font-bold leading-none">
-                    <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                      UNDERFLOOR
+                <div className="space-y-8">
+                  <h1 className="text-6xl md:text-8xl font-bebas font-extrabold leading-none">
+                    <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
+                      <PowerFlexBrand className="text-transparent bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text" />
                     </span>
                     <br />
-                    <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                      POWER
+                    <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
+                      UNDERFLOOR POWER
                     </span>
                   </h1>
 
-                  <p className="text-2xl md:text-3xl text-orange-400 font-light">The real alternative to power track</p>
+                  <p className="text-2xl md:text-3xl text-orange-400 font-light">Connections without compromise</p>
 
                   <p className="text-xl text-gray-300 max-w-2xl leading-relaxed">
                     Apex Wiring Solutions delivers cutting-edge electrical innovation for modern commercial spaces. Our
@@ -88,17 +205,23 @@ export default function ApexWiringLanding() {
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button
                     size="lg"
+                    asChild
                     className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
                   >
-                    Get Quote
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <a href="#contact">
+                      Get Quote
+                      <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </a>
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
+                    asChild
                     className="border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 px-8 py-4 text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-300"
                   >
-                    View Products
+                    <a href="#products">
+                      View Products
+                    </a>
                   </Button>
                 </div>
 
@@ -140,15 +263,15 @@ export default function ApexWiringLanding() {
       </section>
 
       {/* Key Benefits Section */}
-      <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <section id="benefits" className="py-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
               <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-6 py-3 rounded-full text-sm font-semibold mb-6">
                 <Star className="h-4 w-4" />
-                Why Choose <PowerFlexBrand size="sm" className="text-orange-700 ml-1" />
+                Why Choose <PowerFlexBrand className="text-orange-700 ml-1" />
               </div>
-              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
+              <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-6">
                 Revolutionary Power Distribution
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -176,7 +299,7 @@ export default function ApexWiringLanding() {
                     <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                       <benefit.icon className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-xl font-bebas font-bold text-slate-900 mb-3">{benefit.title}</h3>
+                    <h3 className="text-xl font-bebas font-extrabold text-slate-900 mb-3">{benefit.title}</h3>
                     <p className="text-gray-600 leading-relaxed">{benefit.desc}</p>
                   </CardContent>
                 </Card>
@@ -187,7 +310,7 @@ export default function ApexWiringLanding() {
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div className="space-y-8">
                 <div>
-                  <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-8">
+                  <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-8">
                     WE SAVE YOU
                     <span className="block text-orange-500">TIME & MONEY</span>
                   </h2>
@@ -195,8 +318,8 @@ export default function ApexWiringLanding() {
 
                 <Card className="bg-white border-0 shadow-xl">
                   <CardHeader className="bg-gradient-to-r from-slate-50 to-gray-50">
-                    <CardTitle className="text-2xl font-bebas font-bold text-slate-900">
-                      <PowerFlexBrand size="md" className="text-slate-900" /> vs Traditional Track
+                    <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
+                      <PowerFlexBrand className="text-slate-900" /> vs Traditional Track
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-8">
@@ -222,7 +345,7 @@ export default function ApexWiringLanding() {
 
                 <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-2xl">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-bebas font-bold mb-8 text-center">50 DESK INSTALLATION COMPARISON</h3>
+                    <h3 className="text-2xl font-bebas font-extrabold mb-8 text-center">50 DESK INSTALLATION COMPARISON</h3>
                     <div className="grid grid-cols-2 gap-8 mb-8">
                       <div className="space-y-4">
                         <h4 className="text-lg font-semibold text-gray-300">Traditional Track:</h4>
@@ -233,7 +356,7 @@ export default function ApexWiringLanding() {
                       </div>
                       <div className="space-y-4">
                         <h4 className="text-lg font-semibold text-gray-300">
-                          <PowerFlexBrand size="sm" className="text-gray-300" /> System:
+                          <PowerFlexBrand className="text-gray-300" /> System:
                         </h4>
                         <div className="space-y-2">
                           <p className="text-green-400 font-semibold">Materials: £5,343</p>
@@ -242,7 +365,7 @@ export default function ApexWiringLanding() {
                       </div>
                     </div>
                     <div className="text-center py-8 border-t border-gray-600">
-                      <div className="text-5xl font-bebas font-bold text-orange-400 mb-2">£3,834 SAVED</div>
+                      <div className="text-5xl font-bebas font-extrabold text-orange-400 mb-2">£3,834 SAVED</div>
                       <div className="text-2xl text-white">36 HOURS SAVED</div>
                     </div>
                   </CardContent>
@@ -275,7 +398,7 @@ export default function ApexWiringLanding() {
       </section>
 
       {/* Unified Product Showcase */}
-      <section className="py-32 bg-white">
+      <section id="products" className="py-32 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
@@ -284,8 +407,8 @@ export default function ApexWiringLanding() {
                 <Zap className="h-4 w-4" />
                 Complete Product Range
               </div>
-              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
-                <PowerFlexBrand size="lg" className="text-slate-900" /> Distribution Systems
+              <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-6">
+                <PowerFlexBrand size="xl" className="text-slate-900" /> Distribution Systems
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 Engineered for excellence. Our comprehensive range of modular power distribution components sets the
@@ -300,28 +423,28 @@ export default function ApexWiringLanding() {
                   <TabsList className="grid w-full grid-cols-4 mb-12 bg-white/80 backdrop-blur-sm border border-gray-200 shadow-lg h-16">
                     <TabsTrigger
                       value="master"
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-extrabold text-sm h-12"
                     >
                       <Building className="h-4 w-4 mr-2" />
                       MASTER DISTRIBUTION
                     </TabsTrigger>
                     <TabsTrigger
                       value="slave"
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-extrabold text-sm h-12"
                     >
                       <Users className="h-4 w-4 mr-2" />
                       SLAVE DISTRIBUTION
                     </TabsTrigger>
                     <TabsTrigger
                       value="tee"
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-extrabold text-sm h-12"
                     >
                       <Target className="h-4 w-4 mr-2" />
                       TEE DISTRIBUTORS
                     </TabsTrigger>
                     <TabsTrigger
                       value="leads"
-                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-bold text-sm h-12"
+                      className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500 data-[state=active]:to-orange-600 data-[state=active]:text-white font-bebas font-extrabold text-sm h-12"
                     >
                       <Lightbulb className="h-4 w-4 mr-2" />
                       POWER LEADS
@@ -333,7 +456,7 @@ export default function ApexWiringLanding() {
                     <div className="mb-12">
                       <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                         <div className="space-y-6">
-                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
+                          <h3 className="text-4xl font-bebas font-extrabold text-slate-900">
                             Centralised Power Distribution
                           </h3>
                           <p className="text-lg text-gray-700 leading-relaxed">
@@ -447,7 +570,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Home Run", value: "38mm ³⁄₄ B.L.N + 1 x CPC" },
@@ -466,7 +589,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Rated Voltage", value: "250/400V" },
@@ -548,7 +671,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Home Run", value: "38mm 27 x L, E, N + 1 x CPC" },
@@ -567,7 +690,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Rated Voltage", value: "250/400V" },
@@ -649,7 +772,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         {
@@ -671,7 +794,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Rated Voltage", value: "250/400V" },
@@ -738,7 +861,7 @@ export default function ApexWiringLanding() {
                     <div className="mb-12">
                       <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                         <div className="space-y-6">
-                          <h3 className="text-4xl font-bebas font-bold text-slate-900">Single Circuit Distribution</h3>
+                          <h3 className="text-4xl font-bebas font-extrabold text-slate-900">Single Circuit Distribution</h3>
                           <p className="text-lg text-gray-700 leading-relaxed">
                             Single Circuit Slave Distribution Boxes provide centralised connection for multiple
                             workstations. Engineered for simplified wiring with single point connection architecture.
@@ -844,7 +967,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         {
@@ -866,7 +989,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Rated Voltage", value: "250/400V" },
@@ -950,7 +1073,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         {
@@ -972,7 +1095,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Rated Voltage", value: "250/400V" },
@@ -1039,8 +1162,8 @@ export default function ApexWiringLanding() {
                     <div className="mb-12">
                       <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                         <div className="space-y-6">
-                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
-                            3 Pole <PowerFlexBrand size="lg" className="text-slate-900" /> Tee
+                          <h3 className="text-4xl font-bebas font-extrabold text-slate-900">
+                            3 Pole <PowerFlexBrand className="text-slate-900" /> Tee
                           </h3>
                           <p className="text-lg text-gray-700 leading-relaxed">
                             ENSTO XL Tee distributor with 1 power input and 2 power outputs. Seamless integration with
@@ -1123,7 +1246,7 @@ export default function ApexWiringLanding() {
                           <div className="lg:col-span-3">
                             <div className="grid md:grid-cols-2 gap-8">
                               <div className="space-y-4">
-                                <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                 <div className="space-y-3">
                                   {[
                                     { label: "Description", value: "3 Pole Ensto XL Tee - XLAD3" },
@@ -1139,7 +1262,7 @@ export default function ApexWiringLanding() {
                                 </div>
                               </div>
                               <div className="space-y-4">
-                                <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                 <div className="space-y-3">
                                   {[
                                     { label: "Frequency", value: "50Hz" },
@@ -1203,8 +1326,8 @@ export default function ApexWiringLanding() {
                     <div className="mb-12">
                       <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
                         <div className="space-y-6">
-                          <h3 className="text-4xl font-bebas font-bold text-slate-900">
-                            3 Pole <PowerFlexBrand size="lg" className="text-slate-900" /> Leads
+                          <h3 className="text-4xl font-bebas font-extrabold text-slate-900">
+                            3 Pole <PowerFlexBrand className="text-slate-900" /> Leads
                           </h3>
                           <p className="text-lg text-gray-700 leading-relaxed">
                             Armoured connection and extender leads for flexible power distribution. Engineered for quick
@@ -1307,7 +1430,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         {
@@ -1329,7 +1452,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Frequency", value: "50Hz" },
@@ -1413,7 +1536,7 @@ export default function ApexWiringLanding() {
                               <div className="lg:col-span-3">
                                 <div className="grid md:grid-cols-2 gap-8">
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">POWER SPECIFICATIONS</h4>
                                     <div className="space-y-3">
                                       {[
                                         {
@@ -1435,7 +1558,7 @@ export default function ApexWiringLanding() {
                                     </div>
                                   </div>
                                   <div className="space-y-4">
-                                    <h4 className="font-bebas font-bold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
+                                    <h4 className="font-bebas font-extrabold text-slate-900 mb-4">TECHNICAL DETAILS</h4>
                                     <div className="space-y-3">
                                       {[
                                         { label: "Frequency", value: "50Hz" },
@@ -1506,7 +1629,7 @@ export default function ApexWiringLanding() {
       </section>
 
       {/* Comparison Section */}
-      <section className="py-32 bg-gradient-to-b from-gray-50 to-white">
+      <section id="comparison" className="py-32 bg-gradient-to-b from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-20">
@@ -1514,8 +1637,8 @@ export default function ApexWiringLanding() {
                 <BarChart3 className="h-4 w-4" />
                 Performance Comparison
               </div>
-              <h2 className="text-5xl md:text-6xl font-bebas font-bold text-slate-900 mb-6">
-                Why Choose <PowerFlexBrand size="lg" className="text-slate-900" />?
+              <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-6">
+                Why Choose <PowerFlexBrand size="xl" className="text-slate-900" />?
               </h2>
               <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
                 See how our revolutionary underfloor power systems outperform traditional overhead solutions across
@@ -1532,8 +1655,8 @@ export default function ApexWiringLanding() {
                       <CheckCircle className="h-6 w-6" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl font-bebas font-bold">
-                        <PowerFlexBrand size="md" className="text-white" /> Underfloor System
+                      <CardTitle className="text-2xl font-bebas font-extrabold">
+                        <PowerFlexBrand className="text-white" /> Underfloor System
                       </CardTitle>
                       <CardDescription className="text-green-100 text-lg">Modern Modular Solution</CardDescription>
                     </div>
@@ -1568,7 +1691,7 @@ export default function ApexWiringLanding() {
                       <X className="h-6 w-6" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl font-bebas font-bold">Traditional Power Track</CardTitle>
+                      <CardTitle className="text-2xl font-bebas font-extrabold">Traditional Power Track</CardTitle>
                       <CardDescription className="text-red-100 text-lg">Legacy Overhead Solution</CardDescription>
                     </div>
                   </div>
@@ -1600,12 +1723,12 @@ export default function ApexWiringLanding() {
                 <CardContent className="p-12">
                   <div className="flex items-center gap-8">
                     <div className="text-center">
-                      <div className="text-5xl font-bebas font-bold mb-2">£3,834</div>
+                      <div className="text-5xl font-bebas font-extrabold mb-2">£3,834</div>
                       <div className="text-xl text-orange-100">Total Savings</div>
                     </div>
                     <div className="w-px h-16 bg-orange-300"></div>
                     <div className="text-center">
-                      <div className="text-5xl font-bebas font-bold mb-2">36</div>
+                      <div className="text-5xl font-bebas font-extrabold mb-2">36</div>
                       <div className="text-xl text-orange-100">Hours Saved</div>
                     </div>
                   </div>
@@ -1618,7 +1741,7 @@ export default function ApexWiringLanding() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
+      <section id="contact" className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-5"></div>
         <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
@@ -1636,13 +1759,13 @@ export default function ApexWiringLanding() {
                   />
                 </div>
               </div>
-              <h2 className="text-5xl md:text-6xl font-bebas font-bold mb-6">
+              <h2 className="text-5xl md:text-6xl font-bebas font-extrabold mb-6">
                 CONNECTIONS WITHOUT
                 <span className="block text-orange-400">COMPROMISE</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
                 Ready to revolutionise your power distribution? Our experts are standing by to help you discover how
-                <PowerFlexBrand size="md" className="text-orange-400 mx-2" /> can transform your commercial space with
+                <PowerFlexBrand className="text-orange-400 mx-2" /> can transform your commercial space with
                 cutting-edge efficiency.
               </p>
             </div>
@@ -1651,7 +1774,7 @@ export default function ApexWiringLanding() {
               {/* Contact Information */}
               <div className="space-y-12">
                 <div>
-                  <h3 className="text-4xl font-bebas font-bold mb-8 text-gradient bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  <h3 className="text-4xl font-bebas font-extrabold mb-8 text-gradient bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                     GET IN TOUCH
                   </h3>
                   <div className="space-y-8">
@@ -1668,7 +1791,7 @@ export default function ApexWiringLanding() {
                           <contact.icon className="h-6 w-6 text-white" />
                         </div>
                         <div>
-                          <h4 className="font-bebas font-bold text-lg mb-2">{contact.title}</h4>
+                          <h4 className="font-bebas font-extrabold text-lg mb-2">{contact.title}</h4>
                           <p className="text-gray-300 text-lg">{contact.info}</p>
                         </div>
                       </div>
@@ -1690,56 +1813,68 @@ export default function ApexWiringLanding() {
               {/* Contact Form */}
               <Card className="bg-white text-slate-900 border-0 shadow-2xl">
                 <CardHeader className="p-8 bg-gradient-to-r from-gray-50 to-white">
-                  <CardTitle className="text-3xl font-bebas font-bold">Request Information</CardTitle>
+                  <CardTitle className="text-3xl font-bebas font-extrabold">Request Information</CardTitle>
                   <CardDescription className="text-lg text-gray-600 mt-2">
-                    Get in touch to learn more about <PowerFlexBrand size="sm" className="text-gray-600" /> solutions
+                    Get in touch to learn more about <PowerFlexBrand className="text-gray-600" /> solutions
                     for your project. Our experts will respond within 24 hours.
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-8">
-                  <form className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="first-name" className="text-sm font-semibold text-gray-700">
-                          First Name
+                          First Name *
                         </Label>
                         <Input
                           id="first-name"
+                          value={formData.firstName}
+                          onChange={(e) => handleInputChange('firstName', e.target.value)}
                           placeholder="John"
-                          className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                          className={`h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500 ${formErrors.firstName ? 'border-red-500' : ''}`}
                         />
+                        {formErrors.firstName && <p className="text-red-500 text-sm">{formErrors.firstName}</p>}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="last-name" className="text-sm font-semibold text-gray-700">
-                          Last Name
+                          Last Name *
                         </Label>
                         <Input
                           id="last-name"
+                          value={formData.lastName}
+                          onChange={(e) => handleInputChange('lastName', e.target.value)}
                           placeholder="Doe"
-                          className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                          className={`h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500 ${formErrors.lastName ? 'border-red-500' : ''}`}
                         />
+                        {formErrors.lastName && <p className="text-red-500 text-sm">{formErrors.lastName}</p>}
                       </div>
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
-                        Email Address
+                        Email Address *
                       </Label>
                       <Input
                         id="email"
                         type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="john@company.com"
-                        className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                        className={`h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500 ${formErrors.email ? 'border-red-500' : ''}`}
                       />
+                      {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="company" className="text-sm font-semibold text-gray-700">
-                        Company
+                        Company *
                       </Label>
                       <Input
                         id="company"
+                        value={formData.company}
+                        onChange={(e) => handleInputChange('company', e.target.value)}
                         placeholder="Your Company Name"
-                        className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
+                        className={`h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500 ${formErrors.company ? 'border-red-500' : ''}`}
                       />
+                      {formErrors.company && <p className="text-red-500 text-sm">{formErrors.company}</p>}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="project-type" className="text-sm font-semibold text-gray-700">
@@ -1747,23 +1882,32 @@ export default function ApexWiringLanding() {
                       </Label>
                       <Input
                         id="project-type"
+                        value={formData.projectType}
+                        onChange={(e) => handleInputChange('projectType', e.target.value)}
                         placeholder="Office fit-out, new build, refurbishment..."
                         className="h-12 border-gray-200 focus:border-orange-500 focus:ring-orange-500"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="message" className="text-sm font-semibold text-gray-700">
-                        Message
+                        Message *
                       </Label>
                       <Textarea
                         id="message"
+                        value={formData.message}
+                        onChange={(e) => handleInputChange('message', e.target.value)}
                         placeholder="Tell us about your power distribution requirements..."
                         rows={4}
-                        className="border-gray-200 focus:border-orange-500 focus:ring-orange-500 resize-none"
+                        className={`border-gray-200 focus:border-orange-500 focus:ring-orange-500 resize-none ${formErrors.message ? 'border-red-500' : ''}`}
                       />
+                      {formErrors.message && <p className="text-red-500 text-sm">{formErrors.message}</p>}
                     </div>
-                    <Button className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg py-4 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group">
-                      Send Enquiry
+                    <Button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white text-lg py-4 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group disabled:opacity-50"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Enquiry'}
                       <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </Button>
                   </form>
