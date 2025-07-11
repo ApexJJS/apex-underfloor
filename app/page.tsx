@@ -202,13 +202,14 @@ export default function ApexWiringLanding() {
                   </p>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4" suppressHydrationWarning>
                   <Button
                     size="lg"
                     asChild
                     className="bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 group"
+                    suppressHydrationWarning
                   >
-                    <a href="#contact">
+                    <a href="#contact" suppressHydrationWarning>
                       Get Quote
                       <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                     </a>
@@ -218,8 +219,9 @@ export default function ApexWiringLanding() {
                     variant="outline"
                     asChild
                     className="border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 px-8 py-4 text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-300"
+                    suppressHydrationWarning
                   >
-                    <a href="#products">
+                    <a href="#products" suppressHydrationWarning>
                       View Products
                     </a>
                   </Button>
@@ -306,91 +308,179 @@ export default function ApexWiringLanding() {
               ))}
             </div>
 
-            {/* Cost Comparison */}
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-8">
-                <div>
-                  <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-8">
-                    WE SAVE YOU
-                    <span className="block text-orange-500">TIME & MONEY</span>
-                  </h2>
+            {/* Cost Savings Showcase */}
+            <div className="space-y-16">
+              {/* Header */}
+              <div className="text-center">
+                <div className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-6 py-3 rounded-full text-sm font-semibold mb-6">
+                  <BarChart3 className="h-4 w-4" />
+                  Cost Analysis
                 </div>
+                <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-6">
+                  REVOLUTIONARY
+                  <span className="block bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">COST SAVINGS</span>
+                </h2>
+                <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                  Experience dramatic reductions in both material costs and installation time with our innovative zero-termination technology.
+                </p>
+              </div>
 
-                <Card className="bg-white border-0 shadow-xl">
-                  <CardHeader className="bg-gradient-to-r from-slate-50 to-gray-50">
-                    <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
-                      <PowerFlexBrand className="text-slate-900" /> vs Traditional Track
+              {/* Main Comparison Grid */}
+              <div className="grid lg:grid-cols-3 gap-8">
+                
+                {/* Termination Comparison */}
+                <Card className="bg-gradient-to-br from-white to-gray-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-bebas font-extrabold text-slate-900 text-center">
+                      TERMINATION COMPARISON
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-8">
-                    <div className="space-y-6">
-                      {[
-                        { time: "0 Minute", cost: "£0", label: "PowerFlex Termination", highlight: true },
-                        { time: "5 Minute", cost: "£3", label: "Quick Termination", highlight: false },
-                        { time: "25 Minute", cost: "£16", label: "Traditional Termination", highlight: false },
-                      ].map((item, index) => (
-                        <div
-                          key={index}
-                          className={`flex justify-between items-center py-4 px-6 rounded-xl ${item.highlight ? "bg-orange-50 border-2 border-orange-200" : "bg-gray-50"}`}
-                        >
-                          <span className="font-semibold text-gray-700">{item.time} Termination</span>
-                          <span className={`font-bold text-lg ${item.highlight ? "text-orange-600" : "text-gray-600"}`}>
-                            {item.cost} Labour
-                          </span>
+                  <CardContent className="p-6">
+                    <div className="space-y-4">
+                      <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4 rounded-xl text-white">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-2xl font-bebas font-extrabold">0 MIN</div>
+                            <div className="text-sm opacity-90"><PowerFlexBrand className="text-white" /></div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bebas font-extrabold">£0</div>
+                            <div className="text-sm opacity-90">Labour</div>
+                          </div>
                         </div>
-                      ))}
+                      </div>
+                      
+                      <div className="bg-gray-100 p-4 rounded-xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-lg font-semibold text-gray-700">5 MIN</div>
+                            <div className="text-sm text-gray-600">Quick Term</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-lg font-semibold text-gray-700">£3</div>
+                            <div className="text-sm text-gray-600">Labour</div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="bg-gray-100 p-4 rounded-xl">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-lg font-semibold text-gray-700">25 MIN</div>
+                            <div className="text-sm text-gray-600">Traditional</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-lg font-semibold text-gray-700">£16</div>
+                            <div className="text-sm text-gray-600">Labour</div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-2xl">
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-bebas font-extrabold mb-8 text-center">50 DESK INSTALLATION COMPARISON</h3>
-                    <div className="grid grid-cols-2 gap-8 mb-8">
-                      <div className="space-y-4">
-                        <h4 className="text-lg font-semibold text-gray-300">Traditional Track:</h4>
+                {/* Installation Comparison */}
+                <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-bebas font-extrabold text-center">
+                      50 DESK INSTALLATION
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="space-y-6">
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-orange-400 uppercase tracking-wide">Traditional Track</h4>
                         <div className="space-y-2">
-                          <p className="text-orange-400 font-semibold">Materials: £7,918</p>
-                          <p className="text-orange-400 font-semibold">Labour: £1,946</p>
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Materials</span>
+                            <span className="font-semibold">£7,918</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Labour</span>
+                            <span className="font-semibold">£1,946</span>
+                          </div>
+                          <div className="border-t border-gray-600 pt-2">
+                            <div className="flex justify-between">
+                              <span className="font-semibold">Total</span>
+                              <span className="font-bold text-lg">£9,864</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      <div className="space-y-4">
-                        <h4 className="text-lg font-semibold text-gray-300">
-                          <PowerFlexBrand className="text-gray-300" /> System:
+
+                      <div className="space-y-3">
+                        <h4 className="text-sm font-semibold text-green-400 uppercase tracking-wide">
+                          <PowerFlexBrand className="text-green-400 inline" /> System
                         </h4>
                         <div className="space-y-2">
-                          <p className="text-green-400 font-semibold">Materials: £5,343</p>
-                          <p className="text-green-400 font-semibold">Labour: £857</p>
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Materials</span>
+                            <span className="font-semibold text-green-400">£5,343</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-300">Labour</span>
+                            <span className="font-semibold text-green-400">£857</span>
+                          </div>
+                          <div className="border-t border-gray-600 pt-2">
+                            <div className="flex justify-between">
+                              <span className="font-semibold">Total</span>
+                              <span className="font-bold text-lg text-green-400">£6,200</span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="text-center py-8 border-t border-gray-600">
-                      <div className="text-5xl font-bebas font-extrabold text-orange-400 mb-2">£3,834 SAVED</div>
-                      <div className="text-2xl text-white">36 HOURS SAVED</div>
+                  </CardContent>
+                </Card>
+
+                {/* Savings Summary */}
+                <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl font-bebas font-extrabold text-center">
+                      YOUR SAVINGS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-6">
+                    <div className="space-y-8 text-center">
+                      <div>
+                        <div className="text-4xl font-bebas font-extrabold mb-2">£3,834</div>
+                        <div className="text-sm opacity-90 uppercase tracking-wide">Cost Reduction</div>
+                        <div className="text-xs opacity-75 mt-1">39% Less Expensive</div>
+                      </div>
+                      
+                      <div className="border-t border-green-400 pt-6">
+                        <div className="text-3xl font-bebas font-extrabold mb-2">36 HOURS</div>
+                        <div className="text-sm opacity-90 uppercase tracking-wide">Time Saved</div>
+                        <div className="text-xs opacity-75 mt-1">75% Faster Installation</div>
+                      </div>
+                      
+                      <div className="bg-white/10 rounded-lg p-4">
+                        <div className="text-sm font-semibold mb-1">Break-even Point</div>
+                        <div className="text-lg font-bebas">First Project</div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
               </div>
 
-              <div className="space-y-8">
-                <Card className="bg-white border-0 shadow-xl overflow-hidden">
-                  <CardContent className="p-0">
-                    <img
-                      src="/placeholder.svg?height=400&width=600"
-                      alt="Installation Time Comparison Chart"
-                      className="w-full h-64 object-contain"
-                    />
-                  </CardContent>
-                </Card>
-                <Card className="bg-white border-0 shadow-xl overflow-hidden">
-                  <CardContent className="p-0">
-                    <img
-                      src="/placeholder.svg?height=300&width=600"
-                      alt="PowerFlex System Architecture"
-                      className="w-full h-48 object-contain"
-                    />
-                  </CardContent>
-                </Card>
+              {/* Bottom Impact Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bebas font-extrabold text-orange-600 mb-2">0min</div>
+                  <div className="text-sm text-gray-600 font-medium">Termination Time</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bebas font-extrabold text-orange-600 mb-2">39%</div>
+                  <div className="text-sm text-gray-600 font-medium">Cost Reduction</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bebas font-extrabold text-orange-600 mb-2">75%</div>
+                  <div className="text-sm text-gray-600 font-medium">Faster Install</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bebas font-extrabold text-orange-600 mb-2">100%</div>
+                  <div className="text-sm text-gray-600 font-medium">ROI Guarantee</div>
+                </div>
               </div>
             </div>
           </div>
