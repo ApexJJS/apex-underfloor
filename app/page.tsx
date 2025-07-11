@@ -1773,7 +1773,7 @@ export default function ApexWiringLanding() {
       {/* Contact Section */}
       <section id="contact" className="py-32 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white relative overflow-hidden">
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-5"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900/50 via-slate-800/30 to-slate-900/50"></div>
         <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-20 w-48 h-48 bg-orange-500/5 rounded-full blur-2xl"></div>
 
@@ -1829,23 +1829,40 @@ export default function ApexWiringLanding() {
                   </div>
                 </div>
 
-                <Card className="bg-white/5 backdrop-blur-sm border-white/10 overflow-hidden">
-                  <CardContent className="p-0">
-                    <img
-                      src="/placeholder.svg?height=300&width=500"
-                      alt="PowerFlex Installation Showcase"
-                      className="w-full h-64 object-contain"
-                    />
-                  </CardContent>
-                </Card>
+                <div className="p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+                  <h4 className="font-bebas font-extrabold text-2xl text-orange-400 mb-4">Why Choose Apex?</h4>
+                  <ul className="space-y-3 text-gray-300">
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="h-5 w-5 text-orange-400 flex-shrink-0" />
+                      <span>Expert consultation and design support</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="h-5 w-5 text-orange-400 flex-shrink-0" />
+                      <span>Rapid response within 24 hours</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="h-5 w-5 text-orange-400 flex-shrink-0" />
+                      <span>Tailored PowerFlex solutions</span>
+                    </li>
+                    <li className="flex items-center gap-3">
+                      <CheckCircle className="h-5 w-5 text-orange-400 flex-shrink-0" />
+                      <span>Comprehensive technical documentation</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
 
               {/* Contact Form */}
-              <Card className="bg-white text-slate-900 border-0 shadow-2xl">
-                <CardHeader className="p-8 bg-gradient-to-r from-gray-50 to-white">
-                  <CardTitle className="text-3xl font-bebas font-extrabold">Request Information</CardTitle>
+              <Card className="bg-white text-slate-900 border-0 shadow-2xl hover:shadow-3xl transition-all duration-300">
+                <CardHeader className="p-8 bg-gradient-to-r from-orange-50 to-white border-b border-orange-100">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center">
+                      <Mail className="h-5 w-5 text-white" />
+                    </div>
+                    <CardTitle className="text-3xl font-bebas font-extrabold text-slate-900">Request Information</CardTitle>
+                  </div>
                   <CardDescription className="text-lg text-gray-600 mt-2">
-                    Get in touch to learn more about <PowerFlexBrand className="text-gray-600" /> solutions
+                    Get in touch to learn more about <PowerFlexBrand className="text-orange-600" /> solutions
                     for your project. Our experts will respond within 24 hours.
                   </CardDescription>
                 </CardHeader>
