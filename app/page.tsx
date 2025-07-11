@@ -378,7 +378,7 @@ export default function ApexWiringLanding() {
                     <img
                       src="/placeholder.svg?height=400&width=600"
                       alt="Installation Time Comparison Chart"
-                      className="w-full h-64 object-cover"
+                      className="w-full h-64 object-contain"
                     />
                   </CardContent>
                 </Card>
@@ -387,7 +387,7 @@ export default function ApexWiringLanding() {
                     <img
                       src="/placeholder.svg?height=300&width=600"
                       alt="PowerFlex System Architecture"
-                      className="w-full h-48 object-cover"
+                      className="w-full h-48 object-contain"
                     />
                   </CardContent>
                 </Card>
@@ -480,45 +480,25 @@ export default function ApexWiringLanding() {
                         <div className="grid grid-cols-2 gap-6">
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <ImageIcon className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Target className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">CENTRALIZED CONTROL</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Master Distribution Box"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                View Gallery
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Single point connection architecture simplifies installation and reduces wiring complexity across multiple workstations.
+                              </p>
                             </CardContent>
                           </Card>
 
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <FileText className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <CheckCircle className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">SELF-LOCKING DISCONNECT</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Wiring Schematic"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download PDF
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Advanced disconnect mechanism ensures secure connections while allowing easy maintenance and reconfiguration.
+                              </p>
                             </CardContent>
                           </Card>
                         </div>
@@ -612,19 +592,26 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="6 Port Master Distribution"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/6port%20MDB%20Box%20Image.png"
+                                      alt="6-port Master Distribution Box featuring multiple power outlets and through-power capability"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
+                                  </CardContent>
+                                </Card>
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Schematic</span>
+                                    </div>
+                                    <img
+                                      src="/images/schematics/6port%20MDB%20Box%20Schematic.png"
+                                      alt="6-port Master Distribution Box technical wiring diagram"
+                                      className="w-full h-32 object-contain rounded-lg"
+                                    />
                                   </CardContent>
                                 </Card>
                               </div>
@@ -713,19 +700,26 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="9 Port Master Distribution"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/9port%20MDB%20Box%20Image.png"
+                                      alt="9-port Master Distribution Box with advanced power distribution for large installations"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
+                                  </CardContent>
+                                </Card>
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Schematic</span>
+                                    </div>
+                                    <img
+                                      src="/images/schematics/9port%20MDB%20Box%20Schematic.png"
+                                      alt="9-port Master Distribution Box technical wiring diagram"
+                                      className="w-full h-32 object-contain rounded-lg"
+                                    />
                                   </CardContent>
                                 </Card>
                               </div>
@@ -817,19 +811,26 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="10 Port Master Distribution"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/10port%20SDB%20image.png"
+                                      alt="10-port Master Distribution Box providing centralized power distribution for multiple workstations"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
+                                  </CardContent>
+                                </Card>
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Schematic</span>
+                                    </div>
+                                    <img
+                                      src="/images/schematics/10port%20SDB%20schematic.png"
+                                      alt="10-port Master Distribution Box technical wiring diagram"
+                                      className="w-full h-32 object-contain rounded-lg"
+                                    />
                                   </CardContent>
                                 </Card>
                               </div>
@@ -883,45 +884,25 @@ export default function ApexWiringLanding() {
                         <div className="grid grid-cols-2 gap-6">
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <ImageIcon className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Zap className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">THROUGH POWER CAPABILITY</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Slave Distribution Box"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                View Gallery
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Advanced through power design allows seamless connection of multiple distribution points for scalable installations.
+                              </p>
                             </CardContent>
                           </Card>
 
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <FileText className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Award className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">CERTIFIED QUALITY</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Wiring Schematic"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download PDF
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                ISO 9001:2015 certified and IEC 61535:2009+A1:2013 compliant for guaranteed performance and safety standards.
+                              </p>
                             </CardContent>
                           </Card>
                         </div>
@@ -1012,19 +993,26 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="4 Port Slave Distribution"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/4port%20single%20circuit%20SDB%20image.png"
+                                      alt="4-port single circuit Slave Distribution Box with compact design for smaller installations"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
+                                  </CardContent>
+                                </Card>
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Schematic</span>
+                                    </div>
+                                    <img
+                                      src="/images/schematics/4port%20single%20circuit%20SDB%20schematic.png"
+                                      alt="4-port single circuit Slave Distribution Box technical wiring diagram"
+                                      className="w-full h-32 object-contain rounded-lg"
+                                    />
                                   </CardContent>
                                 </Card>
                               </div>
@@ -1118,19 +1106,26 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="6 Port Slave Distribution"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/6port-single-circuit-SDB-image.png"
+                                      alt="6-port single circuit Slave Distribution Box for medium-scale office power distribution"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
+                                  </CardContent>
+                                </Card>
+                                <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
+                                  <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Schematic</span>
+                                    </div>
+                                    <img
+                                      src="/images/schematics/6port%20single%20circuit%20SDB%20schematic.png"
+                                      alt="6-port single circuit Slave Distribution Box technical wiring diagram"
+                                      className="w-full h-32 object-contain rounded-lg"
+                                    />
                                   </CardContent>
                                 </Card>
                               </div>
@@ -1182,45 +1177,25 @@ export default function ApexWiringLanding() {
                         <div className="grid grid-cols-2 gap-6">
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <ImageIcon className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Product Gallery</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Lightbulb className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">INTEGRATED CONNECTOR</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="3 Pole PowerFlex Tee"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                View Gallery
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Built-in plug-in connector system provides secure lockable connections for reliable power distribution without additional components.
+                              </p>
                             </CardContent>
                           </Card>
 
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <FileText className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Technical Docs</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Clock className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">QUICK CONNECTION</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Tee Schematic"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download PDF
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Rapid installation capability reduces deployment time while maintaining seamless integration with other system connectors.
+                              </p>
                             </CardContent>
                           </Card>
                         </div>
@@ -1282,19 +1257,14 @@ export default function ApexWiringLanding() {
                           <div className="space-y-4">
                             <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                               <CardContent className="p-6">
+                                <div className="text-center py-2 mb-4">
+                                  <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                </div>
                                 <img
-                                  src="/placeholder.svg?height=150&width=200"
-                                  alt="3 Pole ENSTO XL Tee"
-                                  className="w-full h-32 object-cover rounded-lg mb-4"
+                                  src="/images/products/3POLE%20powerflex%20TEE.png"
+                                  alt="3-Pole PowerFlex TEE connector with integrated plug-in system for quick installations"
+                                  className="w-full h-32 object-contain rounded-lg"
                                 />
-                                <Button
-                                  variant="ghost"
-                                  size="sm"
-                                  className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                >
-                                  <Download className="h-4 w-4 mr-2" />
-                                  Download Specs
-                                </Button>
                               </CardContent>
                             </Card>
                           </div>
@@ -1346,45 +1316,25 @@ export default function ApexWiringLanding() {
                         <div className="grid grid-cols-2 gap-6">
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <ImageIcon className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Connection Lead</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Shield className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">ARMOURED CONSTRUCTION</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Connection Lead"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <ExternalLink className="h-4 w-4 mr-2" />
-                                View Gallery
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Heavy-duty armoured design provides superior protection and durability for demanding commercial environments.
+                              </p>
                             </CardContent>
                           </Card>
 
                           <Card className="bg-white border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
                             <CardContent className="p-6">
-                              <div className="flex items-center gap-2 mb-4">
-                                <ImageIcon className="h-4 w-4 text-gray-500" />
-                                <span className="text-sm text-gray-500 font-medium">Extender Lead</span>
+                              <div className="flex items-center gap-3 mb-4">
+                                <Zap className="h-6 w-6 text-orange-600" />
+                                <h4 className="font-bebas text-lg text-slate-900">FLEXIBLE EXTENSIONS</h4>
                               </div>
-                              <img
-                                src="/placeholder.svg?height=200&width=250"
-                                alt="Extender Lead"
-                                className="w-full h-32 object-cover rounded-lg mb-4"
-                              />
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                              >
-                                <Download className="h-4 w-4 mr-2" />
-                                Download PDF
-                              </Button>
+                              <p className="text-gray-600 leading-relaxed">
+                                Extender leads allow for flexible power distribution across complex installation layouts and configurations.
+                              </p>
                             </CardContent>
                           </Card>
                         </div>
@@ -1475,19 +1425,14 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="3 Pole Connection Lead"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/3Pole%20powerflex%20connection%20lead.png"
+                                      alt="3-Pole PowerFlex connection lead with reinforced connector for industrial applications"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
                                   </CardContent>
                                 </Card>
                               </div>
@@ -1581,19 +1526,14 @@ export default function ApexWiringLanding() {
                               <div className="space-y-4">
                                 <Card className="bg-gradient-to-br from-gray-50 to-white border-0 shadow-lg">
                                   <CardContent className="p-6">
+                                    <div className="text-center py-2 mb-4">
+                                      <span className="text-sm text-gray-500 font-medium">Product Image</span>
+                                    </div>
                                     <img
-                                      src="/placeholder.svg?height=150&width=200"
-                                      alt="3 Pole Extender Lead"
-                                      className="w-full h-32 object-cover rounded-lg mb-4"
+                                      src="/images/products/3Pole%20powerflex%20extender%20lead.png"
+                                      alt="3-Pole PowerFlex extender lead with male connector and female socket for daisy-chaining"
+                                      className="w-full h-32 object-contain rounded-lg"
                                     />
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      className="w-full text-orange-600 hover:text-orange-700 hover:bg-orange-50"
-                                    >
-                                      <Download className="h-4 w-4 mr-2" />
-                                      Download Specs
-                                    </Button>
                                   </CardContent>
                                 </Card>
                               </div>
@@ -1804,7 +1744,7 @@ export default function ApexWiringLanding() {
                     <img
                       src="/placeholder.svg?height=300&width=500"
                       alt="PowerFlex Installation Showcase"
-                      className="w-full h-64 object-cover"
+                      className="w-full h-64 object-contain"
                     />
                   </CardContent>
                 </Card>
