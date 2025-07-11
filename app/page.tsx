@@ -190,7 +190,7 @@ export default function ApexWiringLanding() {
                     </span>
                     <br />
                     <span className="bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text text-transparent">
-                      UNDERFLOOR POWER
+                      Underfloor Power
                     </span>
                   </h1>
 
@@ -230,15 +230,15 @@ export default function ApexWiringLanding() {
                 {/* Stats */}
                 <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-700">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-orange-400">£3,834</div>
+                    <div className="text-3xl font-bebas font-extrabold text-orange-400">£3,834</div>
                     <div className="text-sm text-gray-400">Cost Savings</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-orange-400">36hrs</div>
+                    <div className="text-3xl font-bebas font-extrabold text-orange-400">36hrs</div>
                     <div className="text-sm text-gray-400">Time Saved</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-orange-400">0min</div>
+                    <div className="text-3xl font-bebas font-extrabold text-orange-400">0min</div>
                     <div className="text-sm text-gray-400">Termination</div>
                   </div>
                 </div>
@@ -317,8 +317,8 @@ export default function ApexWiringLanding() {
                   Cost Analysis
                 </div>
                 <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-slate-900 mb-6">
-                  REVOLUTIONARY
-                  <span className="block bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">COST SAVINGS</span>
+                  Revolutionary
+                  <span className="block bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">Cost Savings</span>
                 </h2>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
                   Experience dramatic reductions in both material costs and installation time with our innovative zero-termination technology.
@@ -332,7 +332,7 @@ export default function ApexWiringLanding() {
                 <Card className="bg-gradient-to-br from-white to-gray-50 border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl font-bebas font-extrabold text-slate-900 text-center">
-                      TERMINATION COMPARISON
+                      Termination Comparison
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
@@ -353,11 +353,11 @@ export default function ApexWiringLanding() {
                       <div className="bg-gray-100 p-4 rounded-xl">
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-lg font-semibold text-gray-700">5 MIN</div>
+                            <div className="text-lg font-bebas font-extrabold text-gray-700">5 MIN</div>
                             <div className="text-sm text-gray-600">Quick Term</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-lg font-semibold text-gray-700">£3</div>
+                            <div className="text-lg font-bebas font-extrabold text-gray-700">£3</div>
                             <div className="text-sm text-gray-600">Labour</div>
                           </div>
                         </div>
@@ -366,11 +366,11 @@ export default function ApexWiringLanding() {
                       <div className="bg-gray-100 p-4 rounded-xl">
                         <div className="flex items-center justify-between">
                           <div>
-                            <div className="text-lg font-semibold text-gray-700">25 MIN</div>
+                            <div className="text-lg font-bebas font-extrabold text-gray-700">25 MIN</div>
                             <div className="text-sm text-gray-600">Traditional</div>
                           </div>
                           <div className="text-right">
-                            <div className="text-lg font-semibold text-gray-700">£16</div>
+                            <div className="text-lg font-bebas font-extrabold text-gray-700">£16</div>
                             <div className="text-sm text-gray-600">Labour</div>
                           </div>
                         </div>
@@ -383,7 +383,7 @@ export default function ApexWiringLanding() {
                 <Card className="bg-gradient-to-br from-slate-900 to-slate-800 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl font-bebas font-extrabold text-center">
-                      50 DESK INSTALLATION
+                      50 Desk Installation
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
@@ -437,7 +437,7 @@ export default function ApexWiringLanding() {
                 <Card className="bg-gradient-to-br from-green-500 to-green-600 text-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300">
                   <CardHeader className="pb-4">
                     <CardTitle className="text-xl font-bebas font-extrabold text-center">
-                      YOUR SAVINGS
+                      Your Savings
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6">
@@ -456,7 +456,7 @@ export default function ApexWiringLanding() {
                       
                       <div className="bg-white/10 rounded-lg p-4">
                         <div className="text-sm font-semibold mb-1">Break-even Point</div>
-                        <div className="text-lg font-bebas">First Project</div>
+                        <div className="text-lg font-bebas font-extrabold">First Project</div>
                       </div>
                     </div>
                   </CardContent>
@@ -572,7 +572,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Target className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">CENTRALIZED CONTROL</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">CENTRALIZED CONTROL</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Single point connection architecture simplifies installation and reduces wiring complexity across multiple workstations.
@@ -584,7 +584,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <CheckCircle className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">SELF-LOCKING DISCONNECT</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">SELF-LOCKING DISCONNECT</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Advanced disconnect mechanism ensures secure connections while allowing easy maintenance and reconfiguration.
@@ -600,19 +600,19 @@ export default function ApexWiringLanding() {
                       <TabsList className="grid w-full grid-cols-3 mb-8 bg-white border border-gray-200">
                         <TabsTrigger
                           value="6-port"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           6 PORT MASTER
                         </TabsTrigger>
                         <TabsTrigger
                           value="9-port"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           9 PORT MASTER
                         </TabsTrigger>
                         <TabsTrigger
                           value="10-port"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           10 PORT MASTER
                         </TabsTrigger>
@@ -623,7 +623,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   6 Port Master Distribution
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -731,7 +731,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   9 Port Master Distribution
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -839,7 +839,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   10 Port Master Distribution
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -976,7 +976,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Zap className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">THROUGH POWER CAPABILITY</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">THROUGH POWER CAPABILITY</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Advanced through power design allows seamless connection of multiple distribution points for scalable installations.
@@ -988,7 +988,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Award className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">CERTIFIED QUALITY</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">CERTIFIED QUALITY</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 ISO 9001:2015 certified and IEC 61535:2009+A1:2013 compliant for guaranteed performance and safety standards.
@@ -1004,13 +1004,13 @@ export default function ApexWiringLanding() {
                       <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-gray-200">
                         <TabsTrigger
                           value="4-port"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           4 PORT SLAVE
                         </TabsTrigger>
                         <TabsTrigger
                           value="6-port"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           6 PORT SLAVE
                         </TabsTrigger>
@@ -1021,7 +1021,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   4 Port Slave Distribution
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -1134,7 +1134,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   6 Port Slave Distribution
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -1269,7 +1269,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Lightbulb className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">INTEGRATED CONNECTOR</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">INTEGRATED CONNECTOR</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Built-in plug-in connector system provides secure lockable connections for reliable power distribution without additional components.
@@ -1281,7 +1281,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Clock className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">QUICK CONNECTION</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">QUICK CONNECTION</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Rapid installation capability reduces deployment time while maintaining seamless integration with other system connectors.
@@ -1296,7 +1296,7 @@ export default function ApexWiringLanding() {
                       <CardHeader className="pb-6">
                         <div className="flex items-center justify-between">
                           <div>
-                            <CardTitle className="text-2xl font-bebas text-slate-900">3 Pole ENSTO XL Tee</CardTitle>
+                            <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">3 Pole ENSTO XL Tee</CardTitle>
                             <CardDescription className="text-gray-600 font-mono text-sm mt-2">
                               1.4.E.3.0.BKT
                             </CardDescription>
@@ -1408,7 +1408,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Shield className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">ARMOURED CONSTRUCTION</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">ARMOURED CONSTRUCTION</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Heavy-duty armoured design provides superior protection and durability for demanding commercial environments.
@@ -1420,7 +1420,7 @@ export default function ApexWiringLanding() {
                             <CardContent className="p-6">
                               <div className="flex items-center gap-3 mb-4">
                                 <Zap className="h-6 w-6 text-orange-600" />
-                                <h4 className="font-bebas text-lg text-slate-900">FLEXIBLE EXTENSIONS</h4>
+                                <h4 className="font-bebas font-extrabold text-lg text-slate-900">FLEXIBLE EXTENSIONS</h4>
                               </div>
                               <p className="text-gray-600 leading-relaxed">
                                 Extender leads allow for flexible power distribution across complex installation layouts and configurations.
@@ -1436,13 +1436,13 @@ export default function ApexWiringLanding() {
                       <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border border-gray-200">
                         <TabsTrigger
                           value="connection"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           CONNECTION LEAD
                         </TabsTrigger>
                         <TabsTrigger
                           value="extender"
-                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas"
+                          className="data-[state=active]:bg-orange-50 data-[state=active]:text-orange-700 font-bebas font-extrabold"
                         >
                           EXTENDER LEAD
                         </TabsTrigger>
@@ -1453,7 +1453,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   3 Pole Connection Lead
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -1554,7 +1554,7 @@ export default function ApexWiringLanding() {
                           <CardHeader className="pb-6">
                             <div className="flex items-center justify-between">
                               <div>
-                                <CardTitle className="text-2xl font-bebas text-slate-900">
+                                <CardTitle className="text-2xl font-bebas font-extrabold text-slate-900">
                                   3 Pole Extender Lead
                                 </CardTitle>
                                 <CardDescription className="text-gray-600 font-mono text-sm mt-2">
@@ -1790,8 +1790,8 @@ export default function ApexWiringLanding() {
                 </div>
               </div>
               <h2 className="text-5xl md:text-6xl font-bebas font-extrabold mb-6">
-                CONNECTIONS WITHOUT
-                <span className="block text-orange-400">COMPROMISE</span>
+                Connections Without
+                <span className="block text-orange-400">Compromise</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-4xl mx-auto mb-12 leading-relaxed">
                 Ready to revolutionise your power distribution? Our experts are standing by to help you discover how
@@ -1805,7 +1805,7 @@ export default function ApexWiringLanding() {
               <div className="space-y-12">
                 <div>
                   <h3 className="text-4xl font-bebas font-extrabold mb-8 text-gradient bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                    GET IN TOUCH
+                    Get In Touch
                   </h3>
                   <div className="space-y-8">
                     {[
