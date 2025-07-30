@@ -24,6 +24,11 @@ const config = {
         inter: ["var(--font-inter)"],
       },
       colors: {
+        brand: {
+          navy: "#1e293b",
+          yellow: "#f2eb42",
+          white: "#ffffff",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
