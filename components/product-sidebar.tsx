@@ -443,7 +443,7 @@ export function ProductSidebar() {
   }
 
   const currentProduct = productCategories
-    .flatMap(cat => cat.products)
+    .flatMap(cat => cat.products as any[])
     .find(product => product.id === selectedProduct)
     
   const currentVariant = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'variants' in currentProduct
