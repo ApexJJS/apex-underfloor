@@ -1,30 +1,38 @@
-# Apex Landing Page
+# PowerFlex - Underfloor Power by Apex Wiring Solutions
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+A modern, responsive Next.js website showcasing PowerFlex underfloor power distribution systems.
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/jamies-projects-e83943cf/v0-apex-landing-page)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/hSBeES40DHP)
 
 ## Overview
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+Professional website for Apex Wiring Solutions' PowerFlex underfloor power distribution systems, featuring modular wiring solutions with both Stand-Alone and Integrated system architectures.
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run linting
+npm run lint
+```
 
 ## Deployment
 
-Your project is live at:
+The project is deployed on Vercel and automatically updates when changes are pushed to the main branch.
 
-**[https://vercel.com/jamies-projects-e83943cf/v0-apex-landing-page](https://vercel.com/jamies-projects-e83943cf/v0-apex-landing-page)**
+## Architecture
 
-## Build your app
-
-Continue building your app on:
-
-**[https://v0.dev/chat/projects/hSBeES40DHP](https://v0.dev/chat/projects/hSBeES40DHP)**
-
-## How It Works
-
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Built with:
+- Next.js 15.2.4
+- TypeScript
+- Tailwind CSS
+- Radix UI Components
+- ShadCN/UI Components

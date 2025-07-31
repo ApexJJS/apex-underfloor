@@ -10,10 +10,9 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: "Apex Wiring Solutions - Professional Power Distribution",
+  title: "PowerFlex - Underfloor Power by Apex Wiring Solutions",
   description:
-    "Professional wiring solutions for industrial applications. Master distribution, slave distribution, tee distributors, and power leads.",
-    generator: 'v0.dev'
+    "Professional wiring solutions for industrial applications. Master distribution, slave distribution, tee distributors, and power leads."
 }
 
 export default function RootLayout({

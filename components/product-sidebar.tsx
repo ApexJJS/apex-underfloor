@@ -443,22 +443,30 @@ export function ProductSidebar() {
   }
 
   const currentProduct = productCategories
-    // @ts-ignore - Mixed product data structures, functionality works correctly  
     .flatMap(cat => cat.products)
-    // @ts-ignore
     .find(product => product.id === selectedProduct)
     
-  const currentVariant = (currentProduct as any)?.hasVariants 
-    ? (currentProduct as any).variants?.find((v: any) => v.id === selectedVariant)
+  const currentVariant = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'variants' in currentProduct
+    ? currentProduct.variants?.find((v: any) => v.id === selectedVariant)
     : null
 
-  const currentSpecs = (currentProduct as any)?.hasVariants 
-    ? { ...(currentProduct as any).commonSpecs, ...currentVariant?.specs }
-    : (currentProduct as any)?.commonSpecs || (currentProduct as any)?.specs
+  const currentSpecs = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'commonSpecs' in currentProduct
+    ? { ...currentProduct.commonSpecs, ...(currentVariant?.specs || {}) }
+    : currentProduct && 'commonSpecs' in currentProduct 
+      ? currentProduct.commonSpecs 
+      : currentProduct && 'specs' in currentProduct 
+        ? currentProduct.specs 
+        : {}
 
-  const currentImage = (currentProduct as any)?.hasVariants
-    ? (imageView === "product" ? currentVariant?.image : (currentProduct as any).technicalDrawing)
-    : (imageView === "product" ? (currentProduct as any)?.image : (currentProduct as any)?.technicalDrawing)
+  const currentImage = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants
+    ? (imageView === "product" 
+        ? currentVariant?.image 
+        : 'technicalDrawing' in currentProduct ? currentProduct.technicalDrawing : undefined)
+    : currentProduct 
+      ? (imageView === "product" 
+          ? ('image' in currentProduct ? currentProduct.image : undefined)
+          : ('technicalDrawing' in currentProduct ? currentProduct.technicalDrawing : undefined))
+      : undefined
 
   return (
     <div className="bg-gradient-to-br from-slate-50 to-white">
@@ -537,24 +545,24 @@ export function ProductSidebar() {
 
           {/* Product Details */}
           <div className="lg:col-span-3">
-            {(currentProduct as any) && (
+            {currentProduct && (
               <div className="space-y-8">
                 <Card className="bg-white border-0 shadow-xl">
                   <CardHeader className="pb-6">
                     <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                       <div className="flex-1">
                         <CardTitle className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">
-                          {(currentProduct as any).name}
+                          {'name' in currentProduct ? currentProduct.name : 'Unknown Product'}
                         </CardTitle>
                         <p className="text-lg text-gray-600 leading-relaxed mb-6">
-                          {(currentProduct as any).description}
+                          {'description' in currentProduct ? currentProduct.description : ''}
                         </p>
                         
                         {/* Variant Tabs */}
-                        {(currentProduct as any)?.hasVariants && (currentProduct as any)?.variants && (
+                        {currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'variants' in currentProduct && currentProduct.variants && (
                           <div className="mb-6">
                             <div className="flex flex-wrap gap-2 mb-4">
-                              {(currentProduct as any).variants.map((variant: any) => (
+                              {currentProduct.variants.map((variant: any) => (
                                 <Button
                                   key={variant.id}
                                   variant={selectedVariant === variant.id ? "default" : "outline"}
@@ -606,7 +614,7 @@ export function ProductSidebar() {
                             {currentImage ? (
                               <img 
                                 src={currentImage} 
-                                alt={`${(currentProduct as any).name} ${imageView === "technical" ? "technical drawing" : currentVariant?.name || ""}`}
+                                alt={`${currentProduct && 'name' in currentProduct ? currentProduct.name : 'Product'} ${imageView === "technical" ? "technical drawing" : currentVariant?.name || ""}`}
                                 className="w-full h-full object-cover"
                               />
                             ) : (
