@@ -26,8 +26,8 @@ const config = {
       colors: {
         brand: {
           navy: "#1e293b",
-          yellow: "#f2eb42",
-          "yellow-light": "#f5f063", // Slightly lighter brand yellow for gradients
+          yellow: "#f0ea45",
+          "yellow-light": "#f4ee5a", // Slightly lighter brand yellow for gradients
           white: "#ffffff",
         },
         slate: {
