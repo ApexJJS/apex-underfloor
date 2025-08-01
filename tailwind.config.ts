@@ -29,6 +29,10 @@ const config = {
           yellow: "#f2eb42",
           white: "#ffffff",
         },
+        slate: {
+          800: "#1e293b", // Use brand navy
+          900: "#0f172a", // Keep darker for deep backgrounds
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
