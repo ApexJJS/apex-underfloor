@@ -20,18 +20,48 @@ export function SystemSchematic() {
           </p>
         </div>
 
-        {/* Placeholder */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
-          <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl overflow-hidden">
-            <div className="aspect-[16/10] flex items-center justify-center">
-              <div className="text-center p-8">
-                <FileImage className="h-24 w-24 text-gray-400 mx-auto mb-4" />
-                <p className="text-2xl font-bebas font-extrabold text-gray-600 mb-2">Interactive System Schematic</p>
-                <p className="text-lg text-gray-500 mb-4">Coming Soon</p>
-                <p className="text-sm text-gray-400 max-w-md mx-auto">
-                  Interactive diagram showing complete PowerFlex system architecture with clickable components
-                </p>
-              </div>
+        {/* System Schematic */}
+        <div className="space-y-12">
+          {/* Main Schematic - Full Width */}
+          <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Complete System Layout</h3>
+              <p className="text-gray-600 leading-relaxed">
+                PowerFlex underfloor power distribution from distribution board to individual desk connections
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl overflow-hidden">
+              <img 
+                src="/images/schematics/powerflexschematicexample.svg" 
+                alt="PowerFlex System Schematic - Complete underfloor power distribution layout" 
+                className="w-full h-auto max-w-none"
+                style={{ minHeight: '400px' }}
+              />
+            </div>
+          </div>
+          
+          {/* Schematic Key - Full Width */}
+          <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
+            <div className="mb-8">
+              <h3 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Component Legend</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Understanding the symbols and components used in PowerFlex system diagrams
+              </p>
+            </div>
+            <div className="bg-white rounded-2xl overflow-hidden flex justify-center">
+              <img 
+                src="/images/schematics/powerflexschematicexamplekey.svg" 
+                alt="PowerFlex System Schematic Key - Component legend" 
+                className="max-w-full h-auto"
+                style={{ minHeight: '300px', maxWidth: '800px' }}
+              />
+            </div>
+            <div className="mt-8 bg-gray-50 rounded-xl p-6">
+              <p className="text-gray-700 leading-relaxed">
+                This comprehensive diagram demonstrates the modular flexibility of PowerFlex systems, 
+                showing how components interconnect to create efficient underfloor power distribution. 
+                Each symbol represents a specific PowerFlex component designed for fast, flexible installation.
+              </p>
             </div>
           </div>
         </div>

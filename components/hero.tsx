@@ -1,12 +1,36 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { PowerFlexBrand } from "./powerflex-brand"
 
+const heroImages = [
+  {
+    src: "/images/powerflexMDBlayoutimage.jpg",
+    alt: "PowerFlex Underfloor Power System - Installation View 1"
+  },
+  {
+    src: "/images/powerflexMDBlayoutimage2.jpg", 
+    alt: "PowerFlex Underfloor Power System - Installation View 2"
+  },
+  {
+    src: "/images/powerflexMDBlayoutimage3.jpg",
+    alt: "PowerFlex Underfloor Power System - Installation View 3"
+  }
+]
+
 export function Hero() {
+  const [currentImage, setCurrentImage] = useState(0)
+
+  // Auto-cycle through images
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % heroImages.length)
+    }, 4000) // 4 seconds per card
+
+    return () => clearInterval(interval)
+  }, [])
   return (
     <section id="hero" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
-      <div className="absolute inset-0 bg-[url('/placeholder.svg?height=800&width=1200')] bg-cover bg-center opacity-10"></div>
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
 
       {/* Floating Elements */}
@@ -87,11 +111,55 @@ export function Hero() {
 
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-r from-brand-yellow/20 to-slate-500/20 rounded-3xl blur-3xl"></div>
-              <img
-                src="/placeholder.svg?height=700&width=900"
-                alt="PowerFlex Underfloor Power System Installation"
-                className="relative w-full h-auto rounded-3xl shadow-2xl border border-white/10"
-              />
+              
+              {/* Card Stack Container */}
+              <div className="relative h-96 lg:h-[500px] perspective-1000">
+                {heroImages.map((image, index) => {
+                  const isActive = index === currentImage
+                  const isPrevious = index === (currentImage - 1 + heroImages.length) % heroImages.length
+                  const isNext = index === (currentImage + 1) % heroImages.length
+                  
+                  let cardClasses = "absolute inset-0 rounded-3xl shadow-2xl border border-white/10 overflow-hidden transition-all duration-700 ease-in-out"
+                  
+                  if (isActive) {
+                    cardClasses += " z-30 opacity-100 transform scale-100 rotate-0"
+                  } else if (isPrevious) {
+                    cardClasses += " z-20 opacity-60 transform scale-95 -rotate-2 -translate-x-8 translate-y-4"
+                  } else if (isNext) {
+                    cardClasses += " z-20 opacity-60 transform scale-95 rotate-2 translate-x-8 translate-y-4"
+                  } else {
+                    cardClasses += " z-10 opacity-30 transform scale-90 translate-y-8"
+                  }
+                  
+                  return (
+                    <div key={index} className={cardClasses}>
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Card overlay for depth */}
+                      {!isActive && (
+                        <div className="absolute inset-0 bg-slate-900/20"></div>
+                      )}
+                    </div>
+                  )
+                })}
+                
+                {/* Subtle cycling indicator */}
+                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-40">
+                  {heroImages.map((_, index) => (
+                    <div
+                      key={index}
+                      className={`h-1 rounded-full transition-all duration-700 ${
+                        index === currentImage
+                          ? 'w-8 bg-brand-yellow'
+                          : 'w-2 bg-white/30'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
