@@ -51,6 +51,10 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable}`}>
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
+        {/* Preload hero images for instant display */}
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage.jpg" />
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage2.jpg" />
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage3.jpg" />
       </head>
       <body className={inter.className} suppressHydrationWarning={true}>{children}</body>
     </html>

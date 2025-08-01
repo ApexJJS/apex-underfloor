@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { PowerFlexBrand } from "./powerflex-brand"
@@ -134,14 +133,10 @@ export function Hero() {
                   
                   return (
                     <div key={index} className={cardClasses}>
-                      <Image
+                      <img
                         src={image.src}
                         alt={image.alt}
-                        fill
-                        className="object-cover"
-                        priority={true} // Priority load all images for instant display
-                        quality={90}
-                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="w-full h-full object-cover"
                       />
                       {/* Card overlay for depth */}
                       {!isActive && (
