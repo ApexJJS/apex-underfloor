@@ -93,10 +93,10 @@ export function SystemArchitecture() {
 
           {/* Integrated System */}
           <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group">
-            <CardHeader className="bg-gradient-to-r from-slate-600 to-slate-700 text-white p-8">
+            <CardHeader className="bg-gradient-to-r from-brand-navy to-slate-800 text-white p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
-                  <Cable className="h-6 w-6 text-slate-600" />
+                  <Cable className="h-6 w-6 text-brand-navy" />
                 </div>
                 <div>
                   <CardTitle className="text-3xl font-bebas font-extrabold">Integrated</CardTitle>
@@ -190,24 +190,24 @@ export function SystemArchitecture() {
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-xl font-bebas font-extrabold text-brand-navy border-b border-slate-300 pb-2">
+              <h4 className="text-xl font-bebas font-extrabold text-brand-navy border-b border-brand-navy pb-2">
                 Choose Integrated When:
               </h4>
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                  <ArrowRight className="h-5 w-5 text-brand-navy flex-shrink-0" />
                   <span className="text-brand-navy">Retrofitting existing buildings</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                  <ArrowRight className="h-5 w-5 text-brand-navy flex-shrink-0" />
                   <span className="text-brand-navy">Working around structural constraints</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                  <ArrowRight className="h-5 w-5 text-brand-navy flex-shrink-0" />
                   <span className="text-brand-navy">Frequent layout reconfiguration needed</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
+                  <ArrowRight className="h-5 w-5 text-brand-navy flex-shrink-0" />
                   <span className="text-brand-navy">Integration with existing track systems</span>
                 </div>
               </div>
