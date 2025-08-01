@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { PowerFlexBrand } from "./powerflex-brand"
@@ -20,15 +21,42 @@ const heroImages = [
 
 export function Hero() {
   const [currentImage, setCurrentImage] = useState(0)
+  const [imagesLoaded, setImagesLoaded] = useState(false)
 
-  // Auto-cycle through images
+  // Preload all images on component mount
   useEffect(() => {
+    const preloadImages = async () => {
+      const imagePromises = heroImages.map((image) => {
+        return new Promise((resolve, reject) => {
+          const img = new Image()
+          img.onload = resolve
+          img.onerror = reject
+          img.src = image.src
+        })
+      })
+
+      try {
+        await Promise.all(imagePromises)
+        setImagesLoaded(true)
+      } catch (error) {
+        console.error('Error preloading images:', error)
+        setImagesLoaded(true) // Show anyway to prevent indefinite loading
+      }
+    }
+
+    preloadImages()
+  }, [])
+
+  // Auto-cycle through images (only start after images are loaded)
+  useEffect(() => {
+    if (!imagesLoaded) return
+
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % heroImages.length)
     }, 4000) // 4 seconds per card
 
     return () => clearInterval(interval)
-  }, [])
+  }, [imagesLoaded])
   return (
     <section id="hero" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
@@ -114,6 +142,16 @@ export function Hero() {
               
               {/* Card Stack Container */}
               <div className="relative h-96 lg:h-[500px] perspective-1000">
+                {/* Loading State */}
+                {!imagesLoaded && (
+                  <div className="absolute inset-0 rounded-3xl shadow-2xl border border-white/10 overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center z-50">
+                    <div className="text-center">
+                      <div className="w-12 h-12 border-4 border-brand-yellow/30 border-t-brand-yellow rounded-full animate-spin mx-auto mb-4"></div>
+                      <p className="text-white/60 text-sm">Loading PowerFlex images...</p>
+                    </div>
+                  </div>
+                )}
+
                 {heroImages.map((image, index) => {
                   const isActive = index === currentImage
                   const isPrevious = index === (currentImage - 1 + heroImages.length) % heroImages.length
@@ -133,14 +171,18 @@ export function Hero() {
                   
                   return (
                     <div key={index} className={cardClasses}>
-                      <img
+                      <Image
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        priority={index === 0} // Priority load first image
+                        quality={85}
+                        sizes="(max-width: 768px) 100vw, 50vw"
                       />
                       {/* Card overlay for depth */}
                       {!isActive && (
-                        <div className="absolute inset-0 bg-slate-900/20"></div>
+                        <div className="absolute inset-0 bg-slate-900/20 z-10"></div>
                       )}
                     </div>
                   )
