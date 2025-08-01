@@ -28,8 +28,8 @@ export function Hero() {
     const preloadImages = async () => {
       const imagePromises = heroImages.map((image) => {
         return new Promise((resolve, reject) => {
-          const img = new Image()
-          img.onload = resolve
+          const img = document.createElement('img')
+          img.onload = () => resolve(img)
           img.onerror = reject
           img.src = image.src
         })
