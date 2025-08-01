@@ -476,7 +476,7 @@ export function ProductSidebar() {
           <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
             <PowerFlexBrand theme="navy" className="mr-3" /> Products
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
             Explore our comprehensive range of underfloor power distribution solutions, from master distribution boxes to access grommets.
           </p>
         </div>
@@ -527,7 +527,7 @@ export function ProductSidebar() {
                               className={`w-full justify-start text-sm ${
                                 selectedProduct === product.id 
                                   ? 'bg-brand-navy/10 text-brand-navy font-medium' 
-                                  : 'text-gray-600 hover:text-brand-navy hover:bg-gray-50'
+                                  : 'text-brand-navy hover:text-brand-navy hover:bg-gray-50'
                               }`}
                               onClick={() => setSelectedProduct(product.id)}
                             >
@@ -554,7 +554,7 @@ export function ProductSidebar() {
                         <CardTitle className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">
                           {'name' in currentProduct ? currentProduct.name : 'Unknown Product'}
                         </CardTitle>
-                        <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                        <p className="text-lg text-brand-navy leading-relaxed mb-6">
                           {'description' in currentProduct ? currentProduct.description : ''}
                         </p>
                         
@@ -632,7 +632,7 @@ export function ProductSidebar() {
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {currentSpecs && Object.entries(currentSpecs).map(([key, value]) => (
                         <div key={key} className="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border">
-                          <div className="text-sm font-semibold text-gray-700 mb-1 capitalize">
+                          <div className="text-sm font-semibold text-brand-navy mb-1 capitalize">
                             {key.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}
                           </div>
                           <div className="text-sm text-gray-900 font-medium">

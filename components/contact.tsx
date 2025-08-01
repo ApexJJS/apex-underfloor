@@ -183,7 +183,7 @@ export function Contact() {
                     </div>
                     <CardTitle className="text-3xl font-bebas font-extrabold text-brand-navy">Request Information</CardTitle>
                   </div>
-                  <CardDescription className="text-lg text-gray-600 mt-2">
+                  <CardDescription className="text-lg text-brand-navy mt-2">
                     Get in touch to learn more about <PowerFlexBrand theme="navy" /> solutions
                     for your project. Our experts will respond within 24 hours.
                   </CardDescription>
@@ -192,7 +192,7 @@ export function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="first-name" className="text-sm font-semibold text-gray-700">
+                        <Label htmlFor="first-name" className="text-sm font-semibold text-brand-navy">
                           First Name *
                         </Label>
                         <Input
@@ -205,7 +205,7 @@ export function Contact() {
                         {formErrors.firstName && <p className="text-red-500 text-sm">{formErrors.firstName}</p>}
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="last-name" className="text-sm font-semibold text-gray-700">
+                        <Label htmlFor="last-name" className="text-sm font-semibold text-brand-navy">
                           Last Name *
                         </Label>
                         <Input
@@ -219,7 +219,7 @@ export function Contact() {
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                      <Label htmlFor="email" className="text-sm font-semibold text-brand-navy">
                         Email Address *
                       </Label>
                       <Input
@@ -233,7 +233,7 @@ export function Contact() {
                       {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="company" className="text-sm font-semibold text-gray-700">
+                      <Label htmlFor="company" className="text-sm font-semibold text-brand-navy">
                         Company *
                       </Label>
                       <Input
@@ -246,7 +246,7 @@ export function Contact() {
                       {formErrors.company && <p className="text-red-500 text-sm">{formErrors.company}</p>}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="project-type" className="text-sm font-semibold text-gray-700">
+                      <Label htmlFor="project-type" className="text-sm font-semibold text-brand-navy">
                         Project Type
                       </Label>
                       <Input
@@ -258,7 +258,7 @@ export function Contact() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="message" className="text-sm font-semibold text-gray-700">
+                      <Label htmlFor="message" className="text-sm font-semibold text-brand-navy">
                         Message *
                       </Label>
                       <Textarea
@@ -283,7 +283,7 @@ export function Contact() {
                             onChange={(e) => handleInputChange('gdprConsent', e.target.checked)}
                             className={`mt-1 w-4 h-4 text-brand-yellow bg-gray-100 border-gray-300 rounded focus:ring-brand-yellow focus:ring-2 ${formErrors.gdprConsent ? 'border-red-500' : ''}`}
                           />
-                          <label htmlFor="gdpr-consent" className="text-sm text-gray-600 leading-relaxed">
+                          <label htmlFor="gdpr-consent" className="text-sm text-brand-navy leading-relaxed">
                             I consent to Apex Wiring Solutions processing my personal data to respond to my enquiry. 
                             I understand my data will be handled in accordance with the{' '}
                             <Link href="/privacy-policy" target="_blank" className="text-brand-navy hover:text-brand-yellow underline">
@@ -301,7 +301,7 @@ export function Contact() {
                             onChange={(e) => handleInputChange('marketingConsent', e.target.checked)}
                             className="mt-1 w-4 h-4 text-brand-yellow bg-gray-100 border-gray-300 rounded focus:ring-brand-yellow focus:ring-2"
                           />
-                          <label htmlFor="marketing-consent" className="text-sm text-gray-600 leading-relaxed">
+                          <label htmlFor="marketing-consent" className="text-sm text-brand-navy leading-relaxed">
                             I would like to receive updates about PowerFlex products and services from Apex Wiring Solutions. 
                             I can unsubscribe at any time.
                           </label>

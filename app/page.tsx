@@ -129,7 +129,7 @@ export default function ApexWiringLanding() {
                   className={`w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300 ${
                     isDarkSection 
                       ? 'text-white/80 hover:text-white hover:bg-white/10' 
-                      : 'text-gray-700 hover:text-brand-yellow hover:bg-gray-100'
+                      : 'text-brand-navy hover:text-brand-yellow hover:bg-gray-100'
                   }`}
                 >
                   <div className="relative w-5 h-5">
@@ -159,17 +159,17 @@ export default function ApexWiringLanding() {
                 <button onClick={() => smoothScrollTo('benefits')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Benefits</button>
                 <button onClick={() => smoothScrollTo('products')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Products</button>
                 <button onClick={() => smoothScrollTo('comparison')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Comparison</button>
               </div>
             </div>
@@ -184,17 +184,17 @@ export default function ApexWiringLanding() {
                 <button onClick={() => smoothScrollTo('architecture')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Architecture</button>
                 <button onClick={() => smoothScrollTo('schematic')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Schematic</button>
                 <button onClick={() => smoothScrollTo('contact')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                   isDarkSection 
                     ? 'text-white/80 hover:text-white' 
-                    : 'text-gray-700 hover:text-brand-yellow'
+                    : 'text-brand-navy hover:text-brand-yellow'
                 }`}>Contact</button>
               </div>
             </div>
@@ -320,7 +320,7 @@ export default function ApexWiringLanding() {
               <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
                 Why Choose <PowerFlexBrand size="xl" theme="navy" />?
               </h2>
-              <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
                 See how our revolutionary underfloor power systems outperform traditional overhead solutions across
                 every critical metric that matters to your business.
               </p>

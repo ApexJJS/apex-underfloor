@@ -20,7 +20,7 @@ export function SystemArchitecture() {
           <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
             <PowerFlexBrand theme="navy" className="mr-3" /> Architecture
           </h2>
-          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+          <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
             Choose between our Stand-Alone and Integrated solutions to perfectly match 
             your installation requirements and maximize efficiency.
           </p>
@@ -63,28 +63,28 @@ export function SystemArchitecture() {
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Maximum Efficiency</h4>
-                    <p className="text-gray-600 text-sm">Direct connection from distribution board to desk power</p>
+                    <p className="text-brand-navy text-sm">Direct connection from distribution board to desk power</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Zero Termination</h4>
-                    <p className="text-gray-600 text-sm">Plug-and-play connections throughout the system</p>
+                    <p className="text-brand-navy text-sm">Plug-and-play connections throughout the system</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Modular Design</h4>
-                    <p className="text-gray-600 text-sm">Easy reconfiguration for changing office layouts</p>
+                    <p className="text-brand-navy text-sm">Easy reconfiguration for changing office layouts</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Cost Effective</h4>
-                    <p className="text-gray-600 text-sm">Lowest installation and maintenance costs</p>
+                    <p className="text-brand-navy text-sm">Lowest installation and maintenance costs</p>
                   </div>
                 </div>
               </div>
@@ -124,28 +124,28 @@ export function SystemArchitecture() {
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">No SWA Cables</h4>
-                    <p className="text-gray-600 text-sm">Eliminates traditional armoured cable installations</p>
+                    <p className="text-brand-navy text-sm">Eliminates traditional armoured cable installations</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Plug-and-Play Track</h4>
-                    <p className="text-gray-600 text-sm">Quick connection track feeder system</p>
+                    <p className="text-brand-navy text-sm">Quick connection track feeder system</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Flexible Layout</h4>
-                    <p className="text-gray-600 text-sm">Adaptable to existing building infrastructure</p>
+                    <p className="text-brand-navy text-sm">Adaptable to existing building infrastructure</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
                     <h4 className="font-semibold text-brand-navy">Reduced Terminations</h4>
-                    <p className="text-gray-600 text-sm">Fewer connection points mean faster installation</p>
+                    <p className="text-brand-navy text-sm">Fewer connection points mean faster installation</p>
                   </div>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export function SystemArchitecture() {
             <h3 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">
               Choose Your System
             </h3>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-brand-navy max-w-2xl mx-auto">
               Both systems deliver exceptional performance. Select based on your specific installation requirements.
             </p>
           </div>
@@ -172,19 +172,19 @@ export function SystemArchitecture() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-brand-yellow flex-shrink-0" />
-                  <span className="text-gray-700">New build projects with full design control</span>
+                  <span className="text-brand-navy">New build projects with full design control</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-brand-yellow flex-shrink-0" />
-                  <span className="text-gray-700">Maximum cost efficiency is priority</span>
+                  <span className="text-brand-navy">Maximum cost efficiency is priority</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-brand-yellow flex-shrink-0" />
-                  <span className="text-gray-700">Long-term installation with minimal changes</span>
+                  <span className="text-brand-navy">Long-term installation with minimal changes</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-brand-yellow flex-shrink-0" />
-                  <span className="text-gray-700">Large open-plan office environments</span>
+                  <span className="text-brand-navy">Large open-plan office environments</span>
                 </div>
               </div>
             </div>
@@ -196,19 +196,19 @@ export function SystemArchitecture() {
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
-                  <span className="text-gray-700">Retrofitting existing buildings</span>
+                  <span className="text-brand-navy">Retrofitting existing buildings</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
-                  <span className="text-gray-700">Working around structural constraints</span>
+                  <span className="text-brand-navy">Working around structural constraints</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
-                  <span className="text-gray-700">Frequent layout reconfiguration needed</span>
+                  <span className="text-brand-navy">Frequent layout reconfiguration needed</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-5 w-5 text-slate-500 flex-shrink-0" />
-                  <span className="text-gray-700">Integration with existing track systems</span>
+                  <span className="text-brand-navy">Integration with existing track systems</span>
                 </div>
               </div>
             </div>
