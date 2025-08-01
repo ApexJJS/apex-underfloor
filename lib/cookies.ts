@@ -68,9 +68,9 @@ export function initializeGoogleAnalytics(measurementId: string) {
   document.head.appendChild(script1)
 
   // Initialize gtag
-  window.dataLayer = window.dataLayer || []
+  ;(window as any).dataLayer = (window as any).dataLayer || []
   function gtag(...args: any[]) {
-    window.dataLayer.push(arguments)
+    ;(window as any).dataLayer.push(arguments)
   }
   
   gtag('js', new Date())
