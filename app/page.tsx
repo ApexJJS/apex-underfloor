@@ -10,6 +10,7 @@ import { AdaptingModernWorkspace } from "@/components/adapting-modern-workspace"
 import { Hero } from "@/components/hero"
 import { Contact } from "@/components/contact"
 import { CookieConsent } from "@/components/cookie-consent"
+import { AnalyticsInit } from "@/components/analytics-init"
 import {
   X,
   Menu,
@@ -346,6 +347,9 @@ export default function ApexWiringLanding() {
 
       {/* Contact Section */}
       <Contact />
+
+      {/* Analytics Initialization */}
+      <AnalyticsInit />
 
       {/* Cookie Consent Banner */}
       <CookieConsent 

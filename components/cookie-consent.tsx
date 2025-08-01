@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { X, Cookie, Settings } from "lucide-react"
+import { setCookiePreferences, getCookie, initializeGoogleAnalytics, initializeLinkedInTracking, cleanupTrackingCookies, type CookiePreferences } from "@/lib/cookies"
 
 interface CookieConsentProps {
   onAccept: () => void
@@ -17,37 +18,55 @@ export function CookieConsent({ onAccept, onDecline }: CookieConsentProps) {
 
   useEffect(() => {
     // Check if user has already made a choice
-    const consent = localStorage.getItem('cookieConsent')
+    const consent = getCookie('cookieConsent')
     if (!consent) {
       setIsVisible(true)
     }
   }, [])
 
   const handleAcceptAll = () => {
-    localStorage.setItem('cookieConsent', 'accepted')
-    localStorage.setItem('cookiePreferences', JSON.stringify({
+    const preferences: CookiePreferences = {
       necessary: true,
       analytics: true,
       marketing: true
-    }))
+    }
+    setCookiePreferences(preferences)
+    
+    // Initialize tracking with your IDs (replace with actual IDs)
+    initializeGoogleAnalytics('G-XXXXXXXXXX') // Replace with your GA4 ID
+    initializeLinkedInTracking('XXXXXX') // Replace with your LinkedIn Partner ID
+    
     setIsVisible(false)
     onAccept()
   }
 
   const handleDeclineAll = () => {
-    localStorage.setItem('cookieConsent', 'declined')
-    localStorage.setItem('cookiePreferences', JSON.stringify({
+    const preferences: CookiePreferences = {
       necessary: true,
       analytics: false,
       marketing: false
-    }))
+    }
+    setCookiePreferences(preferences)
+    cleanupTrackingCookies()
     setIsVisible(false)
     onDecline()
   }
 
-  const handleSavePreferences = (preferences: any) => {
-    localStorage.setItem('cookieConsent', 'custom')
-    localStorage.setItem('cookiePreferences', JSON.stringify(preferences))
+  const handleSavePreferences = (preferences: CookiePreferences) => {
+    setCookiePreferences(preferences)
+    
+    if (preferences.analytics) {
+      initializeGoogleAnalytics('G-XXXXXXXXXX') // Replace with your GA4 ID
+    }
+    
+    if (preferences.marketing) {
+      initializeLinkedInTracking('XXXXXX') // Replace with your LinkedIn Partner ID
+    }
+    
+    if (!preferences.analytics && !preferences.marketing) {
+      cleanupTrackingCookies()
+    }
+    
     setIsVisible(false)
     if (preferences.analytics || preferences.marketing) {
       onAccept()
