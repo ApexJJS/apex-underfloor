@@ -31,7 +31,7 @@ export function SystemArchitecture() {
           
           {/* Stand-Alone System */}
           <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group">
-            <CardHeader className="bg-gradient-to-r from-brand-yellow to-yellow-400 text-brand-navy p-8">
+            <CardHeader className="bg-gradient-to-r from-brand-yellow to-brand-yellow-light text-brand-navy p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-brand-navy rounded-xl flex items-center justify-center">
                   <Unplug className="h-6 w-6 text-brand-yellow" />
