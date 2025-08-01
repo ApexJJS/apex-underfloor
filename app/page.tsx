@@ -9,6 +9,7 @@ import { SystemSchematic } from "@/components/system-schematic"
 import { AdaptingModernWorkspace } from "@/components/adapting-modern-workspace"
 import { Hero } from "@/components/hero"
 import { Contact } from "@/components/contact"
+import { CookieConsent } from "@/components/cookie-consent"
 import {
   X,
   Menu,
@@ -38,6 +39,7 @@ import {
 export default function ApexWiringLanding() {
   const [isDarkSection, setIsDarkSection] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [cookiesAccepted, setCookiesAccepted] = useState(false)
 
   // Handle mobile menu scroll lock
   React.useEffect(() => {
@@ -344,6 +346,12 @@ export default function ApexWiringLanding() {
 
       {/* Contact Section */}
       <Contact />
+
+      {/* Cookie Consent Banner */}
+      <CookieConsent 
+        onAccept={() => setCookiesAccepted(true)}
+        onDecline={() => setCookiesAccepted(false)}
+      />
     </div>
   )
 }

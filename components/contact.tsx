@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -20,7 +21,9 @@ export function Contact() {
     email: '',
     company: '',
     projectType: '',
-    message: ''
+    message: '',
+    gdprConsent: false,
+    marketingConsent: false
   })
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -34,6 +37,7 @@ export function Contact() {
     else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email is invalid'
     if (!formData.company.trim()) errors.company = 'Company is required'
     if (!formData.message.trim()) errors.message = 'Message is required'
+    if (!formData.gdprConsent) errors.gdprConsent = 'You must consent to data processing'
     
     setFormErrors(errors)
     return Object.keys(errors).length === 0
@@ -44,14 +48,47 @@ export function Contact() {
     if (!validateForm()) return
     
     setIsSubmitting(true)
-    // TODO: Implement actual form submission
-    setTimeout(() => {
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+
+      if (response.ok) {
+        // Success
+        alert('Thank you for your enquiry! We have sent you a confirmation email and will respond within 24 hours.')
+        
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          company: '',
+          projectType: '',
+          message: '',
+          gdprConsent: false,
+          marketingConsent: false
+        })
+        setFormErrors({})
+      } else {
+        // Error from API
+        alert(`Error: ${result.error || 'Failed to send your enquiry. Please try again.'}`)
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('Failed to send your enquiry. Please check your connection and try again, or contact us directly at info@apexwiringsolutions.co.uk')
+    } finally {
       setIsSubmitting(false)
-      alert('Thank you for your enquiry! We will get back to you within 24 hours.')
-    }, 1000)
+    }
   }
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({ ...prev, [field]: value }))
     if (formErrors[field]) {
       setFormErrors(prev => ({ ...prev, [field]: '' }))
@@ -234,6 +271,55 @@ export function Contact() {
                       />
                       {formErrors.message && <p className="text-red-500 text-sm">{formErrors.message}</p>}
                     </div>
+
+                    {/* GDPR Consent */}
+                    <div className="space-y-4 pt-4 border-t border-gray-200">
+                      <div className="space-y-3">
+                        <div className="flex items-start space-x-3">
+                          <input
+                            id="gdpr-consent"
+                            type="checkbox"
+                            checked={formData.gdprConsent}
+                            onChange={(e) => handleInputChange('gdprConsent', e.target.checked)}
+                            className={`mt-1 w-4 h-4 text-brand-yellow bg-gray-100 border-gray-300 rounded focus:ring-brand-yellow focus:ring-2 ${formErrors.gdprConsent ? 'border-red-500' : ''}`}
+                          />
+                          <label htmlFor="gdpr-consent" className="text-sm text-gray-600 leading-relaxed">
+                            I consent to Apex Wiring Solutions processing my personal data to respond to my enquiry. 
+                            I understand my data will be handled in accordance with the{' '}
+                            <Link href="/privacy-policy" target="_blank" className="text-brand-navy hover:text-brand-yellow underline">
+                              Privacy Policy
+                            </Link>. *
+                          </label>
+                        </div>
+                        {formErrors.gdprConsent && <p className="text-red-500 text-sm ml-7">{formErrors.gdprConsent}</p>}
+
+                        <div className="flex items-start space-x-3">
+                          <input
+                            id="marketing-consent"
+                            type="checkbox"
+                            checked={formData.marketingConsent}
+                            onChange={(e) => handleInputChange('marketingConsent', e.target.checked)}
+                            className="mt-1 w-4 h-4 text-brand-yellow bg-gray-100 border-gray-300 rounded focus:ring-brand-yellow focus:ring-2"
+                          />
+                          <label htmlFor="marketing-consent" className="text-sm text-gray-600 leading-relaxed">
+                            I would like to receive updates about PowerFlex products and services from Apex Wiring Solutions. 
+                            I can unsubscribe at any time.
+                          </label>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-500 leading-relaxed">
+                        By submitting this form, you acknowledge that your information will be used in accordance with our{' '}
+                        <Link href="/privacy-policy" target="_blank" className="text-brand-navy hover:text-brand-yellow underline">
+                          Privacy Policy
+                        </Link>{' '}
+                        and{' '}
+                        <Link href="/terms" target="_blank" className="text-brand-navy hover:text-brand-yellow underline">
+                          Terms & Conditions
+                        </Link>.
+                      </p>
+                    </div>
+                    
                     <Button 
                       type="submit" 
                       disabled={isSubmitting}
