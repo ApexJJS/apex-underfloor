@@ -200,7 +200,7 @@ export function Contact() {
                           value={formData.firstName}
                           onChange={(e) => handleInputChange('firstName', e.target.value)}
                           placeholder="John"
-                          className={`h-12 border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow ${formErrors.firstName ? 'border-red-500' : ''}`}
+                          className={`h-12 border-gray-200 focus:border-brand-navy focus:ring-0 ${formErrors.firstName ? 'border-red-500' : ''}`}
                         />
                         {formErrors.firstName && <p className="text-red-500 text-sm">{formErrors.firstName}</p>}
                       </div>
@@ -213,7 +213,7 @@ export function Contact() {
                           value={formData.lastName}
                           onChange={(e) => handleInputChange('lastName', e.target.value)}
                           placeholder="Doe"
-                          className={`h-12 border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow ${formErrors.lastName ? 'border-red-500' : ''}`}
+                          className={`h-12 border-gray-200 focus:border-brand-navy focus:ring-0 ${formErrors.lastName ? 'border-red-500' : ''}`}
                         />
                         {formErrors.lastName && <p className="text-red-500 text-sm">{formErrors.lastName}</p>}
                       </div>
@@ -228,7 +228,7 @@ export function Contact() {
                         value={formData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
                         placeholder="john@company.com"
-                        className={`h-12 border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow ${formErrors.email ? 'border-red-500' : ''}`}
+                        className={`h-12 border-gray-200 focus:border-brand-navy focus:ring-0 ${formErrors.email ? 'border-red-500' : ''}`}
                       />
                       {formErrors.email && <p className="text-red-500 text-sm">{formErrors.email}</p>}
                     </div>
@@ -241,7 +241,7 @@ export function Contact() {
                         value={formData.company}
                         onChange={(e) => handleInputChange('company', e.target.value)}
                         placeholder="Your Company Name"
-                        className={`h-12 border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow ${formErrors.company ? 'border-red-500' : ''}`}
+                        className={`h-12 border-gray-200 focus:border-brand-navy focus:ring-0 ${formErrors.company ? 'border-red-500' : ''}`}
                       />
                       {formErrors.company && <p className="text-red-500 text-sm">{formErrors.company}</p>}
                     </div>
@@ -254,7 +254,7 @@ export function Contact() {
                         value={formData.projectType}
                         onChange={(e) => handleInputChange('projectType', e.target.value)}
                         placeholder="Office fit-out, new build, refurbishment..."
-                        className="h-12 border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow"
+                        className="h-12 border-gray-200 focus:border-brand-navy focus:ring-0"
                       />
                     </div>
                     <div className="space-y-2">
@@ -267,7 +267,7 @@ export function Contact() {
                         onChange={(e) => handleInputChange('message', e.target.value)}
                         placeholder="Tell us about your power distribution requirements..."
                         rows={4}
-                        className={`border-gray-200 focus:border-brand-yellow focus:ring-brand-yellow resize-none ${formErrors.message ? 'border-red-500' : ''}`}
+                        className={`border-gray-200 focus:border-brand-navy focus:ring-0 resize-none ${formErrors.message ? 'border-red-500' : ''}`}
                       />
                       {formErrors.message && <p className="text-red-500 text-sm">{formErrors.message}</p>}
                     </div>
