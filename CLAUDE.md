@@ -11,13 +11,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the Apex Wiring Solutions website - a Next.js landing page for PowerFlex underfloor power distribution systems. The site showcases modular wiring solutions with both Stand-Alone and Integrated system architectures.
+This is the Apex Wiring Solutions website - a production-ready Next.js landing page for PowerFlex underfloor power distribution systems. The site showcases modular wiring solutions with both Stand-Alone and Integrated system architectures, complete with GDPR compliance, email backend, and analytics integration.
 
 ## Architecture & Key Components
 
 ### Brand System
 - **PowerFlexBrand Component** (`components/powerflex-brand.tsx`): Reusable brand logo component with multiple size and theme variants (navy, white, yellow). Critical for brand consistency across all sections.
-- **Brand Colors**: Defined in Tailwind config - `brand-navy` (#1e293b), `brand-yellow` (#f2eb42), `brand-white` (#ffffff)
+- **Brand Colors**: Defined in Tailwind config - `brand-navy` (#1e293b), `brand-yellow` (#f0ea45), `brand-yellow-light` (#f4ee5a), `brand-white` (#ffffff)
+- **Color Consistency**: All text colors use `text-brand-navy` for headings and content, with neutral grays only for subtle UI elements
 
 ### Main Landing Page Structure
 The main page (`app/page.tsx`) orchestrates the entire site with:
@@ -62,10 +63,25 @@ The main page (`app/page.tsx`) orchestrates the entire site with:
 - **Mobile Navigation**: Compact floating bar + hamburger menu overlay
 - **Breakpoints**: Standard Tailwind breakpoints with container max-width of 1400px
 
-### Form Handling
-Contact form in Contact component includes validation and submission handling (currently shows alert, ready for backend integration).
+### Backend Integration
+- **Email API** (`app/api/contact/route.ts`): Complete email backend using nodemailer with SMTP configuration
+- **Form Validation**: Zod schema validation with React Hook Form
+- **GDPR Compliance**: Built-in consent handling and data processing compliance
+- **Environment Variables**: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS for email configuration
+
+### Cookie Management & Analytics
+- **Cookie Consent** (`components/cookie-consent.tsx`): GDPR-compliant banner with granular controls
+- **Cookie Utilities** (`lib/cookies.ts`): HTTP cookie management with Secure/SameSite attributes
+- **Analytics Integration**: Google Analytics 4 and LinkedIn Insight Tag with consent-based loading
+- **Analytics Init** (`components/analytics-init.tsx`): Conditional analytics initialization based on user consent
+
+### Legal Compliance
+- **Privacy Policy** (`app/privacy-policy/page.tsx`): Complete GDPR-compliant privacy policy
+- **Terms & Conditions** (`app/terms/page.tsx`): Comprehensive terms covering UK legal requirements
+- **Contact Form GDPR**: Built-in consent checkboxes and data processing notices
 
 ### Component Patterns
 - Most components are self-contained with their own section IDs
 - PowerFlexBrand component is used consistently across sections for brand integration
 - Card-based layouts for product showcases and system comparisons
+- Form fields use `focus:border-brand-navy focus:ring-0` for clean single-border focus states
