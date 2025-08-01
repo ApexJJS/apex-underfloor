@@ -11,7 +11,7 @@ export function SystemSchematic() {
           <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
             <PowerFlexBrand theme="navy" className="mr-3" /> Underfloor
           </h2>
-          <p className="text-4xl md:text-5xl font-bebas font-extrabold text-slate-700 mb-8">
+          <p className="text-4xl md:text-5xl font-bebas font-extrabold text-brand-navy mb-8">
             Schematic Example
           </p>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">

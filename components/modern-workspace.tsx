@@ -107,7 +107,7 @@ export function ModernWorkspace() {
               <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-lg font-bebas font-extrabold text-slate-900 mb-2">
+              <h3 className="text-lg font-bebas font-extrabold text-brand-navy mb-2">
                 Collaborative Spaces
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -121,7 +121,7 @@ export function ModernWorkspace() {
               <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Laptop className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="text-lg font-bebas font-extrabold text-slate-900 mb-2">
+              <h3 className="text-lg font-bebas font-extrabold text-brand-navy mb-2">
                 Technology Integration
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -135,7 +135,7 @@ export function ModernWorkspace() {
               <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <Recycle className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-lg font-bebas font-extrabold text-slate-900 mb-2">
+              <h3 className="text-lg font-bebas font-extrabold text-brand-navy mb-2">
                 Sustainability Focus
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -149,7 +149,7 @@ export function ModernWorkspace() {
               <div className="w-16 h-16 bg-orange-100 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                 <TrendingUp className="h-8 w-8 text-orange-600" />
               </div>
-              <h3 className="text-lg font-bebas font-extrabold text-slate-900 mb-2">
+              <h3 className="text-lg font-bebas font-extrabold text-brand-navy mb-2">
                 Adaptive Growth
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed">

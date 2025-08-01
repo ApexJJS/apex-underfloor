@@ -181,7 +181,7 @@ export function Contact() {
                     <div className="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center">
                       <Mail className="h-5 w-5 text-brand-navy" />
                     </div>
-                    <CardTitle className="text-3xl font-bebas font-extrabold text-slate-900">Request Information</CardTitle>
+                    <CardTitle className="text-3xl font-bebas font-extrabold text-brand-navy">Request Information</CardTitle>
                   </div>
                   <CardDescription className="text-lg text-gray-600 mt-2">
                     Get in touch to learn more about <PowerFlexBrand theme="navy" /> solutions

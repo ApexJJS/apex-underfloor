@@ -123,28 +123,28 @@ export function SystemArchitecture() {
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-slate-700">No SWA Cables</h4>
+                    <h4 className="font-semibold text-brand-navy">No SWA Cables</h4>
                     <p className="text-gray-600 text-sm">Eliminates traditional armoured cable installations</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-slate-700">Plug-and-Play Track</h4>
+                    <h4 className="font-semibold text-brand-navy">Plug-and-Play Track</h4>
                     <p className="text-gray-600 text-sm">Quick connection track feeder system</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-slate-700">Flexible Layout</h4>
+                    <h4 className="font-semibold text-brand-navy">Flexible Layout</h4>
                     <p className="text-gray-600 text-sm">Adaptable to existing building infrastructure</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
                   <div>
-                    <h4 className="font-semibold text-slate-700">Reduced Terminations</h4>
+                    <h4 className="font-semibold text-brand-navy">Reduced Terminations</h4>
                     <p className="text-gray-600 text-sm">Fewer connection points mean faster installation</p>
                   </div>
                 </div>
@@ -190,7 +190,7 @@ export function SystemArchitecture() {
             </div>
 
             <div className="space-y-6">
-              <h4 className="text-xl font-bebas font-extrabold text-slate-700 border-b border-slate-300 pb-2">
+              <h4 className="text-xl font-bebas font-extrabold text-brand-navy border-b border-slate-300 pb-2">
                 Choose Integrated When:
               </h4>
               <div className="space-y-3">

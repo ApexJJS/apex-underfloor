@@ -328,7 +328,7 @@ export default function ApexWiringLanding() {
 
             {/* Comparison Cards Content */}
             <div className="text-center py-20">
-              <h3 className="text-2xl font-bebas font-extrabold text-slate-600 mb-4">
+              <h3 className="text-2xl font-bebas font-extrabold text-brand-navy mb-4">
                 Comparison Content Coming Soon
               </h3>
               <p className="text-gray-500">

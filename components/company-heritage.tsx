@@ -57,7 +57,7 @@ export function CompanyHeritage() {
             {/* Made in Britain Badge */}
             <div className="flex items-center gap-4">
               <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                <Building2 className="h-8 w-8 text-slate-900" />
+                <Building2 className="h-8 w-8 text-brand-navy" />
               </div>
               <div>
                 <Badge className="bg-brand-yellow text-brand-navy px-4 py-2 text-sm font-bold mb-2">

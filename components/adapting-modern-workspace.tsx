@@ -123,7 +123,7 @@ export function AdaptingModernWorkspace() {
                 <div className="w-16 h-16 bg-brand-yellow rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:ring-4 group-hover:ring-brand-yellow/30 group-hover:shadow-lg group-hover:shadow-brand-yellow/40 group-hover:animate-pulse transition-all duration-300 cursor-pointer">
                   <benefit.icon className="h-8 w-8 text-brand-navy group-hover:scale-110 transition-all duration-300" />
                 </div>
-                <h3 className="text-xl font-bebas font-extrabold text-slate-900 mb-3">{benefit.title}</h3>
+                <h3 className="text-xl font-bebas font-extrabold text-brand-navy mb-3">{benefit.title}</h3>
                 <p className="text-gray-600 leading-relaxed">{benefit.desc}</p>
               </div>
             ))}

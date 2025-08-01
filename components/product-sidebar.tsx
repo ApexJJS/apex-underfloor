@@ -486,7 +486,7 @@ export function ProductSidebar() {
           <div className="lg:col-span-1">
             <Card className="bg-white border-0 shadow-xl sticky top-8">
               <CardHeader className="pb-4">
-                <CardTitle className="text-xl font-bebas font-extrabold text-slate-900">
+                <CardTitle className="text-xl font-bebas font-extrabold text-brand-navy">
                   Product Categories
                 </CardTitle>
               </CardHeader>
@@ -551,7 +551,7 @@ export function ProductSidebar() {
                   <CardHeader className="pb-6">
                     <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                       <div className="flex-1">
-                        <CardTitle className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">
+                        <CardTitle className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">
                           {'name' in currentProduct ? currentProduct.name : 'Unknown Product'}
                         </CardTitle>
                         <p className="text-lg text-gray-600 leading-relaxed mb-6">

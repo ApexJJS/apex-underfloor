@@ -86,7 +86,7 @@ export function CookieConsent({ onAccept, onDecline }: CookieConsentProps) {
               <Cookie className="h-5 w-5 text-brand-navy" />
             </div>
             <div className="flex-1">
-              <h3 className="font-bebas font-extrabold text-xl text-slate-900 mb-2">
+              <h3 className="font-bebas font-extrabold text-xl text-brand-navy mb-2">
                 We Use Cookies
               </h3>
               <p className="text-gray-600 text-sm leading-relaxed mb-4">
@@ -155,7 +155,7 @@ function CookieSettings({ onSave, onBack }: { onSave: (preferences: any) => void
       <div className="space-y-4">
         <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
           <div className="flex-1">
-            <h4 className="font-semibold text-sm text-slate-900">Necessary Cookies</h4>
+            <h4 className="font-semibold text-sm text-brand-navy">Necessary Cookies</h4>
             <p className="text-xs text-gray-600">Required for the website to function properly</p>
           </div>
           <div className="text-xs text-gray-500 font-medium">Always Active</div>
@@ -163,7 +163,7 @@ function CookieSettings({ onSave, onBack }: { onSave: (preferences: any) => void
 
         <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
           <div className="flex-1">
-            <h4 className="font-semibold text-sm text-slate-900">Analytics Cookies</h4>
+            <h4 className="font-semibold text-sm text-brand-navy">Analytics Cookies</h4>
             <p className="text-xs text-gray-600">Help us understand how visitors interact with our website</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">
@@ -179,7 +179,7 @@ function CookieSettings({ onSave, onBack }: { onSave: (preferences: any) => void
 
         <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
           <div className="flex-1">
-            <h4 className="font-semibold text-sm text-slate-900">Marketing Cookies</h4>
+            <h4 className="font-semibold text-sm text-brand-navy">Marketing Cookies</h4>
             <p className="text-xs text-gray-600">Used to track visitors and display relevant ads</p>
           </div>
           <label className="relative inline-flex items-center cursor-pointer">

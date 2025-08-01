@@ -35,13 +35,13 @@ export default function PrivacyPolicy() {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto prose prose-slate max-w-none">
           <div className="bg-brand-yellow/10 border-l-4 border-brand-yellow p-6 mb-8">
-            <p className="text-sm text-slate-700 mb-0">
+            <p className="text-sm text-brand-navy mb-0">
               <strong>Last updated:</strong> {new Date().toLocaleDateString('en-GB')}
             </p>
           </div>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Overview</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Overview</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               Apex Wiring Solutions Ltd ("we", "our", or "us") is committed to protecting and respecting your privacy. 
               This Privacy Policy explains how we collect, use, and protect your personal information when you visit our 
@@ -54,9 +54,9 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Information We Collect</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Information We Collect</h2>
             
-            <h3 className="text-xl font-semibold text-slate-800 mb-3">Information you give us</h3>
+            <h3 className="text-xl font-semibold text-brand-navy mb-3">Information you give us</h3>
             <ul className="text-gray-600 leading-relaxed mb-6 space-y-2">
               <li>• Contact information (name, email address, phone number)</li>
               <li>• Company information and job title</li>
@@ -64,7 +64,7 @@ export default function PrivacyPolicy() {
               <li>• Any other information you choose to provide</li>
             </ul>
 
-            <h3 className="text-xl font-semibold text-slate-800 mb-3">Information we collect automatically</h3>
+            <h3 className="text-xl font-semibold text-brand-navy mb-3">Information we collect automatically</h3>
             <ul className="text-gray-600 leading-relaxed mb-6 space-y-2">
               <li>• IP address and browser information</li>
               <li>• Pages visited and time spent on our website</li>
@@ -74,7 +74,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">How We Use Your Information</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">How We Use Your Information</h2>
             <p className="text-gray-600 leading-relaxed mb-4">We use your personal information to:</p>
             <ul className="text-gray-600 leading-relaxed mb-6 space-y-2">
               <li>• Respond to your enquiries and provide customer support</li>
@@ -86,7 +86,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Legal Basis for Processing</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Legal Basis for Processing</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               Under GDPR, we process your personal information based on:
             </p>
@@ -99,7 +99,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Cookies</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Cookies</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               We use cookies to enhance your browsing experience and analyze website traffic. Our cookies include:
             </p>
@@ -114,7 +114,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Information Sharing</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Information Sharing</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               We do not sell, trade, or rent your personal information to third parties. We may share your information with:
             </p>
@@ -126,7 +126,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Data Security</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Data Security</h2>
             <p className="text-gray-600 leading-relaxed mb-4">
               We implement appropriate technical and organizational measures to protect your personal information, including:
             </p>
@@ -139,7 +139,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Your Rights</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Your Rights</h2>
             <p className="text-gray-600 leading-relaxed mb-4">Under GDPR, you have the right to:</p>
             <ul className="text-gray-600 leading-relaxed mb-6 space-y-2">
               <li>• Access your personal information</li>
@@ -158,7 +158,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Data Retention</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Data Retention</h2>
             <p className="text-gray-600 leading-relaxed">
               We retain your personal information only as long as necessary to fulfill the purposes outlined in this policy, 
               typically for up to 7 years for business enquiries, or until you request its deletion.
@@ -166,7 +166,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Contact Information</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Contact Information</h2>
             <div className="bg-gray-50 p-6 rounded-lg">
               <p className="text-gray-600 leading-relaxed mb-4">
                 If you have any questions about this Privacy Policy or our data practices, please contact us:
@@ -180,7 +180,7 @@ export default function PrivacyPolicy() {
           </section>
 
           <section className="mb-12">
-            <h2 className="text-3xl font-bebas font-extrabold text-slate-900 mb-4">Changes to This Policy</h2>
+            <h2 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">Changes to This Policy</h2>
             <p className="text-gray-600 leading-relaxed">
               We may update this Privacy Policy from time to time. We will notify you of any significant changes by 
               posting the new policy on this page with an updated "Last updated" date.
