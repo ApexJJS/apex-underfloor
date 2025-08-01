@@ -37,7 +37,6 @@ export function SystemArchitecture() {
                   <Unplug className="h-6 w-6 text-brand-yellow" />
                 </div>
                 <div>
-                  <Badge className="bg-brand-navy text-brand-yellow mb-2">Recommended</Badge>
                   <CardTitle className="text-3xl font-bebas font-extrabold">Stand-Alone</CardTitle>
                 </div>
               </div>
