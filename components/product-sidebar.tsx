@@ -33,7 +33,7 @@ const productCategories = [
           {
             id: "6-port",
             name: "6 Port",
-            image: "https://via.placeholder.com/300x200/f2eb42/1e293b?text=6+Port+MDB",
+            image: "/images/products/6portMDB.png",
             specs: {
               powerOutputs: "6 Port (3 Pin)",
               ports: "6"
@@ -42,7 +42,7 @@ const productCategories = [
           {
             id: "9-port", 
             name: "9 Port",
-            image: "https://via.placeholder.com/300x200/f2eb42/1e293b?text=9+Port+MDB",
+            image: "/images/products/9portMDB.svg",
             specs: {
               powerOutputs: "9 Port (3 Pin)",
               ports: "9"
@@ -66,7 +66,7 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=MDB+Dimensions"
+        technicalDrawing: "/images/products/MDBtechnicaldrawing.svg"
       },
       {
         id: "slave-distribution",
@@ -77,7 +77,7 @@ const productCategories = [
           {
             id: "4-port",
             name: "4 Port",
-            image: "https://via.placeholder.com/300x200/f2eb42/1e293b?text=4+Port+SDB",
+            image: "/images/products/4portSDB.png",
             specs: {
               powerOutputs: "4 Port (3 Pin)",
               ports: "4"
@@ -86,7 +86,7 @@ const productCategories = [
           {
             id: "6-port",
             name: "6 Port", 
-            image: "https://via.placeholder.com/300x200/f2eb42/1e293b?text=6+Port+SDB",
+            image: "/images/products/6portSDB.png",
             specs: {
               powerOutputs: "6 Port (3 Pin)",
               ports: "6"
@@ -95,7 +95,7 @@ const productCategories = [
           {
             id: "10-port",
             name: "10 Port",
-            image: "https://via.placeholder.com/300x200/f2eb42/1e293b?text=10+Port+SDB",
+            image: "/images/products/10portSDB.svg",
             specs: {
               powerOutputs: "10 Port (3 Pin)",
               ports: "10"
@@ -118,7 +118,7 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=SDB+Dimensions"
+        technicalDrawing: "/images/products/SDBtechnicaldrawing.svg"
       }
     ]
   },
@@ -150,8 +150,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Distribution+Tee",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Tee+Dimensions"
+        image: "/images/products/3poletee.svg",
+        technicalDrawing: "/images/products/3pteetechnicaldrawing.svg"
       },
       {
         id: "armoured-connection",
@@ -172,8 +172,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "https://via.placeholder.com/300x200/808080/ffffff?text=Armoured+Connection",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Armoured+Dimensions"
+        image: "/images/products/armouredconnection.svg",
+        technicalDrawing: "/images/products/armouredconnectionandextendertechnicaldrawing.svg"
       },
       {
         id: "unarmoured-connection",
@@ -192,8 +192,8 @@ const productCategories = [
           cableStandard: "BS 7671 compliant",
           installation: "Indoor use - LSOH for safer installation"
         },
-        image: "https://via.placeholder.com/300x200/e5e7eb/1e293b?text=Unarmoured+Connection",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Unarmoured+Dimensions"
+        image: "/images/products/unarmouredconnection.png",
+        technicalDrawing: "/images/products/unarmouredconnectiontechnicaldrawing.svg"
       },
       {
         id: "armoured-extender",
@@ -214,8 +214,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "https://via.placeholder.com/300x200/808080/ffffff?text=Armoured+Extender",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Extender+Dimensions"
+        image: "/images/products/armouredextender.svg",
+        technicalDrawing: "/images/products/armouredconnectionandextendertechnicaldrawing.svg"
       },
       {
         id: "unarmoured-extender",
@@ -234,8 +234,8 @@ const productCategories = [
           cableStandard: "BS 7671 compliant",
           installation: "Indoor use - LSOH for safer installation"
         },
-        image: "https://via.placeholder.com/300x200/e5e7eb/1e293b?text=Unarmoured+Extender",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Unarmoured+Ext+Dimensions"
+        image: "/images/products/unarmouredextender.png",
+        technicalDrawing: "/images/products/unarmouredextendertechnicaldrawing.svg"
       }
     ]
   },
@@ -259,30 +259,8 @@ const productCategories = [
           operatingTemp: "-40°C to +85°C",
           standards: "CE Marked"
         },
-        image: "https://via.placeholder.com/300x200/1e293b/ffffff?text=RCD+Module",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=RCD+Dimensions"
-      },
-      {
-        id: "fused-connection-unit",
-        name: "Fused Connection Unit",
-        description: "13 Amp Fused Connection Unit available in Switched/Un-Switched variants with metal clad construction",
-        specs: {
-          material: "Enclosure: Metal Clad",
-          colour: "Silver/Grey",
-          minOperatingTemp: "-20°C",
-          maxOperatingTemp: "+70°C",
-          enclosureClass: "IP40 when connected or ports capped off using 293257-1",
-          ratedCurrent: "25A",
-          powerOutputs: "3 Pole",
-          ratedVoltage: "240V",
-          frequency: "50Hz",
-          wireSize: "4mm²",
-          standard: "IEC 61535:2009+A1:2013",
-          qms: "ISO 9001:2016",
-          wiringStandard: "BS 8488:2009+A1:2010"
-        },
-        image: "https://via.placeholder.com/300x200/c0c0c0/1e293b?text=Fused+Connection+Unit",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=FCU+Dimensions"
+        image: "/images/products/rcdmodule.svg",
+        technicalDrawing: "/images/products/rcdmodule.svg"
       }
     ]
   },
@@ -300,7 +278,7 @@ const productCategories = [
           {
             id: "2-gang",
             name: "2 Gang",
-            image: "https://via.placeholder.com/300x200/1e293b/ffffff?text=2+Gang+Module",
+            image: "/images/products/2gangpowermodule.png",
             specs: {
               output: "2 BS1363 UK sockets",
               socketCount: "2 Gang"
@@ -309,7 +287,7 @@ const productCategories = [
           {
             id: "3-gang",
             name: "3 Gang",
-            image: "https://via.placeholder.com/300x200/1e293b/ffffff?text=3+Gang+Module",
+            image: "/images/products/3gangpowermodule.png",
             specs: {
               output: "3 BS1363 UK sockets",
               socketCount: "3 Gang"
@@ -318,7 +296,7 @@ const productCategories = [
           {
             id: "4-gang",
             name: "4 Gang",
-            image: "https://via.placeholder.com/300x200/1e293b/ffffff?text=4+Gang+Module",
+            image: "/images/products/4gangpowermodeule.svg",
             specs: {
               output: "4 BS1363 UK sockets",
               socketCount: "4 Gang"
@@ -338,7 +316,7 @@ const productCategories = [
           fixing: "3.5mm countersunk fixing holes",
           spacing: "60mm x 25mm connector spacing"
         },
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Power+Module+Dimensions"
+        technicalDrawing: "/images/products/4gangpowermoduletechnicaldrawing.svg"
       },
       {
         id: "power-module-usb",
@@ -357,8 +335,8 @@ const productCategories = [
           connectorType: "GST18/3 3-pole",
           socketCount: "2 Gang + 2 USB"
         },
-        image: "https://via.placeholder.com/300x200/1e293b/ffffff?text=2G+Power+USB",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=2G+USB+Dimensions"
+        image: "/images/products/2gangpowerusb.svg",
+        technicalDrawing: "/images/products/2gangpowerusb.svg"
       }
     ]
   },
@@ -376,7 +354,7 @@ const productCategories = [
           {
             id: "dark-grey",
             name: "Dark Grey",
-            image: "https://via.placeholder.com/300x200/6b7280/ffffff?text=Dark+Grey+Grommet",
+            image: "/images/products/darkgreyregulargrommet.png",
             specs: {
               colour: "Dark Grey"
             }
@@ -384,7 +362,7 @@ const productCategories = [
           {
             id: "black",
             name: "Black", 
-            image: "https://via.placeholder.com/300x200/000000/ffffff?text=Black+Grommet",
+            image: "/images/products/blackregulargrommet.svg",
             specs: {
               colour: "Black"
             }
@@ -402,7 +380,7 @@ const productCategories = [
           locking: "Locking lid facility available",
           flexibility: "Adjustable to suit services exiting the floor void"
         },
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Standard+Grommet+Dimensions"
+        technicalDrawing: "/images/products/standardgrommettechnicaldrawing_1.svg"
       },
       {
         id: "large-grommet",
@@ -420,8 +398,8 @@ const productCategories = [
           flexibility: "Multiple apertures for greater installation flexibility",
           application: "High-density cable installations"
         },
-        image: "https://via.placeholder.com/300x200/6b7280/ffffff?text=Large+Access+Grommet",
-        technicalDrawing: "https://via.placeholder.com/300x200/ffffff/1e293b?text=Large+Grommet+Dimensions"
+        image: "/images/products/largegrommet.svg",
+        technicalDrawing: "/images/products/largegrommettechnicaldrawing.svg"
       }
     ]
   }
@@ -615,7 +593,7 @@ export function ProductSidebar() {
                               <img 
                                 src={currentImage} 
                                 alt={`${currentProduct && 'name' in currentProduct ? currentProduct.name : 'Product'} ${imageView === "technical" ? "technical drawing" : currentVariant?.name || ""}`}
-                                className="w-full h-full object-cover"
+                                className="w-full h-full object-contain"
                               />
                             ) : (
                               <div className="w-full h-full flex items-center justify-center">
