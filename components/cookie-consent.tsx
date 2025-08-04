@@ -79,7 +79,7 @@ export function CookieConsent({ onAccept, onDecline }: CookieConsentProps) {
 
   return (
     <div className="fixed inset-0 z-[10001] bg-black/50 backdrop-blur-sm flex items-end lg:items-center justify-center p-4">
-      <Card className="w-full max-w-2xl bg-white shadow-2xl border-0">
+      <Card className="w-full max-w-sm sm:max-w-md lg:max-w-2xl bg-white shadow-2xl border-0">
         <div className="p-6">
           <div className="flex items-start gap-4 mb-4">
             <div className="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center flex-shrink-0">
