@@ -21,7 +21,7 @@ export function PowerFlexBrand({ className, size = "inherit", theme = "navy" }: 
     default: "#1e293b", // brand-navy
     navy: "#1e293b",    // brand-navy
     white: "#ffffff",   // white
-    yellow: "#f2eb42",  // brand-yellow
+    yellow: "#f0ea45",  // brand-yellow
   }
 
   return (

@@ -1,99 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+export default function EmailPreview() {
+  // Sample data to show what the email looks like with a fully filled form
+  const firstName = "Sarah"
+  const lastName = "Thompson"
+  const email = "sarah.thompson@modernworkspace.co.uk"
+  const company = "Modern Workspace Solutions Ltd"
+  const projectType = "New Build Office Development"
+  const message = "We're planning a 15,000 sq ft office development in Manchester and are interested in PowerFlex underfloor power systems. The project includes open-plan areas, meeting rooms, and breakout spaces. We'd like to discuss system requirements, installation timelines, and get a detailed quote for the full building. Looking for a solution that can handle future reconfigurations as our business grows."
+  const marketingConsent = true
 
-// Email configuration - you'll need to set these environment variables
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  })
-}
-
-export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const {
-      firstName,
-      lastName,
-      email,
-      company,
-      projectType,
-      message,
-      gdprConsent,
-      marketingConsent
-    } = body
-
-    // Validation
-    if (!firstName || !lastName || !email || !company || !message || !gdprConsent) {
-      return NextResponse.json(
-        { error: 'Missing required fields or GDPR consent' },
-        { status: 400 }
-      )
-    }
-
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      )
-    }
-
-    // Create email content
-    const emailContent = `
-New PowerFlex Enquiry
-
-Contact Information:
-- Name: ${firstName} ${lastName}
-- Email: ${email}
-- Company: ${company}
-- Project Type: ${projectType || 'Not specified'}
-
-Message:
-${message}
-
-GDPR Consent:
-- Data Processing: ${gdprConsent ? 'Yes' : 'No'}
-- Marketing Communications: ${marketingConsent ? 'Yes' : 'No'}
-
-Submitted: ${new Date().toLocaleString('en-GB')}
-IP Address: ${request.headers.get('x-forwarded-for') || 'Unknown'}
-    `.trim()
-
-    // Auto-reply content (plain text)
-    const autoReplyText = `
-Dear ${firstName},
-
-Thank you for your enquiry about PowerFlex underfloor power systems.
-
-We have received your message and will respond within 24 hours. Our technical team will review your requirements and provide you with detailed information about how PowerFlex can benefit your project.
-
-Your enquiry details:
-- Company: ${company}
-- Project Type: ${projectType || 'Not specified'}
-
-In the meantime, download our product brochure:
-https://www.apexwiringsolutions.co.uk/brochure
-
-Best regards,
-Apex Wiring Solutions Team
-
----
-Apex Wiring Solutions Ltd
-St. Johns Road, Meadowfield Industrial Estate
-Co. Durham, DH7 8RJ
-Tel: +44 (0) 191 378 7900
-Email: info@apexwiringsolutions.co.uk
-    `.trim()
-
-    // Auto-reply content (HTML - modern branded design)
-    const autoReplyHTML = `
+  const emailHTML = `
 <!DOCTYPE html>
 <html>
 <head>
@@ -156,8 +71,11 @@ Email: info@apexwiringsolutions.co.uk
             <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
                 <h4 style="color: #1e293b; font-size: 16px; font-weight: 600; margin: 0 0 10px 0;">Your Enquiry Details:</h4>
                 <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; font-size: 14px; color: #475569;">
+                    <p style="margin: 0 0 5px 0;"><strong>Name:</strong> ${firstName} ${lastName}</p>
+                    <p style="margin: 0 0 5px 0;"><strong>Email:</strong> ${email}</p>
                     <p style="margin: 0 0 5px 0;"><strong>Company:</strong> ${company}</p>
-                    <p style="margin: 0;"><strong>Project Type:</strong> ${projectType || 'Not specified'}</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Project Type:</strong> ${projectType}</p>
+                    <p style="margin: 0; line-height: 1.4;"><strong>Message:</strong><br>${message}</p>
                 </div>
             </div>
         </div>
@@ -204,75 +122,43 @@ Email: info@apexwiringsolutions.co.uk
                     This email was sent because you submitted an enquiry on our website. 
                     ${marketingConsent ? 'You have opted in to receive marketing communications.' : 'You will only receive responses to your enquiry.'}
                 </p>
-                ${marketingConsent ? `
                 <p style="margin: 10px 0 0 0; font-size: 12px; color: #94a3b8;">
                     <a href="https://powerflex.apexwiringsolutions.co.uk/unsubscribe" style="color: #1e293b; text-decoration: underline;">
                         Unsubscribe from marketing emails
                     </a>
                 </p>
-                ` : ''}
             </div>
         </div>
     </div>
 </body>
-</html>
-    `.trim()
+</html>`
 
-    const transporter = createTransporter()
-
-    // Send notification email to company
-    const notificationEmail = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'info@apexwiringsolutions.co.uk',
-      subject: `New PowerFlex Enquiry from ${company}`,
-      text: emailContent,
-      html: emailContent.replace(/\n/g, '<br>'),
-    }
-
-    // Send auto-reply to customer
-    const autoReplyEmail = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: email,
-      subject: 'Thank you for your PowerFlex enquiry - Apex Wiring Solutions',
-      text: autoReplyText,
-      html: autoReplyHTML,
-    }
-
-    // Send both emails
-    await Promise.all([
-      transporter.sendMail(notificationEmail),
-      transporter.sendMail(autoReplyEmail)
-    ])
-
-    // Log the enquiry (in production, you might want to save to database)
-    console.log('New contact form submission:', {
-      timestamp: new Date().toISOString(),
-      name: `${firstName} ${lastName}`,
-      email,
-      company,
-      projectType,
-      gdprConsent,
-      marketingConsent,
-      ip: request.headers.get('x-forwarded-for') || 'Unknown'
-    })
-
-    return NextResponse.json(
-      { 
-        success: true, 
-        message: 'Your enquiry has been sent successfully. We will respond within 24 hours.' 
-      },
-      { status: 200 }
-    )
-
-  } catch (error) {
-    console.error('Contact form error:', error)
-    
-    return NextResponse.json(
-      { 
-        error: 'Failed to send your enquiry. Please try again or contact us directly.',
-        details: process.env.NODE_ENV === 'development' ? (error as Error).message : undefined
-      },
-      { status: 500 }
-    )
-  }
+  return (
+    <div className="min-h-screen bg-gray-100 py-8">
+      <div className="max-w-4xl mx-auto px-4">
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+          <h1 className="text-2xl font-bold text-brand-navy mb-4">Email Preview: Auto-Response</h1>
+          <p className="text-gray-600 mb-4">
+            This is how the auto-response email will look when sent to customers who submit the contact form.
+          </p>
+          <p className="text-sm text-gray-500 mb-6">
+            <strong>Note:</strong> This preview shows a fully completed form submission from Sarah Thompson at Modern Workspace Solutions Ltd, including a detailed project message and marketing consent enabled.
+          </p>
+        </div>
+        
+        <div className="bg-white rounded-lg shadow-lg p-6">
+          <div 
+            dangerouslySetInnerHTML={{ __html: emailHTML }}
+            className="border border-gray-200 rounded-lg overflow-hidden"
+          />
+        </div>
+        
+        <div className="mt-6 text-center">
+          <p className="text-sm text-gray-500">
+            Visit <a href="/" className="text-brand-navy hover:underline">← Back to main site</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  )
 }
