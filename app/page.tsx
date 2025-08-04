@@ -96,11 +96,11 @@ export default function ApexWiringLanding() {
 
 
   return (
-    <div className="min-h-screen bg-white font-inter" suppressHydrationWarning={true}>
+    <div className="min-h-screen bg-white font-inter overflow-x-hidden" suppressHydrationWarning={true}>
       {/* Navigation */}
       <nav className="fixed z-[10000] w-full">
         {/* Mobile: Floating compact bar */}
-        <div className="lg:hidden top-4 left-4 right-4 absolute">
+        <div className="lg:hidden top-4 left-4 right-4 absolute max-w-[calc(100vw-32px)]">
           <div className={`backdrop-blur-md rounded-2xl px-4 py-3 shadow-xl transition-all duration-300 ${
             isDarkSection 
               ? 'bg-slate-800/90 border border-white/20' 

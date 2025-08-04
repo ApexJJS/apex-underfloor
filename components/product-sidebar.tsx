@@ -470,7 +470,7 @@ export function ProductSidebar() {
 
   return (
     <div className="bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-7xl mx-auto px-4 py-20">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
@@ -481,7 +481,7 @@ export function ProductSidebar() {
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
           {/* Sidebar Navigation */}
           <div className="lg:col-span-1">
             <Card className="bg-white border-0 shadow-xl sticky top-8">
@@ -629,7 +629,7 @@ export function ProductSidebar() {
                   </CardHeader>
                   
                   <CardContent>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                       {currentSpecs && Object.entries(currentSpecs).map(([key, value]) => (
                         <div key={key} className="bg-gradient-to-br from-gray-50 to-white p-4 rounded-lg border">
                           <div className="text-sm font-semibold text-brand-navy mb-1 capitalize">
