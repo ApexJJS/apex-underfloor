@@ -107,7 +107,7 @@ export default function ApexWiringLanding() {
               : 'bg-white/90 border border-gray-200/50'
           }`}>
             <div className="flex items-center justify-between">
-              <a href="#hero" className="flex items-center">
+              <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer" className="flex items-center">
                 <img 
                   src="/apex-logo.svg" 
                   alt="Apex" 
@@ -146,79 +146,54 @@ export default function ApexWiringLanding() {
           </div>
         </div>
         
-        {/* Desktop: Keep current design exactly */}
+        {/* Desktop: Single centered nav bar */}
         <div className="hidden lg:block top-8 left-1/2 transform -translate-x-1/2 absolute">
-          <div className="relative flex items-center">
-            {/* Left Nav Bar */}
-            <div className={`backdrop-blur-md rounded-l-full pl-8 pr-24 py-3 shadow-xl transition-all duration-300 ${
-              isDarkSection 
-                ? 'bg-slate-800/90 border border-white/20' 
-                : 'bg-white/90 border border-gray-200/50'
-            }`}>
-              <div className="flex items-center space-x-6">
-                <button onClick={() => smoothScrollTo('benefits')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Benefits</button>
-                <button onClick={() => smoothScrollTo('products')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Products</button>
-                <button onClick={() => smoothScrollTo('comparison')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Comparison</button>
-              </div>
-            </div>
-            
-            {/* Right Nav Bar */}
-            <div className={`backdrop-blur-md rounded-r-full pr-8 pl-24 py-3 shadow-xl transition-all duration-300 ${
-              isDarkSection 
-                ? 'bg-slate-800/90 border border-white/20' 
-                : 'bg-white/90 border border-gray-200/50'
-            }`}>
-              <div className="flex items-center space-x-6">
-                <button onClick={() => smoothScrollTo('architecture')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Architecture</button>
-                <button onClick={() => smoothScrollTo('schematic')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Schematic</button>
-                <button onClick={() => smoothScrollTo('contact')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
-                  isDarkSection 
-                    ? 'text-white/80 hover:text-white' 
-                    : 'text-brand-navy hover:text-brand-yellow'
-                }`}>Contact</button>
-              </div>
-            </div>
-            
-            {/* Center Logo Circle - positioned above nav bars */}
-            <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-              <button 
-                onClick={() => smoothScrollTo('hero')} 
-                className={`w-24 h-24 rounded-full flex items-center justify-center shadow-xl transition-all duration-300 backdrop-blur-md cursor-pointer hover:scale-105 ${
-                  isDarkSection 
-                    ? 'bg-slate-800/90 border border-white/20 hover:bg-slate-700/90' 
-                    : 'bg-white/90 border border-gray-200/50 hover:bg-gray-50/90'
-                }`}
-              >
-                <img
-                  src="/apex-logo.svg"
-                  alt="Apex Wiring Solutions"
-                  className={`w-16 h-16 object-contain transition-all duration-300 ${
-                    isDarkSection 
-                      ? 'filter invert' 
-                      : ''
-                  }`}
+          <div className={`backdrop-blur-md rounded-full px-8 py-3 shadow-xl transition-all duration-300 ${
+            isDarkSection 
+              ? 'bg-slate-800/90 border border-white/20' 
+              : 'bg-white/90 border border-gray-200/50'
+          }`}>
+            <div className="flex items-center space-x-6">
+              <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer" className="flex items-center">
+                <img 
+                  src="/apex-logo.svg" 
+                  alt="Apex" 
+                  className={`w-8 h-8 transition-all duration-300 hover:scale-105 ${
+                    isDarkSection ? 'filter invert' : ''
+                  }`} 
                 />
-              </button>
+              </a>
+              <div className="w-px h-6 bg-gray-300"></div>
+              <button onClick={() => smoothScrollTo('hero')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Intro</button>
+              <button onClick={() => smoothScrollTo('benefits')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Benefits</button>
+              <button onClick={() => smoothScrollTo('products')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Products</button>
+              <button onClick={() => smoothScrollTo('architecture')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Architecture</button>
+              <button onClick={() => smoothScrollTo('schematic')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Schematic</button>
+              <button onClick={() => smoothScrollTo('contact')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
+                isDarkSection 
+                  ? 'text-white/80 hover:text-white' 
+                  : 'text-brand-navy hover:text-brand-yellow'
+              }`}>Contact</button>
             </div>
           </div>
         </div>
@@ -238,13 +213,22 @@ export default function ApexWiringLanding() {
               <X className="w-6 h-6" />
             </button>
             
-            <img 
-              src="/apex-logo.svg" 
-              alt="Apex Wiring Solutions" 
-              className="w-16 h-16 filter invert" 
-            />
+            <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer">
+              <img 
+                src="/apex-logo.svg" 
+                alt="Apex Wiring Solutions" 
+                className="w-16 h-16 filter invert hover:scale-105 transition-all duration-300" 
+              />
+            </a>
             
             <nav className="space-y-6 text-center">
+              <a 
+                href="#hero" 
+                className="block text-2xl text-white font-medium hover:text-brand-yellow hover:scale-105 transition-all duration-300"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Intro
+              </a>
               <a 
                 href="#benefits" 
                 className="block text-2xl text-white font-medium hover:text-brand-yellow hover:scale-105 transition-all duration-300"
@@ -258,13 +242,6 @@ export default function ApexWiringLanding() {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Products
-              </a>
-              <a 
-                href="#comparison" 
-                className="block text-2xl text-white font-medium hover:text-brand-yellow hover:scale-105 transition-all duration-300"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Comparison
               </a>
               <a 
                 href="#architecture" 
@@ -312,32 +289,6 @@ export default function ApexWiringLanding() {
         <ProductSidebar />
       </section>
 
-      {/* Comparison Section */}
-      <section id="comparison" className="py-32 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-20">
-              <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
-                Why Choose <PowerFlexBrand size="xl" theme="navy" />?
-              </h2>
-              <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
-                See how our revolutionary underfloor power systems outperform traditional overhead solutions across
-                every critical metric that matters to your business.
-              </p>
-            </div>
-
-            {/* Comparison Cards Content */}
-            <div className="text-center py-20">
-              <h3 className="text-2xl font-bebas font-extrabold text-brand-navy mb-4">
-                Comparison Content Coming Soon
-              </h3>
-              <p className="text-gray-500">
-                Performance comparison charts will be displayed here
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* System Architecture */}
       <SystemArchitecture />
