@@ -39,6 +39,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://powerflex.apexwiringsolutions.co.uk"
+  },
+  other: {
+    'google-site-verification': 'REPLACE_WITH_ACTUAL_VERIFICATION_CODE'
   }
 }
 
@@ -52,12 +55,96 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Apex Wiring Solutions",
+              "url": "https://www.apexwiringsolutions.co.uk",
+              "logo": "https://powerflex.apexwiringsolutions.co.uk/apex-logo.svg",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+44-1234-567890",
+                "contactType": "customer service",
+                "areaServed": "GB",
+                "availableLanguage": "en"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "GB"
+              },
+              "foundingDate": "1980",
+              "description": "UK manufacturer of underfloor power distribution systems since 1980. PowerFlex modular solutions for commercial and industrial applications.",
+              "sameAs": [
+                "https://powerflex.apexwiringsolutions.co.uk"
+              ]
+            })
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "PowerFlex Underfloor Power Distribution System",
+              "description": "Modular underfloor power distribution systems for modern commercial spaces. Fast, flexible installation with UK manufacturing quality.",
+              "brand": {
+                "@type": "Brand",
+                "name": "PowerFlex by Apex Wiring Solutions"
+              },
+              "manufacturer": {
+                "@type": "Organization",
+                "name": "Apex Wiring Solutions"
+              },
+              "category": "Electrical Distribution Equipment",
+              "offers": {
+                "@type": "Offer",
+                "availability": "https://schema.org/InStock",
+                "priceCurrency": "GBP",
+                "seller": {
+                  "@type": "Organization",
+                  "name": "Apex Wiring Solutions"
+                }
+              }
+            })
+          }}
+        />
         {/* Preload hero images for instant display */}
         <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage.jpg" />
         <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage2.jpg" />
         <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage3.jpg" />
       </head>
-      <body className={inter.className} suppressHydrationWarning={true}>{children}</body>
+      <body className={inter.className} suppressHydrationWarning={true}>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Initialize UTM tracking on page load
+              (function() {
+                if (typeof window !== 'undefined') {
+                  const urlParams = new URLSearchParams(window.location.search);
+                  const hasUTMParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content']
+                    .some(param => urlParams.get(param));
+                  
+                  if (hasUTMParams) {
+                    const utmData = {
+                      utm_source: urlParams.get('utm_source'),
+                      utm_medium: urlParams.get('utm_medium'),
+                      utm_campaign: urlParams.get('utm_campaign'),
+                      utm_term: urlParams.get('utm_term'),
+                      utm_content: urlParams.get('utm_content')
+                    };
+                    sessionStorage.setItem('utm_params', JSON.stringify(utmData));
+                  }
+                }
+              })();
+            `
+          }}
+        />
+      </body>
     </html>
   )
 }

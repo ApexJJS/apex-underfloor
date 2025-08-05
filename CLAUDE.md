@@ -22,24 +22,24 @@ This is the Apex Wiring Solutions website - a production-ready Next.js landing p
 
 ### Main Landing Page Structure
 The main page (`app/page.tsx`) orchestrates the entire site with:
-- **Responsive Navigation**: Split-bar design (desktop) with center logo, mobile hamburger menu
-- **Section Order**: Hero → Benefits → Products → Comparison → Architecture → Schematic → Contact
+- **Responsive Navigation**: Single centered navigation bar (desktop) with Apex logo separator, mobile hamburger menu
+- **Section Order**: Hero → Benefits → Products → Architecture → Schematic → Contact
 - **Navigation State**: `isDarkSection` state changes nav styling based on scroll position (hero/contact = dark, others = light)
 
 ### Page Sections (all with section IDs for navigation)
 - **Hero** (`#hero`): Main value proposition with stats (FAST, FLEXIBLE, FUTURE)
 - **Benefits** (`#benefits`): AdaptingModernWorkspace component - modern office context
-- **Products** (`#products`): ProductSidebar - product showcase 
-- **Comparison** (`#comparison`): Stand-Alone vs alternatives (placeholder content)
+- **Products** (`#products`): ProductSidebar - comprehensive product showcase with real product images and technical drawings
 - **Architecture** (`#architecture`): SystemArchitecture - Stand-Alone vs Integrated system cards
 - **Schematic** (`#schematic`): SystemSchematic - technical diagrams
-- **Contact** (`#contact`): Contact form and company information
+- **Contact** (`#contact`): Contact form with GDPR compliance and UTM tracking
 
 ### Image Assets
-- **Product Images**: `/public/images/products/` - Individual component images
-- **Schematics**: `/public/images/schematics/` - Technical diagrams for each product
+- **Product Images**: `/public/images/products/` - Real product photos in SVG/PNG format (prefer SVG when available)
+- **Technical Drawings**: Same directory, technical schematics for each product component
 - **System Diagrams**: `/public/images/standalone.svg`, `/public/images/integrated.svg` - Used in SystemArchitecture component
 - **Office Environment**: `/public/images/Modern Office Environment.png` (@2x version available) - Used in AdaptingModernWorkspace
+- **Brochure Pages**: `/public/brochure/` - Official product specification pages (a4underfloorbrochure1-10.png to 24.png)
 
 ### UI Framework
 - **Radix UI**: Comprehensive component library for accessibility
@@ -59,20 +59,24 @@ The main page (`app/page.tsx`) orchestrates the entire site with:
 - **Inter**: Body text font (`font-inter`)
 
 ### Responsive Design
-- **Desktop Navigation**: Split navigation bars with center logo
+- **Desktop Navigation**: Single centered navigation bar with Apex logo and vertical separator
 - **Mobile Navigation**: Compact floating bar + hamburger menu overlay
 - **Breakpoints**: Standard Tailwind breakpoints with container max-width of 1400px
+- **Mobile Viewport**: Proper viewport meta tag and overflow-x-hidden for mobile compatibility
 
 ### Backend Integration
 - **Email API** (`app/api/contact/route.ts`): Complete email backend using nodemailer with SMTP configuration
-- **Form Validation**: Zod schema validation with React Hook Form
+- **UTM Tracking**: Full UTM parameter capture and persistence via `lib/utm.ts`
+- **Form Validation**: Built-in validation with comprehensive error handling
 - **GDPR Compliance**: Built-in consent handling and data processing compliance
 - **Environment Variables**: SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS for email configuration
+- **Email Templates**: Professional HTML email templates with PowerFlex and Apex branding
 
 ### Cookie Management & Analytics
-- **Cookie Consent** (`components/cookie-consent.tsx`): GDPR-compliant banner with granular controls
+- **Cookie Consent** (`components/cookie-consent.tsx`): GDPR-compliant banner with granular controls (defaults to all enabled)
 - **Cookie Utilities** (`lib/cookies.ts`): HTTP cookie management with Secure/SameSite attributes
 - **Analytics Integration**: Google Analytics 4 and LinkedIn Insight Tag with consent-based loading
+- **LinkedIn Conversion Tracking**: Full conversion tracking implementation with UTM attribution
 - **Analytics Init** (`components/analytics-init.tsx`): Conditional analytics initialization based on user consent
 
 ### Legal Compliance
@@ -85,3 +89,36 @@ The main page (`app/page.tsx`) orchestrates the entire site with:
 - PowerFlexBrand component is used consistently across sections for brand integration
 - Card-based layouts for product showcases and system comparisons
 - Form fields use `focus:border-brand-navy focus:ring-0` for clean single-border focus states
+- Product images use `object-contain` CSS to display complete SVG images without cropping
+
+## SEO & Performance
+
+### SEO Implementation
+- **XML Sitemap**: Auto-generated at `/sitemap.xml` via `app/sitemap.ts`
+- **Robots.txt**: Search engine directives in `/public/robots.txt`
+- **Structured Data**: JSON-LD schema for Organization and Product markup
+- **Meta Tags**: Complete Open Graph and Twitter Card implementation
+- **UK Targeting**: Proper locale and canonical URL setup
+
+### Performance Optimization
+- **Image Preloading**: Hero images preloaded for instant display
+- **SVG Optimization**: Vector graphics for scalable product images
+- **Responsive Images**: Multiple formats and sizes for different viewports
+- **Mobile-First**: Optimized mobile experience with proper viewport handling
+
+## Configuration Requirements
+
+### LinkedIn Integration Setup
+- Replace `'XXXXXX'` in analytics files with actual LinkedIn Partner ID
+- Replace `'CONVERSION_ID_PLACEHOLDER'` with actual LinkedIn conversion ID
+- Set up conversion events in LinkedIn Campaign Manager
+
+### Email Configuration
+- Configure SMTP environment variables for contact form functionality
+- Update contact phone number placeholder in structured data
+- Verify all contact information accuracy
+
+### Product Data Management
+- Product specifications should be updated from official brochure data (pages 10-21)
+- Brochure images available in `/public/brochure/` for reference
+- Use SVG product images when available, fallback to PNG

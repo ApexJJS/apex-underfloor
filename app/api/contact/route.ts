@@ -25,7 +25,12 @@ export async function POST(request: NextRequest) {
       projectType,
       message,
       gdprConsent,
-      marketingConsent
+      marketingConsent,
+      utmSource,
+      utmMedium,
+      utmCampaign,
+      utmTerm,
+      utmContent
     } = body
 
     // Validation
@@ -253,13 +258,25 @@ Email: info@apexwiringsolutions.co.uk
       projectType,
       gdprConsent,
       marketingConsent,
-      ip: request.headers.get('x-forwarded-for') || 'Unknown'
+      ip: request.headers.get('x-forwarded-for') || 'Unknown',
+      utm: {
+        source: utmSource,
+        medium: utmMedium,
+        campaign: utmCampaign,
+        term: utmTerm,
+        content: utmContent
+      }
     })
 
     return NextResponse.json(
       { 
         success: true, 
-        message: 'Your enquiry has been sent successfully. We will respond within 24 hours.' 
+        message: 'Your enquiry has been sent successfully. We will respond within 24 hours.',
+        conversionData: {
+          linkedinConversion: true,
+          utmSource: utmSource || 'direct',
+          timestamp: new Date().toISOString()
+        }
       },
       { status: 200 }
     )

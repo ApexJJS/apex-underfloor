@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Block development/preview pages
+Disallow: /email-preview
+
+# Sitemap location
+Sitemap: https://powerflex.apexwiringsolutions.co.uk/sitemap.xml
+
+# Crawl-delay for politeness
+Crawl-delay: 1

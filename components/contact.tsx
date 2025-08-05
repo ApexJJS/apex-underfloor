@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { getUTMParams, trackLinkedInConversion } from '@/lib/utm'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -25,8 +26,27 @@ export function Contact() {
     gdprConsent: false,
     marketingConsent: false
   })
+  const [utmParams, setUtmParams] = useState({
+    utmSource: '',
+    utmMedium: '',
+    utmCampaign: '',
+    utmTerm: '',
+    utmContent: ''
+  })
   const [formErrors, setFormErrors] = useState<Record<string, string>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+
+  // Capture UTM parameters on component mount
+  useEffect(() => {
+    const params = getUTMParams()
+    setUtmParams({
+      utmSource: params.utm_source || '',
+      utmMedium: params.utm_medium || '',
+      utmCampaign: params.utm_campaign || '',
+      utmTerm: params.utm_term || '',
+      utmContent: params.utm_content || ''
+    })
+  }, [])
 
   const validateForm = () => {
     const errors: Record<string, string> = {}
@@ -55,13 +75,18 @@ export function Contact() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          ...utmParams
+        }),
       })
 
       const result = await response.json()
 
       if (response.ok) {
-        // Success
+        // Success - trigger LinkedIn conversion tracking
+        trackLinkedInConversion('CONVERSION_ID_PLACEHOLDER')
+        
         alert('Thank you for your enquiry! We have sent you a confirmation email and will respond within 24 hours.')
         
         // Reset form

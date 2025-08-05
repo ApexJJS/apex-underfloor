@@ -142,8 +142,8 @@ export function CookieConsent({ onAccept, onDecline }: CookieConsentProps) {
 function CookieSettings({ onSave, onBack }: { onSave: (preferences: any) => void, onBack: () => void }) {
   const [preferences, setPreferences] = useState({
     necessary: true,
-    analytics: false,
-    marketing: false
+    analytics: true,
+    marketing: true
   })
 
   const handleSave = () => {
