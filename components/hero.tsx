@@ -141,6 +141,7 @@ export function Hero() {
                         className="object-cover"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
                         priority={index === 0} // Priority load for first image only
+                        fetchPriority={index === 0 ? "high" : "auto"}
                         quality={85}
                       />
                       {/* Card overlay for depth */}
