@@ -8,10 +8,10 @@ html {
 }
 
 /* Adobe Fonts - Bebas Neue Pro loaded via Typekit */
-/* Force font-display: swap for faster loading */
+/* Use font-display: optional to prevent font flash */
 @font-face {
   font-family: 'bebas-neue-pro';
-  font-display: swap;
+  font-display: optional;
 }
 
 @layer base {
