@@ -8,10 +8,23 @@ html {
 }
 
 /* Adobe Fonts - Bebas Neue Pro loaded via Typekit */
-/* Use font-display: optional to prevent font flash */
+/* Font metric overrides to prevent layout shift with swap */
 @font-face {
   font-family: 'bebas-neue-pro';
-  font-display: optional;
+  font-display: swap;
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
+}
+
+@font-face {
+  font-family: 'bebas-neue-pro-expanded';
+  font-display: swap;
+  ascent-override: 80%;
+  descent-override: 20%;
+  line-gap-override: 0%;
+  size-adjust: 100%;
 }
 
 @layer base {
