@@ -56,7 +56,19 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            // Load TypeKit non-blocking
+            (function() {
+              var link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'https://use.typekit.net/nqx5bej.css';
+              link.media = 'all';
+              document.head.appendChild(link);
+            })();
+          `
+        }} />
+        <noscript><link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" /></noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

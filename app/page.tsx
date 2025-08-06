@@ -59,34 +59,46 @@ export default function ApexWiringLanding() {
   // Handle navigation color change with throttled scroll
   React.useEffect(() => {
     let timeoutId: NodeJS.Timeout
+    let cachedDocHeight = 0
+
+    // Cache document height on mount and resize to avoid forced reflows
+    const updateDocHeight = () => {
+      cachedDocHeight = document.documentElement.scrollHeight
+    }
 
     const handleScroll = () => {
       clearTimeout(timeoutId)
       timeoutId = setTimeout(() => {
         const scrollY = window.scrollY
-        // Simple scroll position based detection - more performant
         const windowHeight = window.innerHeight
         const inHeroSection = scrollY < windowHeight * 0.8
-        const nearBottom = scrollY > document.documentElement.scrollHeight - windowHeight * 1.5
+        // Use cached height to avoid forced reflow
+        const nearBottom = scrollY > cachedDocHeight - windowHeight * 1.5
         
         setIsDarkSection(inHeroSection || nearBottom)
       }, 10)
     }
 
+    // Initial setup
+    updateDocHeight()
     window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', updateDocHeight, { passive: true })
     handleScroll() // Initial check
     
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', updateDocHeight)
       clearTimeout(timeoutId)
     }
   }, [])
 
-  // Simple smooth scroll function
+  // Optimized smooth scroll function - avoid forced reflows
   const smoothScrollTo = (targetId: string) => {
     const element = document.getElementById(targetId)
     if (element) {
-      const offsetTop = element.offsetTop - 80 // Account for navigation
+      // Use getBoundingClientRect() once instead of offsetTop for better performance
+      const rect = element.getBoundingClientRect()
+      const offsetTop = rect.top + window.scrollY - 80 // Account for navigation
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
