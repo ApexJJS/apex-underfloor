@@ -25,3 +25,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Image conversion tools (local development only)
+cairo_convert.py
+image-conversion/
+miniconda.exe
+*.exe
+convert_*.py
+*convert*.py
+test_*.py

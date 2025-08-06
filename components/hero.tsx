@@ -2,18 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
 import { PowerFlexBrand } from "./powerflex-brand"
+import Image from "next/image"
 
 const heroImages = [
   {
-    src: "/images/powerflexMDBlayoutimage.jpg",
+    src: "/images/powerflexMDBlayoutimage.webp",
     alt: "PowerFlex Underfloor Power System - Installation View 1"
   },
   {
-    src: "/images/powerflexMDBlayoutimage2.jpg", 
+    src: "/images/powerflexMDBlayoutimage2.webp", 
     alt: "PowerFlex Underfloor Power System - Installation View 2"
   },
   {
-    src: "/images/powerflexMDBlayoutimage3.jpg",
+    src: "/images/powerflexMDBlayoutimage3.webp",
     alt: "PowerFlex Underfloor Power System - Installation View 3"
   }
 ]
@@ -133,10 +134,14 @@ export function Hero() {
                   
                   return (
                     <div key={index} className={cardClasses}>
-                      <img
+                      <Image
                         src={image.src}
                         alt={image.alt}
-                        className="w-full h-full object-cover"
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+                        priority={index === 0} // Priority load for first image only
+                        quality={85}
                       />
                       {/* Card overlay for depth */}
                       {!isActive && (

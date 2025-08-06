@@ -54,6 +54,8 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
         <script
           type="application/ld+json"
@@ -66,7 +68,7 @@ export default function RootLayout({
               "logo": "https://powerflex.apexwiringsolutions.co.uk/apex-logo.svg",
               "contactPoint": {
                 "@type": "ContactPoint",
-                "telephone": "+44-1234-567890",
+                "telephone": "+44-191-378-7900",
                 "contactType": "customer service",
                 "areaServed": "GB",
                 "availableLanguage": "en"
@@ -112,10 +114,8 @@ export default function RootLayout({
             })
           }}
         />
-        {/* Preload hero images for instant display */}
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage.jpg" />
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage2.jpg" />
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage3.jpg" />
+        {/* Preload only first hero image for instant LCP */}
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage.webp" fetchPriority="high" />
       </head>
       <body className={inter.className} suppressHydrationWarning={true}>
         {children}

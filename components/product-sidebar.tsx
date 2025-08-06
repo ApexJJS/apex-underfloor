@@ -42,7 +42,7 @@ const productCategories = [
           {
             id: "9-port", 
             name: "9 Port",
-            image: "/images/products/9portMDB.svg",
+            image: "/images/webp/9portMDB.webp",
             specs: {
               powerOutputs: "9 Port (3 Pin)",
               ports: "9"
@@ -66,7 +66,7 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        technicalDrawing: "/images/products/MDBtechnicaldrawing.svg"
+        technicalDrawing: "/images/webp/MDBtechnicaldrawing.webp"
       },
       {
         id: "slave-distribution",
@@ -95,7 +95,7 @@ const productCategories = [
           {
             id: "10-port",
             name: "10 Port",
-            image: "/images/products/10portSDB.svg",
+            image: "/images/webp/10portSDB.webp",
             specs: {
               powerOutputs: "10 Port (3 Pin)",
               ports: "10"
@@ -118,7 +118,7 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        technicalDrawing: "/images/products/SDBtechnicaldrawing.svg"
+        technicalDrawing: "/images/webp/SDBtechnicaldrawing.webp"
       }
     ]
   },
@@ -150,8 +150,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "/images/products/3poletee.svg",
-        technicalDrawing: "/images/products/3pteetechnicaldrawing.svg"
+        image: "/images/webp/3poletee.webp",
+        technicalDrawing: "/images/webp/3pteetechnicaldrawing.webp"
       },
       {
         id: "armoured-connection",
@@ -172,8 +172,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "/images/products/armouredconnection.svg",
-        technicalDrawing: "/images/products/armouredconnectionandextendertechnicaldrawing.svg"
+        image: "/images/webp/armouredconnection.webp",
+        technicalDrawing: "/images/webp/armouredconnectionandextendertechnicaldrawing.webp"
       },
       {
         id: "unarmoured-connection",
@@ -193,7 +193,7 @@ const productCategories = [
           installation: "Indoor use - LSOH for safer installation"
         },
         image: "/images/products/unarmouredconnection.png",
-        technicalDrawing: "/images/products/unarmouredconnectiontechnicaldrawing.svg"
+        technicalDrawing: "/images/webp/unarmouredconnectiontechnicaldrawing.webp"
       },
       {
         id: "armoured-extender",
@@ -214,8 +214,8 @@ const productCategories = [
           qms: "ISO 9001:2015",
           wiringStandard: "BS 8488:2009+A1:2010"
         },
-        image: "/images/products/armouredextender.svg",
-        technicalDrawing: "/images/products/armouredconnectionandextendertechnicaldrawing.svg"
+        image: "/images/webp/armouredextender.webp",
+        technicalDrawing: "/images/webp/armouredconnectionandextendertechnicaldrawing.webp"
       },
       {
         id: "unarmoured-extender",
@@ -235,7 +235,7 @@ const productCategories = [
           installation: "Indoor use - LSOH for safer installation"
         },
         image: "/images/products/unarmouredextender.png",
-        technicalDrawing: "/images/products/unarmouredextendertechnicaldrawing.svg"
+        technicalDrawing: "/images/webp/unarmouredextendertechnicaldrawing.webp"
       }
     ]
   },
@@ -259,8 +259,8 @@ const productCategories = [
           operatingTemp: "-40°C to +85°C",
           standards: "CE Marked"
         },
-        image: "/images/products/rcdmodule.svg",
-        technicalDrawing: "/images/products/rcdmodule.svg"
+        image: "/images/webp/rcdmodule.webp",
+        technicalDrawing: "/images/webp/rcdmodule.webp"
       }
     ]
   },
@@ -296,7 +296,7 @@ const productCategories = [
           {
             id: "4-gang",
             name: "4 Gang",
-            image: "/images/products/4gangpowermodeule.svg",
+            image: "/images/webp/4gangpowermodeule.webp",
             specs: {
               output: "4 BS1363 UK sockets",
               socketCount: "4 Gang"
@@ -316,7 +316,7 @@ const productCategories = [
           fixing: "3.5mm countersunk fixing holes",
           spacing: "60mm x 25mm connector spacing"
         },
-        technicalDrawing: "/images/products/4gangpowermoduletechnicaldrawing.svg"
+        technicalDrawing: "/images/webp/4gangpowermoduletechnicaldrawing.webp"
       },
       {
         id: "power-module-usb",
@@ -335,8 +335,8 @@ const productCategories = [
           connectorType: "GST18/3 3-pole",
           socketCount: "2 Gang + 2 USB"
         },
-        image: "/images/products/2gangpowerusb.svg",
-        technicalDrawing: "/images/products/2gangpowerusb.svg"
+        image: "/images/webp/2gangpowerusb.webp",
+        technicalDrawing: "/images/webp/2gangpowerusb.webp"
       }
     ]
   },
@@ -362,7 +362,7 @@ const productCategories = [
           {
             id: "black",
             name: "Black", 
-            image: "/images/products/blackregulargrommet.svg",
+            image: "/images/webp/blackregulargrommet.webp",
             specs: {
               colour: "Black"
             }
@@ -380,7 +380,7 @@ const productCategories = [
           locking: "Locking lid facility available",
           flexibility: "Adjustable to suit services exiting the floor void"
         },
-        technicalDrawing: "/images/products/standardgrommettechnicaldrawing_1.svg"
+        technicalDrawing: "/images/webp/standardgrommettechnicaldrawing_1.webp"
       },
       {
         id: "large-grommet",
@@ -398,8 +398,8 @@ const productCategories = [
           flexibility: "Multiple apertures for greater installation flexibility",
           application: "High-density cable installations"
         },
-        image: "/images/products/largegrommet.svg",
-        technicalDrawing: "/images/products/largegrommettechnicaldrawing.svg"
+        image: "/images/webp/largegrommet.webp",
+        technicalDrawing: "/images/webp/largegrommettechnicaldrawing.webp"
       }
     ]
   }

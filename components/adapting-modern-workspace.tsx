@@ -1,5 +1,6 @@
 import React from 'react'
 import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
 import { 
   CheckCircle,
   Building2,
@@ -86,11 +87,14 @@ export function AdaptingModernWorkspace() {
 
             {/* Right Content - Office Image */}
             <div className="relative">
-              <img 
-                src="/images/Modern Office Environment.png"
-                srcSet="/images/Modern Office Environment@2x.png 2x"
+              <Image 
+                src="/images/Modern Office Environment.svg"
                 alt="Modern Office Environment - Open-plan workspace with flexible power distribution"
-                className="w-full aspect-[4/3] object-contain"
+                width={608}
+                height={398}
+                className="w-full object-contain"
+                loading="lazy"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 608px"
               />
             </div>
           </div>
