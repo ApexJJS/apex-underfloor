@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 import {
   ArrowRight,
   Award,
@@ -8,6 +8,7 @@ import {
   Building,
   Building2,
   CheckCircle,
+  ChevronDown,
   Clock,
   Download,
   ExternalLink,
@@ -40,6 +41,9 @@ import { AnalyticsInit } from "@/components/analytics-init"
 export default function ApexWiringLanding() {
   const [isDarkSection, setIsDarkSection] = useState(true)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isBrandDropdownOpen, setIsBrandDropdownOpen] = useState(false)
+  const desktopBrandDropdownRef = useRef<HTMLDivElement>(null)
+  const mobileBrandDropdownRef = useRef<HTMLDivElement>(null)
   const [cookiesAccepted, setCookiesAccepted] = useState(false)
 
   // Handle mobile menu scroll lock
@@ -92,6 +96,19 @@ export default function ApexWiringLanding() {
     }
   }, [])
 
+  // Close brand dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if ((desktopBrandDropdownRef.current && !desktopBrandDropdownRef.current.contains(event.target as Node)) &&
+          (mobileBrandDropdownRef.current && !mobileBrandDropdownRef.current.contains(event.target as Node))) {
+        setIsBrandDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
   // Optimized smooth scroll function - avoid forced reflows
   const smoothScrollTo = (targetId: string) => {
     const element = document.getElementById(targetId)
@@ -119,15 +136,10 @@ export default function ApexWiringLanding() {
               : 'bg-white/90 border border-gray-200/50'
           }`}>
             <div className="flex items-center justify-between">
-              <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <img 
-                  src="/apex-logo.svg" 
-                  alt="Apex" 
-                  className={`w-8 h-8 transition-all duration-300 ${
-                    isDarkSection ? 'filter invert' : ''
-                  }`} 
-                />
-              </a>
+              <PowerFlexBrand 
+                theme={isDarkSection ? "white" : "navy"} 
+                className="h-6"
+              />
               <div className="flex items-center space-x-3">
                 <Button 
                   size="sm" 
@@ -166,15 +178,54 @@ export default function ApexWiringLanding() {
               : 'bg-white/90 border border-gray-200/50'
           }`}>
             <div className="flex items-center space-x-6">
-              <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer" className="flex items-center">
-                <img 
-                  src="/apex-logo.svg" 
-                  alt="Apex" 
-                  className={`w-8 h-8 transition-all duration-300 hover:scale-105 ${
-                    isDarkSection ? 'filter invert' : ''
-                  }`} 
-                />
-              </a>
+              <div className="relative" ref={desktopBrandDropdownRef}>
+                <button 
+                  onClick={() => setIsBrandDropdownOpen(!isBrandDropdownOpen)}
+                  className="flex items-center gap-1 hover:scale-105 transition-all duration-300"
+                >
+                  <PowerFlexBrand 
+                    theme={isDarkSection ? "white" : "navy"} 
+                    className="h-6"
+                  />
+                  <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${
+                    isDarkSection ? 'text-white/60' : 'text-brand-navy/60'
+                  } ${
+                    isBrandDropdownOpen ? 'rotate-180' : 'rotate-0'
+                  }`} />
+                </button>
+                
+                <div className={`absolute top-full left-1/2 transform -translate-x-1/2 -ml-2 mt-4 backdrop-blur-md rounded-xl shadow-2xl border overflow-hidden transition-all duration-300 ${
+                  isDarkSection 
+                    ? 'bg-slate-800/95 border-white/20' 
+                    : 'bg-white/95 border-gray-200/50'
+                } ${
+                  isBrandDropdownOpen 
+                    ? 'max-h-40 opacity-100' 
+                    : 'max-h-0 opacity-0 pointer-events-none'
+                }`}>
+                  <div className="p-3 flex flex-col gap-2">
+                    <button 
+                      className="flex items-center justify-center p-3 rounded-lg transition-all duration-200 border-2 border-brand-yellow hover:bg-brand-yellow/10"
+                      onClick={() => setIsBrandDropdownOpen(false)}
+                    >
+                      <PowerFlexBrand theme={isDarkSection ? "white" : "navy"} className="h-6" />
+                    </button>
+                    <a 
+                      href="https://www.apexwiringsolutions.co.uk/home"
+                      className="flex items-center justify-center p-3 rounded-lg transition-all duration-200 hover:bg-brand-yellow/10"
+                      onClick={() => setIsBrandDropdownOpen(false)}
+                    >
+                      <img 
+                        src="/apex-logo.svg" 
+                        alt="Apex" 
+                        className={`w-8 h-8 transition-all duration-300 ${
+                          isDarkSection ? 'filter invert' : ''
+                        }`} 
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
               <div className="w-px h-6 bg-gray-300"></div>
               <button onClick={() => smoothScrollTo('hero')} className={`transition-all duration-300 text-sm font-medium hover:scale-105 ${
                 isDarkSection 
@@ -225,13 +276,43 @@ export default function ApexWiringLanding() {
               <X className="w-6 h-6" />
             </button>
             
-            <a href="https://www.apexwiringsolutions.co.uk" target="_blank" rel="noopener noreferrer">
-              <img 
-                src="/apex-logo.svg" 
-                alt="Apex Wiring Solutions" 
-                className="w-16 h-16 filter invert hover:scale-105 transition-all duration-300" 
-              />
-            </a>
+            <div className="relative" ref={mobileBrandDropdownRef}>
+              <button 
+                onClick={() => setIsBrandDropdownOpen(!isBrandDropdownOpen)}
+                className="flex items-center gap-2 hover:scale-105 transition-all duration-300"
+              >
+                <PowerFlexBrand theme="white" className="h-12" />
+                <ChevronDown className={`h-4 w-4 text-white/60 transition-transform duration-200 ${
+                  isBrandDropdownOpen ? 'rotate-180' : 'rotate-0'
+                }`} />
+              </button>
+              
+              <div className={`mt-4 backdrop-blur-md rounded-2xl shadow-2xl border overflow-hidden bg-slate-800/95 border-white/20 transition-all duration-300 ${
+                isBrandDropdownOpen 
+                  ? 'max-h-40 opacity-100' 
+                  : 'max-h-0 opacity-0 pointer-events-none'
+              }`}>
+                <div className="p-3 flex flex-col gap-2">
+                  <button 
+                    className="flex items-center justify-center p-3 rounded-lg transition-all duration-200 border-2 border-brand-yellow hover:bg-brand-yellow/10"
+                    onClick={() => setIsBrandDropdownOpen(false)}
+                  >
+                    <PowerFlexBrand theme="white" className="h-6" />
+                  </button>
+                  <a 
+                    href="https://www.apexwiringsolutions.co.uk/home"
+                    className="flex items-center justify-center p-3 rounded-lg transition-all duration-200 hover:bg-brand-yellow/10"
+                    onClick={() => {setIsBrandDropdownOpen(false); setIsMobileMenuOpen(false);}}
+                  >
+                    <img 
+                      src="/apex-logo.svg" 
+                      alt="Apex" 
+                      className="w-8 h-8 filter invert transition-all duration-300" 
+                    />
+                  </a>
+                </div>
+              </div>
+            </div>
             
             <nav className="space-y-6 text-center">
               <a 
@@ -277,16 +358,6 @@ export default function ApexWiringLanding() {
                 Contact
               </a>
             </nav>
-            
-            <Button 
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-brand-navy text-lg px-8 py-4 font-semibold"
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Contact Us
-            </Button>
         </div>
       </div>
 
