@@ -91,6 +91,22 @@ The main page (`app/page.tsx`) orchestrates the entire site with:
 - Form fields use `focus:border-brand-navy focus:ring-0` for clean single-border focus states
 - Product images use `object-contain` CSS to display complete SVG images without cropping
 
+### Border Radius System
+- **UI Elements**: `rounded-md` (8px) - buttons, inputs, form controls
+- **Technical Content**: `rounded-lg` (12px) - spec cards, technical drawings, small info cards
+- **Product Content**: `rounded-xl` (16px) - product images, benefit cards, sidebar navigation
+- **Major Sections**: `rounded-2xl` (24px) - contact form, architecture cards, main content areas
+- **Hero/Featured**: `rounded-3xl` (32px) - hero sections, main schematic containers
+- Maintain visual hierarchy where more important content gets more rounding
+
+### Import Organization Standards
+- **React imports** (including hooks) first
+- **Next.js imports** (Image, Link, etc.) second
+- **Third-party libraries** (alphabetical) third
+- **UI components** from `@/components/ui` fourth
+- **Custom components** from `@/components` fifth (in page flow order for main page)
+- **Utilities/lib imports** from `@/lib` last
+
 ## SEO & Performance
 
 ### SEO Implementation
