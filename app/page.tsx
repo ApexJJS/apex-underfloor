@@ -160,7 +160,7 @@ export default function ApexWiringLanding() {
         
         {/* Desktop: Single centered nav bar */}
         <div className="hidden lg:block top-8 left-1/2 transform -translate-x-1/2 absolute">
-          <div className={`backdrop-blur-md rounded-full px-8 py-3 shadow-xl transition-all duration-300 ${
+          <div className={`backdrop-blur-md rounded-2xl px-8 py-3 shadow-xl transition-all duration-300 ${
             isDarkSection 
               ? 'bg-slate-800/90 border border-white/20' 
               : 'bg-white/90 border border-gray-200/50'

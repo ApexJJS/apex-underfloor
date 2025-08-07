@@ -27,7 +27,7 @@ export function SystemSchematic() {
                 PowerFlex underfloor power distribution from distribution board to individual desk connections
               </p>
             </div>
-            <div className="bg-white rounded-2xl overflow-hidden">
+            <div className="bg-white rounded-xl overflow-hidden">
               <img 
                 src="/images/schematics/powerflexschematicexample.svg" 
                 alt="PowerFlex System Schematic - Complete underfloor power distribution layout" 
@@ -45,7 +45,7 @@ export function SystemSchematic() {
                 Understanding the symbols and components used in PowerFlex system diagrams
               </p>
             </div>
-            <div className="bg-white rounded-2xl overflow-hidden flex justify-center">
+            <div className="bg-white rounded-xl overflow-hidden flex justify-center">
               <img 
                 src="/images/schematics/powerflexschematicexamplekey.svg" 
                 alt="PowerFlex System Schematic Key - Component legend" 
@@ -53,7 +53,7 @@ export function SystemSchematic() {
                 style={{ minHeight: '300px', maxWidth: '800px' }}
               />
             </div>
-            <div className="mt-8 bg-gray-50 rounded-xl p-6">
+            <div className="mt-8 bg-gray-50 rounded-lg p-6">
               <p className="text-brand-navy leading-relaxed">
                 This comprehensive diagram demonstrates the modular flexibility of PowerFlex systems, 
                 showing how components interconnect to create efficient underfloor power distribution. 

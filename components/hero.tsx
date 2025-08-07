@@ -80,7 +80,7 @@ export function Hero() {
                   size="lg"
                   variant="outline"
                   asChild
-                  className="border-2 border-white/20 text-white hover:bg-white/10 hover:border-white/40 px-8 py-4 text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-300"
+                  className="border-2 border-brand-yellow/40 text-brand-yellow hover:bg-brand-yellow hover:text-brand-navy hover:border-brand-yellow px-8 py-4 text-lg font-semibold bg-transparent backdrop-blur-sm transition-all duration-300"
                   suppressHydrationWarning
                 >
                   <a href="#products" suppressHydrationWarning>

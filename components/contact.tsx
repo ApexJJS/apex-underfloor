@@ -200,8 +200,8 @@ export function Contact() {
 
             {/* Right Column - Form */}
             <div>
-              <Card className="border-0 shadow-2xl bg-white">
-                <CardHeader className="p-8 bg-gradient-to-r from-brand-yellow/10 to-white border-b border-brand-yellow/20">
+              <Card className="border-0 shadow-2xl bg-white rounded-2xl">
+                <CardHeader className="p-8 bg-gradient-to-r from-brand-yellow/10 to-white border-b border-brand-yellow/20 rounded-t-2xl">
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center">
                       <Mail className="h-5 w-5 text-brand-navy" />

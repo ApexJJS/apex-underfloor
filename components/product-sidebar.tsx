@@ -538,7 +538,7 @@ export function ProductSidebar() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8">
           {/* Sidebar Navigation */}
           <div className="lg:col-span-1">
-            <Card className="bg-white border-0 shadow-xl sticky top-8">
+            <Card className="bg-white border-0 shadow-xl sticky top-8 rounded-xl">
               <CardHeader className="pb-4">
                 <CardTitle className="text-xl font-bebas font-extrabold text-brand-navy">
                   Product Categories
@@ -601,7 +601,7 @@ export function ProductSidebar() {
           <div className="lg:col-span-3">
             {currentProduct && (
               <div className="space-y-8">
-                <Card className="bg-white border-0 shadow-xl">
+                <Card className="bg-white border-0 shadow-xl rounded-2xl">
                   <CardHeader className="pb-6">
                     <div className="flex flex-col lg:flex-row lg:items-start gap-6">
                       <div className="flex-1">
@@ -652,7 +652,7 @@ export function ProductSidebar() {
                       </div>
                       <div className="lg:w-64 flex-shrink-0">
                         <div className="bg-gradient-to-br from-gray-50 to-white p-6 rounded-xl border">
-                          <div className="w-full h-48 bg-white rounded-lg shadow-sm overflow-hidden">
+                          <div className="w-full h-48 bg-white rounded-xl shadow-sm overflow-hidden">
                             {currentImage ? (
                               <img 
                                 src={currentImage} 

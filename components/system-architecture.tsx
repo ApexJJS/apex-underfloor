@@ -30,7 +30,7 @@ export function SystemArchitecture() {
         <div className="grid lg:grid-cols-2 gap-16 mb-20">
           
           {/* Stand-Alone System */}
-          <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group">
+          <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group rounded-2xl">
             <CardHeader className="bg-gradient-to-r from-brand-yellow to-brand-yellow-light text-brand-navy p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-brand-navy rounded-xl flex items-center justify-center">
@@ -91,7 +91,7 @@ export function SystemArchitecture() {
           </Card>
 
           {/* Integrated System */}
-          <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group">
+          <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group rounded-2xl">
             <CardHeader className="bg-gradient-to-r from-brand-navy to-slate-800 text-white p-8">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
@@ -153,7 +153,7 @@ export function SystemArchitecture() {
         </div>
 
         {/* System Selection Guide */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 lg:p-12">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bebas font-extrabold text-brand-navy mb-4">
               Choose Your System
