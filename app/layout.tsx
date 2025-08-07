@@ -114,9 +114,11 @@ export default function RootLayout({
             })
           }}
         />
-        {/* Preload first hero image for instant LCP */}
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-800.webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-600.webp" media="(max-width: 1200px)" />
+        {/* Preload all full-size hero images for desktop */}
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage2.webp" />
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage3.webp" />
+        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-600.webp" media="(max-width: 768px)" />
       </head>
       <body className={inter.className} suppressHydrationWarning={true}>
         {children}
