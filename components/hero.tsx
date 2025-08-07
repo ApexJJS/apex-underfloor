@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
-import { PowerFlexBrand } from "./powerflex-brand"
 import Image from "next/image"
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { PowerFlexBrand } from "./powerflex-brand"
 
 const heroImages = [
   {
@@ -34,14 +34,14 @@ export function Hero() {
     return () => clearInterval(interval)
   }, [])
   return (
-    <section id="hero" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+    <section id="hero" className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden py-32">
       <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-transparent"></div>
 
       {/* Floating Elements */}
       <div className="absolute top-20 right-20 w-32 h-32 bg-brand-yellow/10 rounded-full blur-3xl animate-pulse"></div>
       <div className="absolute bottom-40 left-20 w-24 h-24 bg-brand-yellow/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
 
-      <div className="relative container mx-auto px-4 py-24">
+      <div className="relative container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">

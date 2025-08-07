@@ -8,12 +8,9 @@ export function SystemSchematic() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
-            <PowerFlexBrand theme="navy" className="mr-3" /> Underfloor
+          <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-8">
+            <PowerFlexBrand theme="navy" className="mr-3" /> Underfloor Schematic Example
           </h2>
-          <p className="text-4xl md:text-5xl font-bebas font-extrabold text-brand-navy mb-8">
-            Schematic Example
-          </p>
           <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
             Understanding how our modular components connect together to create a complete 
             underfloor power distribution system from distribution board to desk.

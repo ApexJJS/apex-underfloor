@@ -1,41 +1,41 @@
 "use client"
 
 import React, { useState } from "react"
+import {
+  ArrowRight,
+  Award,
+  BarChart3,
+  Building,
+  Building2,
+  CheckCircle,
+  Clock,
+  Download,
+  ExternalLink,
+  FileText,
+  ImageIcon,
+  Lightbulb,
+  Mail,
+  MapPin,
+  Menu,
+  Phone,
+  Shield,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  X,
+  Zap,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { PowerFlexBrand } from "@/components/powerflex-brand"
+import { Hero } from "@/components/hero"
+import { AdaptingModernWorkspace } from "@/components/adapting-modern-workspace"
 import { ProductSidebar } from "@/components/product-sidebar"
 import { SystemArchitecture } from "@/components/system-architecture"
 import { SystemSchematic } from "@/components/system-schematic"
-import { AdaptingModernWorkspace } from "@/components/adapting-modern-workspace"
-import { Hero } from "@/components/hero"
 import { Contact } from "@/components/contact"
 import { CookieConsent } from "@/components/cookie-consent"
 import { AnalyticsInit } from "@/components/analytics-init"
-import {
-  X,
-  Menu,
-  Phone,
-  Mail,
-  MapPin,
-  Download,
-  FileText,
-  Shield,
-  ArrowRight,
-  Clock,
-  Star,
-  Zap,
-  Award,
-  CheckCircle,
-  ExternalLink,
-  ImageIcon,
-  Building,
-  Building2,
-  Users,
-  Target,
-  Lightbulb,
-  BarChart3,
-  TrendingUp,
-} from "lucide-react"
 
 export default function ApexWiringLanding() {
   const [isDarkSection, setIsDarkSection] = useState(true)

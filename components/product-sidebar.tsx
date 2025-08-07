@@ -523,10 +523,10 @@ export function ProductSidebar() {
       : undefined
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 py-20">
+    <div className="bg-gradient-to-b from-gray-50 to-white py-32">
+      <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-bebas font-extrabold text-brand-navy mb-6">
             <PowerFlexBrand theme="navy" className="mr-3" /> Products
           </h2>

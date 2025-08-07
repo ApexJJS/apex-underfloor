@@ -95,7 +95,7 @@ export function AdaptingModernWorkspace() {
           </div>
 
           {/* Key Benefits Icons */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
                 icon: Zap,
@@ -118,8 +118,8 @@ export function AdaptingModernWorkspace() {
                 desc: "Environmentally conscious solutions that evolve with your business needs" 
               },
             ].map((benefit, index) => (
-              <div key={index} className="group text-center">
-                <div className="w-16 h-16 bg-brand-yellow rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:ring-4 group-hover:ring-brand-yellow/30 group-hover:shadow-lg group-hover:shadow-brand-yellow/40 group-hover:animate-pulse transition-all duration-300 cursor-pointer">
+              <div key={index} className="group bg-white border-0 shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl p-6 text-center">
+                <div className="w-16 h-16 bg-brand-yellow rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:ring-4 group-hover:ring-brand-yellow/30 group-hover:shadow-lg group-hover:shadow-brand-yellow/40 transition-all duration-300">
                   <benefit.icon className="h-8 w-8 text-brand-navy group-hover:scale-110 transition-all duration-300" />
                 </div>
                 <h3 className="text-xl font-bebas font-extrabold text-brand-navy mb-3">{benefit.title}</h3>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { getUTMParams, trackLinkedInConversion } from '@/lib/utm'
 import Link from 'next/link'
+import { getUTMParams, trackLinkedInConversion } from '@/lib/utm'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -129,7 +129,7 @@ export function Contact() {
 
       <div className="relative container mx-auto px-4">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-20">
             <div className="relative mb-8">
               <img 
                 src="/apex-logo.svg" 

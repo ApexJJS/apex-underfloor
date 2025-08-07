@@ -13,7 +13,7 @@ import { PowerFlexBrand } from "./powerflex-brand"
 
 export function SystemArchitecture() {
   return (
-    <section id="architecture" className="py-32 bg-gradient-to-b from-white to-gray-50">
+    <section id="architecture" className="py-32 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-20">
@@ -27,7 +27,7 @@ export function SystemArchitecture() {
         </div>
 
         {/* System Comparison */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-20">
+        <div className="grid lg:grid-cols-2 gap-16 mb-20">
           
           {/* Stand-Alone System */}
           <Card className="bg-white border-0 shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden group">
