@@ -33,7 +33,7 @@ const productCategories = [
           {
             id: "6-port",
             name: "6 Port",
-            image: "/images/products/6portMDB.png",
+            image: "/images/webp/6portMDB.webp",
             specs: {
               powerOutputs: "6 Port (3 Pin)",
               ports: "6"
@@ -77,7 +77,7 @@ const productCategories = [
           {
             id: "4-port",
             name: "4 Port",
-            image: "/images/products/4portSDB.png",
+            image: "/images/webp/4portSDB.webp",
             specs: {
               powerOutputs: "4 Port (3 Pin)",
               ports: "4"
@@ -86,7 +86,7 @@ const productCategories = [
           {
             id: "6-port",
             name: "6 Port", 
-            image: "/images/products/6portSDB.png",
+            image: "/images/webp/6portSDB.webp",
             specs: {
               powerOutputs: "6 Port (3 Pin)",
               ports: "6"
@@ -192,7 +192,7 @@ const productCategories = [
           cableStandard: "BS 7671 compliant",
           installation: "Indoor use - LSOH for safer installation"
         },
-        image: "/images/products/unarmouredconnection.png",
+        image: "/images/webp/unarmouredconnection.webp",
         technicalDrawing: "/images/webp/unarmouredconnectiontechnicaldrawing.webp"
       },
       {
@@ -234,7 +234,7 @@ const productCategories = [
           cableStandard: "BS 7671 compliant",
           installation: "Indoor use - LSOH for safer installation"
         },
-        image: "/images/products/unarmouredextender.png",
+        image: "/images/webp/unarmouredextender.webp",
         technicalDrawing: "/images/webp/unarmouredextendertechnicaldrawing.webp"
       }
     ]

@@ -6,15 +6,18 @@ import Image from "next/image"
 
 const heroImages = [
   {
-    src: "/images/powerflexMDBlayoutimage.webp",
+    src: "/images/powerflexMDBlayoutimage-800.webp",
+    srcSet: "/images/powerflexMDBlayoutimage-400.webp 400w, /images/powerflexMDBlayoutimage-600.webp 600w, /images/powerflexMDBlayoutimage-800.webp 800w",
     alt: "PowerFlex Underfloor Power System - Installation View 1"
   },
   {
-    src: "/images/powerflexMDBlayoutimage2.webp", 
+    src: "/images/powerflexMDBlayoutimage2-800.webp",
+    srcSet: "/images/powerflexMDBlayoutimage2-400.webp 400w, /images/powerflexMDBlayoutimage2-600.webp 600w, /images/powerflexMDBlayoutimage2-800.webp 800w",
     alt: "PowerFlex Underfloor Power System - Installation View 2"
   },
   {
-    src: "/images/powerflexMDBlayoutimage3.webp",
+    src: "/images/powerflexMDBlayoutimage3-800.webp",
+    srcSet: "/images/powerflexMDBlayoutimage3-400.webp 400w, /images/powerflexMDBlayoutimage3-600.webp 600w, /images/powerflexMDBlayoutimage3-800.webp 800w",
     alt: "PowerFlex Underfloor Power System - Installation View 3"
   }
 ]
@@ -134,15 +137,14 @@ export function Hero() {
                   
                   return (
                     <div key={index} className={cardClasses}>
-                      <Image
+                      <img
                         src={image.src}
+                        srcSet={image.srcSet}
                         alt={image.alt}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
-                        priority={index === 0} // Priority load for first image only
+                        className="absolute inset-0 w-full h-full object-cover"
+                        sizes="(max-width: 768px) 400px, (max-width: 1200px) 600px, 800px"
+                        loading={index === 0 ? "eager" : "lazy"}
                         fetchPriority={index === 0 ? "high" : "auto"}
-                        quality={85}
                       />
                       {/* Card overlay for depth */}
                       {!isActive && (
