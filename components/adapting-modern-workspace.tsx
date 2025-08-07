@@ -22,9 +22,8 @@ export function AdaptingModernWorkspace() {
               Adapting The Modern Workspace
             </h2>
             <p className="text-xl text-brand-navy max-w-4xl mx-auto leading-relaxed">
-              Open-plan office layouts have undergone significant changes over the past 20 years, 
-              driven by evolving work cultures, technological advancements, and a renewed 
-              emphasis on employee well-being.
+              Gone are the days of static floorplans, rigid rows of desks, and fixed infrastructure. 
+              Today's offices are agile, collaborative, and constantly evolving.
             </p>
           </div>
 
@@ -39,10 +38,6 @@ export function AdaptingModernWorkspace() {
                 </h3>
                 <p className="text-lg text-brand-navy font-semibold">
                   The Sustainable, Modular Underfloor Power Solution
-                </p>
-                <p className="text-brand-navy leading-relaxed">
-                  Gone are the days of static floorplans, rigid rows of desks, and fixed infrastructure. 
-                  Today's offices are agile, collaborative, and constantly evolving.
                 </p>
                 <p className="text-brand-navy leading-relaxed">
                   The Apex Power Flex System was designed to meet this new reality. It's a smart, 

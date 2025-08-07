@@ -405,10 +405,64 @@ const productCategories = [
   }
 ]
 
+// Helper function to get the first variant of a product
+const getFirstVariantId = (productId: string): string | null => {
+  const product = productCategories
+    .flatMap(cat => cat.products as any[])
+    .find(p => p.id === productId)
+  return product?.hasVariants && product.variants?.length > 0 ? product.variants[0].id : null
+}
+
+// Wrapper component for variant selection to ensure clean state
+function ProductVariantSelector({ product, onVariantSelect, selectedVariant }: {
+  product: any
+  onVariantSelect: (variantId: string) => void
+  selectedVariant: string | null
+}) {
+  const [localSelectedVariant, setLocalSelectedVariant] = useState<string>(
+    selectedVariant || (product.hasVariants && product.variants?.length > 0 ? product.variants[0].id : "")
+  )
+
+  // Update parent state when local variant changes
+  const handleVariantChange = (variantId: string) => {
+    setLocalSelectedVariant(variantId)
+    onVariantSelect(variantId)
+  }
+
+  const currentVariant = product.hasVariants 
+    ? product.variants?.find((v: any) => v.id === localSelectedVariant)
+    : null
+
+  if (!product.hasVariants || !product.variants?.length) {
+    return null
+  }
+
+  return (
+    <div className="mb-6">
+      <div className="flex flex-wrap gap-2 mb-4">
+        {product.variants.map((variant: any) => (
+          <Button
+            key={variant.id}
+            variant={localSelectedVariant === variant.id ? "default" : "outline"}
+            size="sm"
+            className={localSelectedVariant === variant.id 
+              ? "bg-brand-navy text-white hover:bg-brand-navy/90" 
+              : "border-brand-navy/20 text-brand-navy hover:bg-brand-navy/10"
+            }
+            onClick={() => handleVariantChange(variant.id)}
+          >
+            {variant.name}
+          </Button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export function ProductSidebar() {
   const [selectedCategory, setSelectedCategory] = useState<string>("distribution")
-  const [selectedProduct, setSelectedProduct] = useState<string>("master-distribution")
-  const [selectedVariant, setSelectedVariant] = useState<string>("6-port")
+  const [selectedProduct, setSelectedProduct] = useState<string>("master-distribution") 
+  const [selectedVariantByProduct, setSelectedVariantByProduct] = useState<Record<string, string>>({})
   const [imageView, setImageView] = useState<"product" | "technical">("product")
   const [expandedCategories, setExpandedCategories] = useState<string[]>(["distribution"])
 
@@ -420,13 +474,35 @@ export function ProductSidebar() {
     )
   }
 
+  const handleProductSelect = (productId: string) => {
+    setSelectedProduct(productId)
+  }
+
   const currentProduct = productCategories
     .flatMap(cat => cat.products as any[])
     .find(product => product.id === selectedProduct)
     
-  const currentVariant = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'variants' in currentProduct
+  // Get the selected variant for current product
+  const getSelectedVariant = () => {
+    if (!currentProduct?.hasVariants || !currentProduct.variants?.length) return null
+    
+    const storedVariant = selectedVariantByProduct[selectedProduct]
+    const variantExists = currentProduct.variants.find((v: any) => v.id === storedVariant)
+    
+    return variantExists ? storedVariant : currentProduct.variants[0].id
+  }
+  
+  const selectedVariant = getSelectedVariant()
+  const currentVariant = currentProduct?.hasVariants 
     ? currentProduct.variants?.find((v: any) => v.id === selectedVariant)
     : null
+
+  const handleVariantSelect = (variantId: string) => {
+    setSelectedVariantByProduct(prev => ({
+      ...prev,
+      [selectedProduct]: variantId
+    }))
+  }
 
   const currentSpecs = currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'commonSpecs' in currentProduct
     ? { ...currentProduct.commonSpecs, ...(currentVariant?.specs || {}) }
@@ -507,7 +583,7 @@ export function ProductSidebar() {
                                   ? 'bg-brand-navy/10 text-brand-navy font-medium' 
                                   : 'text-brand-navy hover:text-brand-navy hover:bg-gray-50'
                               }`}
-                              onClick={() => setSelectedProduct(product.id)}
+                              onClick={() => handleProductSelect(product.id)}
                             >
                               {product.name}
                             </Button>
@@ -536,26 +612,14 @@ export function ProductSidebar() {
                           {'description' in currentProduct ? currentProduct.description : ''}
                         </p>
                         
-                        {/* Variant Tabs */}
+                        {/* Variant Tabs - Using key prop to force remount when product changes */}
                         {currentProduct && 'hasVariants' in currentProduct && currentProduct.hasVariants && 'variants' in currentProduct && currentProduct.variants && (
-                          <div className="mb-6">
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {currentProduct.variants.map((variant: any) => (
-                                <Button
-                                  key={variant.id}
-                                  variant={selectedVariant === variant.id ? "default" : "outline"}
-                                  size="sm"
-                                  className={selectedVariant === variant.id 
-                                    ? "bg-brand-navy text-white hover:bg-brand-navy/90" 
-                                    : "border-brand-navy/20 text-brand-navy hover:bg-brand-navy/10"
-                                  }
-                                  onClick={() => setSelectedVariant(variant.id)}
-                                >
-                                  {variant.name}
-                                </Button>
-                              ))}
-                            </div>
-                          </div>
+                          <ProductVariantSelector
+                            key={selectedProduct}
+                            product={currentProduct}
+                            selectedVariant={selectedVariant}
+                            onVariantSelect={handleVariantSelect}
+                          />
                         )}
                         
                         {/* Image View Toggle */}

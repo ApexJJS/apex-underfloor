@@ -34,3 +34,6 @@ miniconda.exe
 convert_*.py
 *convert*.py
 test_*.py
+
+# Brochure reference files (local development only)
+public/brochure/

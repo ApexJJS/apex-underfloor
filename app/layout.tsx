@@ -117,7 +117,6 @@ export default function RootLayout({
         {/* Preload first hero image for instant LCP */}
         <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-800.webp" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-600.webp" media="(max-width: 1200px)" />
-        <link rel="preload" as="image" href="/images/powerflexMDBlayoutimage-400.webp" media="(max-width: 768px)" />
       </head>
       <body className={inter.className} suppressHydrationWarning={true}>
         {children}

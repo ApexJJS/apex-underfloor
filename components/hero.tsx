@@ -6,18 +6,18 @@ import Image from "next/image"
 
 const heroImages = [
   {
-    src: "/images/powerflexMDBlayoutimage-800.webp",
-    srcSet: "/images/powerflexMDBlayoutimage-400.webp 400w, /images/powerflexMDBlayoutimage-600.webp 600w, /images/powerflexMDBlayoutimage-800.webp 800w",
+    src: "/images/powerflexMDBlayoutimage.webp",
+    srcSet: "/images/powerflexMDBlayoutimage-600.webp 600w, /images/powerflexMDBlayoutimage-800.webp 800w, /images/powerflexMDBlayoutimage.webp 1620w",
     alt: "PowerFlex Underfloor Power System - Installation View 1"
   },
   {
-    src: "/images/powerflexMDBlayoutimage2-800.webp",
-    srcSet: "/images/powerflexMDBlayoutimage2-400.webp 400w, /images/powerflexMDBlayoutimage2-600.webp 600w, /images/powerflexMDBlayoutimage2-800.webp 800w",
+    src: "/images/powerflexMDBlayoutimage2.webp",
+    srcSet: "/images/powerflexMDBlayoutimage2-600.webp 600w, /images/powerflexMDBlayoutimage2-800.webp 800w, /images/powerflexMDBlayoutimage2.webp 1620w",
     alt: "PowerFlex Underfloor Power System - Installation View 2"
   },
   {
-    src: "/images/powerflexMDBlayoutimage3-800.webp",
-    srcSet: "/images/powerflexMDBlayoutimage3-400.webp 400w, /images/powerflexMDBlayoutimage3-600.webp 600w, /images/powerflexMDBlayoutimage3-800.webp 800w",
+    src: "/images/powerflexMDBlayoutimage3.webp",
+    srcSet: "/images/powerflexMDBlayoutimage3-600.webp 600w, /images/powerflexMDBlayoutimage3-800.webp 800w, /images/powerflexMDBlayoutimage3.webp 1620w",
     alt: "PowerFlex Underfloor Power System - Installation View 3"
   }
 ]
@@ -142,7 +142,7 @@ export function Hero() {
                         srcSet={image.srcSet}
                         alt={image.alt}
                         className="absolute inset-0 w-full h-full object-cover"
-                        sizes="(max-width: 768px) 400px, (max-width: 1200px) 600px, 800px"
+                        sizes="(max-width: 768px) 600px, (max-width: 1200px) 800px, 1620px"
                         loading={index === 0 ? "eager" : "lazy"}
                         fetchPriority={index === 0 ? "high" : "auto"}
                       />
