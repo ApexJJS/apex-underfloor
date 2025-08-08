@@ -19,12 +19,22 @@ export const metadata: Metadata = {
     description: "Fast, flexible, future-ready underfloor power distribution for modern commercial spaces. UK manufactured since 1980.",
     type: "website",
     locale: "en_GB",
-    siteName: "PowerFlex by Apex Wiring Solutions"
+    siteName: "PowerFlex by Apex Wiring Solutions",
+    url: "https://powerflex.apexwiringsolutions.co.uk",
+    images: [
+      {
+        url: "https://powerflex.apexwiringsolutions.co.uk/images/powerflexMDBlayoutimage.webp",
+        width: 1620,
+        height: 1080,
+        alt: "PowerFlex Underfloor Power System Installation"
+      }
+    ]
   },
   twitter: {
     card: "summary_large_image",
     title: "PowerFlex - Underfloor Power by Apex Wiring Solutions", 
-    description: "Fast, flexible, future-ready underfloor power distribution for modern commercial spaces."
+    description: "Fast, flexible, future-ready underfloor power distribution for modern commercial spaces.",
+    images: ["https://powerflex.apexwiringsolutions.co.uk/images/powerflexMDBlayoutimage.webp"]
   },
   robots: {
     index: true,
