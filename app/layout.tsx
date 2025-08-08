@@ -23,10 +23,10 @@ export const metadata: Metadata = {
     url: "https://powerflex.apexwiringsolutions.co.uk",
     images: [
       {
-        url: "https://powerflex.apexwiringsolutions.co.uk/images/powerflexMDBlayoutimage.webp",
-        width: 1620,
-        height: 1080,
-        alt: "PowerFlex Underfloor Power System Installation"
+        url: "https://powerflex.apexwiringsolutions.co.uk/images/powerflex-og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "PowerFlex - Underfloor Power by Apex Wiring Solutions"
       }
     ]
   },
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PowerFlex - Underfloor Power by Apex Wiring Solutions", 
     description: "Fast, flexible, future-ready underfloor power distribution for modern commercial spaces.",
-    images: ["https://powerflex.apexwiringsolutions.co.uk/images/powerflexMDBlayoutimage.webp"]
+    images: ["https://powerflex.apexwiringsolutions.co.uk/images/powerflex-og-image.svg"]
   },
   robots: {
     index: true,
