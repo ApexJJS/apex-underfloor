@@ -116,7 +116,7 @@ export default function EmailPreview() {
                 <p style="margin: 0 0 5px 0;">Co. Durham, DH7 8RJ</p>
                 <p style="margin: 0 0 15px 0;">
                     📞 <a href="tel:+441913787900" style="color: #1e293b; text-decoration: none;">+44 (0) 191 378 7900</a> | 
-                    ✉️ <a href="mailto:info@apexwiringsolutions.co.uk" style="color: #1e293b; text-decoration: none;">info@apexwiringsolutions.co.uk</a>
+                    ✉️ <a href="mailto:sales@apexwiringsolutions.co.uk" style="color: #1e293b; text-decoration: none;">sales@apexwiringsolutions.co.uk</a>
                 </p>
                 <p style="margin: 0; font-size: 12px; color: #94a3b8;">
                     This email was sent because you submitted an enquiry on our website. 

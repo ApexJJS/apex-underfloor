@@ -107,7 +107,7 @@ export function Contact() {
       }
     } catch (error) {
       console.error('Form submission error:', error)
-      alert('Failed to send your enquiry. Please check your connection and try again, or contact us directly at info@apexwiringsolutions.co.uk')
+      alert('Failed to send your enquiry. Please check your connection and try again, or contact us directly at sales@apexwiringsolutions.co.uk')
     } finally {
       setIsSubmitting(false)
     }
@@ -182,7 +182,7 @@ export function Contact() {
               <div className="space-y-6">
                 {[
                   { icon: Phone, title: "Phone", desc: "+44 (0) 191 378 7900" },
-                  { icon: Mail, title: "Email", desc: "info@apexwiringsolutions.co.uk" },
+                  { icon: Mail, title: "Email", desc: "sales@apexwiringsolutions.co.uk" },
                   { icon: MapPin, title: "Address", desc: "St. Johns Road, Meadowfield Ind Estate, Co. Durham, DH7 8RJ" },
                 ].map((contact, index) => (
                   <div key={index} className="group flex items-center space-x-4">

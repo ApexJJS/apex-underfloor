@@ -94,7 +94,7 @@ Apex Wiring Solutions Ltd
 St. Johns Road, Meadowfield Industrial Estate
 Co. Durham, DH7 8RJ
 Tel: +44 (0) 191 378 7900
-Email: info@apexwiringsolutions.co.uk
+Email: sales@apexwiringsolutions.co.uk
     `.trim()
 
     // Auto-reply content (HTML - modern branded design)
@@ -203,7 +203,7 @@ Email: info@apexwiringsolutions.co.uk
                 <p style="margin: 0 0 5px 0;">Co. Durham, DH7 8RJ</p>
                 <p style="margin: 0 0 15px 0;">
                     📞 <a href="tel:+441913787900" style="color: #1e293b; text-decoration: none;">+44 (0) 191 378 7900</a> | 
-                    ✉️ <a href="mailto:info@apexwiringsolutions.co.uk" style="color: #1e293b; text-decoration: none;">info@apexwiringsolutions.co.uk</a>
+                    ✉️ <a href="mailto:sales@apexwiringsolutions.co.uk" style="color: #1e293b; text-decoration: none;">sales@apexwiringsolutions.co.uk</a>
                 </p>
                 <p style="margin: 0; font-size: 12px; color: #94a3b8;">
                     This email was sent because you submitted an enquiry on our website. 
@@ -228,7 +228,7 @@ Email: info@apexwiringsolutions.co.uk
     // Send notification email to company
     const notificationEmail = {
       from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'info@apexwiringsolutions.co.uk',
+      to: process.env.CONTACT_EMAIL || 'sales@apexwiringsolutions.co.uk',
       subject: `New PowerFlex Enquiry from ${company}`,
       text: emailContent,
       html: emailContent.replace(/\n/g, '<br>'),

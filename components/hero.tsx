@@ -108,7 +108,7 @@ export function Hero() {
               {/* Contact Info */}
               <div className="text-gray-400 text-sm space-y-1 pt-4">
                 <p>+44 (0) 191 378 7900</p>
-                <p>info@apexwiringsolutions.co.uk</p>
+                <p>sales@apexwiringsolutions.co.uk</p>
                 <p>www.apexwiringsolutions.co.uk</p>
               </div>
             </div>
