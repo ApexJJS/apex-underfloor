@@ -250,7 +250,7 @@ Email: sales@apexwiringsolutions.co.uk
                 </p>
                 ${marketingConsent ? `
                 <p style="margin: 10px 0 0 0; font-size: 12px; color: #94a3b8;">
-                    <a href="https://powerflex.apexwiringsolutions.co.uk/unsubscribe" style="color: #1e293b; text-decoration: underline;">
+                    <a href="mailto:sales@apexwiringsolutions.co.uk?subject=Unsubscribe%20Request&body=Please%20unsubscribe%20me%20from%20marketing%20emails.%0A%0AMy%20email:%20" style="color: #1e293b; text-decoration: underline;">
                         Unsubscribe from marketing emails
                     </a>
                 </p>
