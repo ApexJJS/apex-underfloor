@@ -272,7 +272,7 @@ Email: sales@apexwiringsolutions.co.uk
     // Create Microsoft Graph email objects
     const notificationEmailData = {
       message: {
-        subject: `🔥 New PowerFlex Enquiry from ${company}`,
+        subject: `New PowerFlex Enquiry from ${company}`,
         body: {
           contentType: "HTML",
           content: salesNotificationHTML
