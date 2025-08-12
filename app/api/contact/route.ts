@@ -144,7 +144,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 40px 30px; text-align: center;">
             <div style="margin-bottom: 20px; text-align: center;">
-                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexlogonavy.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block; filter: brightness(0) invert(1); background-color: #f0ea45; mix-blend-mode: multiply;" />
+                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexlogonavy.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             </div>
             <h2 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Thank you for your enquiry!</h2>
         </div>
@@ -196,7 +196,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 30px; border-top: 1px solid #e2e8f0;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoWhite.png" alt="Apex Wiring Solutions" style="height: 80px; width: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; filter: brightness(0) invert(1); background-color: #1e293b; mix-blend-mode: multiply;" />
+                <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoWhite.png" alt="Apex Wiring Solutions" style="height: 80px; width: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;" />
                 <div style="background-color: #1e293b; display: inline-block; padding: 8px 16px; border-radius: 6px;">
                     <span style="color: #f0ea45; font-size: 14px; font-weight: 600;">Made in Durham, UK since 1980</span>
                 </div>
