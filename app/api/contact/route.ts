@@ -91,7 +91,7 @@ export async function POST(request: NextRequest) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New PowerFlex Enquiry</title>
 </head>
-<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+<body style="margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background-color: #f8fafc;">
     <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
         
         <!-- Header -->
@@ -131,7 +131,7 @@ export async function POST(request: NextRequest) {
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
             <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoNavy@2x.png" alt="Apex Wiring Solutions" style="height: 50px; width: auto; margin-bottom: 10px;" />
-            <p style="margin: 0; font-size: 12px; color: #6b7280;">PowerFlex Enquiry System</p>
+            <p style="margin: 0; font-size: 12px; color: #6b7280;">Apex Enquiry System</p>
         </div>
     </div>
 </body>
