@@ -118,8 +118,8 @@ export async function POST(request: NextRequest) {
 
             <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">GDPR Consent</h3>
             <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <p style="margin: 0 0 5px 0;">✅ <strong>Data Processing:</strong> ${gdprConsent ? 'Consent given' : 'No consent'}</p>
-                <p style="margin: 0;">📧 <strong>Marketing Communications:</strong> ${marketingConsent ? 'Opted in' : 'Opted out'}</p>
+                <p style="margin: 0 0 5px 0;">${gdprConsent ? '✓' : '✗'} <strong>Data Processing:</strong> ${gdprConsent ? 'Consent given' : 'No consent'}</p>
+                <p style="margin: 0;">${marketingConsent ? '✓' : '✗'} <strong>Marketing Communications:</strong> ${marketingConsent ? 'Opted in' : 'Opted out'}</p>
             </div>
 
             <div style="border-top: 1px solid #e2e8f0; padding-top: 15px; font-size: 14px; color: #6b7280;">
