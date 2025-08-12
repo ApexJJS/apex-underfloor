@@ -168,13 +168,13 @@ Email: sales@apexwiringsolutions.co.uk
             </div>
 
             <div style="background-color: #1e293b; border-radius: 12px; padding: 25px; margin: 30px 0; text-align: center;">
-                <h4 style="color: #f0ea45; font-size: 18px; font-weight: 600; margin: 0 0 15px 0;">📥 Download Our Brochure</h4>
+                <h4 style="color: #f0ea45; font-size: 18px; font-weight: 600; margin: 0 0 15px 0;">📖 View/Download Our Brochure</h4>
                 <p style="color: #e2e8f0; font-size: 14px; margin: 0 0 20px 0;">
                     Get detailed product specifications, case studies, and installation guides
                 </p>
-                <a href="https://www.apexwiringsolutions.co.uk/brochure" 
+                <a href="https://heyzine.com/flip-book/f9763cbeda.html" 
                    style="display: inline-block; background-color: #f0ea45; color: #1e293b; text-decoration: none; padding: 12px 30px; border-radius: 8px; font-weight: 600; font-size: 16px; transition: all 0.3s ease;">
-                    Download PowerFlex Brochure
+                    View/Download PowerFlex Brochure
                 </a>
             </div>
 
