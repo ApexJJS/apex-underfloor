@@ -181,8 +181,14 @@ Email: sales@apexwiringsolutions.co.uk
             <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; margin-top: 30px;">
                 <h4 style="color: #1e293b; font-size: 16px; font-weight: 600; margin: 0 0 10px 0;">Your Enquiry Details:</h4>
                 <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; font-size: 14px; color: #475569;">
+                    <p style="margin: 0 0 5px 0;"><strong>Name:</strong> ${firstName} ${lastName}</p>
+                    <p style="margin: 0 0 5px 0;"><strong>Email:</strong> ${email}</p>
                     <p style="margin: 0 0 5px 0;"><strong>Company:</strong> ${company}</p>
-                    <p style="margin: 0;"><strong>Project Type:</strong> ${projectType || 'Not specified'}</p>
+                    <p style="margin: 0 0 10px 0;"><strong>Project Type:</strong> ${projectType || 'Not specified'}</p>
+                    <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e2e8f0;">
+                        <p style="margin: 0 0 5px 0;"><strong>Message:</strong></p>
+                        <p style="margin: 0; padding: 10px; background-color: #ffffff; border-radius: 4px; border-left: 3px solid #f0ea45;">${message}</p>
+                    </div>
                 </div>
             </div>
         </div>
