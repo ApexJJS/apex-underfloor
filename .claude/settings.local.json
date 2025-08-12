@@ -60,7 +60,8 @@
       "WebFetch(domain:gist.githubusercontent.com)",
       "WebFetch(domain:nodlik.github.io)",
       "Bash(/c/Users/Work/miniconda3/python.exe -c \"\nimport cairosvg\nfrom PIL import Image\nimport io\n\n# Convert PowerFlex SVG to PNG\ntry:\n    cairosvg.svg2png(url=''public/images/powerflex-og-split.svg'', write_to=''public/images/powerflex-logo-email.png'', output_width=200, output_height=50)\n    print(''✓ PowerFlex logo converted to PNG'')\nexcept Exception as e:\n    print(f''Error converting PowerFlex logo: {e}'')\n\n# Convert Apex SVG to PNG\ntry:\n    cairosvg.svg2png(url=''public/apex-logo.svg'', write_to=''public/images/apex-logo-email.png'', output_width=300, output_height=120)\n    print(''✓ Apex logo converted to PNG'')\nexcept Exception as e:\n    print(f''Error converting Apex logo: {e}'')\n\")",
-      "Bash(/c/Users/Work/miniconda3/python.exe -c \"import cairosvg; print(''✓ cairosvg works!'')\")"
+      "Bash(/c/Users/Work/miniconda3/python.exe -c \"import cairosvg; print(''✓ cairosvg works!'')\")",
+      "Bash(mv:*)"
     ],
     "deny": []
   }
