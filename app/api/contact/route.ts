@@ -96,15 +96,12 @@ export async function POST(request: NextRequest) {
         
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 30px; text-align: center;">
-            <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexlogonavy.png" alt="PowerFlex" style="height: 40px; width: auto; display: inline-block;" />
-            <h2 style="margin: 10px 0 0 0; color: #f0ea45; font-size: 24px; font-weight: bold;">New Website Enquiry</h2>
+            <div style="color: #f0ea45; font-size: 24px; font-weight: bold; letter-spacing: 1px;">POWERFLEX</div>
+            <h2 style="margin: 10px 0 0 0; color: #ffffff; font-size: 20px; font-weight: normal;">New Website Enquiry</h2>
         </div>
 
         <!-- Main Content -->
         <div style="padding: 30px;">
-            <div style="background-color: #f0ea45; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0;">🔥 High Priority Lead</h3>
-            </div>
 
             <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">Contact Information</h3>
             <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
@@ -115,7 +112,7 @@ export async function POST(request: NextRequest) {
             </div>
 
             <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">Message</h3>
-            <div style="background-color: #ffffff; border: 2px solid #f0ea45; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+            <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                 <p style="margin: 0; line-height: 1.6; color: #374151;">${message}</p>
             </div>
 
@@ -133,7 +130,7 @@ export async function POST(request: NextRequest) {
 
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-            <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoWhite.png" alt="Apex Wiring Solutions" style="height: 40px; width: auto; margin-bottom: 10px;" />
+            <div style="color: #1e293b; font-size: 20px; font-weight: bold; margin-bottom: 10px;">APEX WIRING SOLUTIONS</div>
             <p style="margin: 0; font-size: 12px; color: #6b7280;">PowerFlex Enquiry System</p>
         </div>
     </div>
