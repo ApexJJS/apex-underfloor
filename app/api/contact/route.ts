@@ -82,25 +82,63 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create email content
-    const emailContent = `
-New PowerFlex Enquiry
+    // Create branded HTML email content for sales notification
+    const salesNotificationHTML = `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New PowerFlex Enquiry</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f8fafc;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
+        
+        <!-- Header -->
+        <div style="background-color: #1e293b; padding: 30px; text-align: center;">
+            <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexlogonavy.png" alt="PowerFlex" style="height: 40px; width: auto; display: inline-block;" />
+            <h2 style="margin: 10px 0 0 0; color: #f0ea45; font-size: 24px; font-weight: bold;">New Website Enquiry</h2>
+        </div>
 
-Contact Information:
-- Name: ${firstName} ${lastName}
-- Email: ${email}
-- Company: ${company}
-- Project Type: ${projectType || 'Not specified'}
+        <!-- Main Content -->
+        <div style="padding: 30px;">
+            <div style="background-color: #f0ea45; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0;">🔥 High Priority Lead</h3>
+            </div>
 
-Message:
-${message}
+            <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">Contact Information</h3>
+            <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 0 0 8px 0;"><strong>Name:</strong> ${firstName} ${lastName}</p>
+                <p style="margin: 0 0 8px 0;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #1e293b;">${email}</a></p>
+                <p style="margin: 0 0 8px 0;"><strong>Company:</strong> ${company}</p>
+                <p style="margin: 0;"><strong>Project Type:</strong> ${projectType || 'Not specified'}</p>
+            </div>
 
-GDPR Consent:
-- Data Processing: ${gdprConsent ? 'Yes' : 'No'}
-- Marketing Communications: ${marketingConsent ? 'Yes' : 'No'}
+            <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">Message</h3>
+            <div style="background-color: #ffffff; border: 2px solid #f0ea45; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 0; line-height: 1.6; color: #374151;">${message}</p>
+            </div>
 
-Submitted: ${new Date().toLocaleString('en-GB')}
-IP Address: ${request.headers.get('x-forwarded-for') || 'Unknown'}
+            <h3 style="color: #1e293b; font-size: 18px; font-weight: bold; margin: 0 0 15px 0;">GDPR Consent</h3>
+            <div style="background-color: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                <p style="margin: 0 0 5px 0;">✅ <strong>Data Processing:</strong> ${gdprConsent ? 'Consent given' : 'No consent'}</p>
+                <p style="margin: 0;">📧 <strong>Marketing Communications:</strong> ${marketingConsent ? 'Opted in' : 'Opted out'}</p>
+            </div>
+
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 15px; font-size: 14px; color: #6b7280;">
+                <p style="margin: 0 0 5px 0;"><strong>Submitted:</strong> ${new Date().toLocaleString('en-GB')}</p>
+                <p style="margin: 0;"><strong>IP Address:</strong> ${request.headers.get('x-forwarded-for') || 'Unknown'}</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
+            <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoWhite.png" alt="Apex Wiring Solutions" style="height: 40px; width: auto; margin-bottom: 10px;" />
+            <p style="margin: 0; font-size: 12px; color: #6b7280;">PowerFlex Enquiry System</p>
+        </div>
+    </div>
+</body>
+</html>
     `.trim()
 
     // Auto-reply content (plain text)
@@ -237,10 +275,10 @@ Email: sales@apexwiringsolutions.co.uk
     // Create Microsoft Graph email objects
     const notificationEmailData = {
       message: {
-        subject: `New PowerFlex Enquiry from ${company}`,
+        subject: `🔥 New PowerFlex Enquiry from ${company}`,
         body: {
-          contentType: "Text",
-          content: emailContent
+          contentType: "HTML",
+          content: salesNotificationHTML
         },
         toRecipients: [{
           emailAddress: {
