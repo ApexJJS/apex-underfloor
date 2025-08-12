@@ -142,7 +142,7 @@ Email: sales@apexwiringsolutions.co.uk
     <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff;">
         
         <!-- Header -->
-        <div style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); padding: 40px 30px; text-align: center;">
+        <div style="background-color: #1e293b; padding: 40px 30px; text-align: center;">
             <div style="margin-bottom: 20px; text-align: center;">
                 <img src="https://powerflex.apexwiringsolutions.co.uk/images/powerflex-logo-yellow.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             </div>
