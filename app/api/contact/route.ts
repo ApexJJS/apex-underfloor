@@ -1,17 +1,49 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
+import { ConfidentialClientApplication } from '@azure/msal-node'
+import axios from 'axios'
 
-// Email configuration - you'll need to set these environment variables
-const createTransporter = () => {
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT || '587'),
-    secure: false, // true for 465, false for other ports
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  })
+// Microsoft Graph configuration
+const clientConfig = {
+  auth: {
+    clientId: process.env.AZURE_CLIENT_ID!,
+    clientSecret: process.env.AZURE_CLIENT_SECRET!,
+    authority: `https://login.microsoftonline.com/${process.env.AZURE_TENANT_ID}`
+  }
+}
+
+const cca = new ConfidentialClientApplication(clientConfig)
+
+// Get access token for Microsoft Graph
+async function getAccessToken() {
+  const clientCredentialRequest = {
+    scopes: ['https://graph.microsoft.com/.default'],
+  }
+
+  try {
+    const response = await cca.acquireTokenByClientCredential(clientCredentialRequest)
+    return response?.accessToken
+  } catch (error) {
+    console.error('Error acquiring token:', error)
+    throw error
+  }
+}
+
+// Send email using Microsoft Graph API
+async function sendEmail(accessToken: string, emailData: any) {
+  const graphUrl = `https://graph.microsoft.com/v1.0/users/${process.env.FROM_EMAIL}/sendMail`
+  
+  try {
+    const response = await axios.post(graphUrl, emailData, {
+      headers: {
+        'Authorization': `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.error('Error sending email:', error)
+    throw error
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -183,7 +215,7 @@ Email: sales@apexwiringsolutions.co.uk
                     <path fill="#1e293b" d="M44.56,77.74h-.87v-27.73h.87v27.73Z"/>
                     <path fill="#1e293b" d="M47.73,77.74v-27.73h1.23l9.74,25.95v-25.95h.83v27.73h-1.07l-9.9-26.46v26.46h-.83Z"/>
                     <path fill="#1e293b" d="M72.87,51.76c1,1.5,1.49,3.27,1.41,5.07v1.82h-.87v-1.86c.07-1.58-.33-3.14-1.17-4.48-.87-1.18-2.28-1.82-3.74-1.7-1.46-.12-2.89.52-3.76,1.7-.85,1.33-1.26,2.9-1.19,4.48v14.18c-.08,1.57.33,3.13,1.17,4.46.89,1.18,2.32,1.81,3.78,1.68,1.45.12,2.87-.51,3.74-1.68.84-1.33,1.25-2.89,1.17-4.46v-6.3h-4.32v-.79h5.19v7.05c.08,1.8-.41,3.57-1.41,5.07-2.21,2.43-5.98,2.6-8.41.39-.14-.12-.27-.25-.39-.39-1-1.5-1.49-3.27-1.41-5.07v-14.1c-.08-1.8.41-3.57,1.41-5.07,2.22-2.43,5.98-2.6,8.41-.38.13.12.26.25.38.38Z"/>
-                    <path fill="#1e293b" d="M6.49,86.96c.62.93.93,2.04.88,3.16v.33h-.55v-.35c.04-.98-.21-1.94-.73-2.77-.54-.74-1.42-1.14-2.33-1.07-.92-.08-1.81.32-2.36,1.05-.52.82-.77,1.79-.73,2.76-.01.63.14,1.25.44,1.81.28.51.66.96,1.1,1.33.44.37,1.02.79,1.74,1.28.63.41,1.24.85,1.82,1.33.47.4.86.88,1.15,1.42.32.61.48,1.28.46,1.97.06,1.13-.26,2.24-.89,3.17-1.47,1.54-3.9,1.59-5.44.13-.04-.04-.09-.08-.13-.13-.63-.93-.95-2.05-.89-3.17v-.85h.53v.88c-.05.98.21,1.95.75,2.77,1.22,1.32,3.27,1.4,4.59.18.06-.06.12-.12.18-.18.54-.82.8-1.79.75-2.77.02-.62-.14-1.24-.44-1.78-.28-.49-.65-.93-1.08-1.29-.56-.45-1.14-.88-1.74-1.27-.63-.42-1.25-.87-1.83-1.35-.47-.4-.86-.89-1.15-1.43-.33-.62-.49-1.31-.48-2.01-.06-1.12.25-2.24.89-3.16.67-.8,1.68-1.24,2.72-1.18,1.06-.09,2.1.37,2.76,1.2Z"/>
+                    <path fill="#1e293b" d="M6.49,86.96c.62.93.93,2.04.88,3.16v.33h-.55v-.35c.04-.98-.21-1.94-.73-2.77-.54-.74-1.42-1.14-2.33-1.07-.92-.08-1.81.32-2.36,1.05-.52.82-.77,1.79-.73,2.76-.01.63.14,1.25.44,1.81.28.51.66.96,1.10,1.33.44.37,1.02.79,1.74,1.28.63.41,1.24.85,1.82,1.33.47.4.86.88,1.15,1.42.32.61.48,1.28.46,1.97.06,1.13-.26,2.24-.89,3.17-1.47,1.54-3.9,1.59-5.44.13-.04-.04-.09-.08-.13-.13-.63-.93-.95-2.05-.89-3.17v-.85h.53v.88c-.05.98.21,1.95.75,2.77,1.22,1.32,3.27,1.4,4.59.18.06-.06.12-.12.18-.18.54-.82.8-1.79.75-2.77.02-.62-.14-1.24-.44-1.78-.28-.49-.65-.93-1.08-1.29-.56-.45-1.14-.88-1.74-1.27-.63-.42-1.25-.87-1.83-1.35-.47-.4-.86-.89-1.15-1.43-.33-.62-.49-1.31-.48-2.01-.06-1.12.25-2.24.89-3.16.67-.8,1.68-1.24,2.72-1.18,1.06-.09,2.1.37,2.76,1.2Z"/>
                     <path fill="#1e293b" d="M10.24,86.98c.67-.85,1.72-1.31,2.8-1.23,1.09-.09,2.16.37,2.85,1.23.65.94.97,2.07.92,3.21v8.93c.05,1.14-.27,2.27-.92,3.21-.69.86-1.75,1.32-2.85,1.23-1.08.08-2.13-.38-2.8-1.23-.65-.94-.97-2.07-.92-3.21v-8.93c-.05-1.14.27-2.27.92-3.21ZM10.63,101.98c.56.75,1.47,1.16,2.41,1.08.94.07,1.86-.33,2.43-1.08.55-.84.82-1.83.78-2.83v-8.98c.05-1-.23-2-.78-2.83-.58-.75-1.49-1.15-2.43-1.08-.93-.08-1.84.33-2.41,1.08-.54.84-.8,1.83-.75,2.83v8.98c-.05,1,.22,1.99.75,2.83Z"/>
                     <path fill="#1e293b" d="M18.78,85.88h.55v17.03h5.89v.53h-6.45v-17.56Z"/>
                     <path fill="#1e293b" d="M28.38,101.97c1.11,1.3,3.06,1.46,4.36.36.13-.11.25-.23.36-.36.52-.86.77-1.85.73-2.85v-13.24h.53v13.22c.05,1.14-.25,2.26-.87,3.22-1.34,1.52-3.66,1.66-5.18.32-.11-.1-.22-.21-.32-.32-.62-.96-.93-2.08-.88-3.22v-13.22h.55v13.24c-.05,1,.21,1.99.73,2.85Z"/>
@@ -223,30 +255,48 @@ Email: sales@apexwiringsolutions.co.uk
 </html>
     `.trim()
 
-    const transporter = createTransporter()
-
-    // Send notification email to company
-    const notificationEmail = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: process.env.CONTACT_EMAIL || 'sales@apexwiringsolutions.co.uk',
-      subject: `New PowerFlex Enquiry from ${company}`,
-      text: emailContent,
-      html: emailContent.replace(/\n/g, '<br>'),
+    // Get access token
+    const accessToken = await getAccessToken()
+    
+    if (!accessToken) {
+      throw new Error('Failed to acquire access token for Microsoft Graph API')
     }
 
-    // Send auto-reply to customer
-    const autoReplyEmail = {
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
-      to: email,
-      subject: 'Thank you for your PowerFlex enquiry - Apex Wiring Solutions',
-      text: autoReplyText,
-      html: autoReplyHTML,
+    // Create Microsoft Graph email objects
+    const notificationEmailData = {
+      message: {
+        subject: `New PowerFlex Enquiry from ${company}`,
+        body: {
+          contentType: "Text",
+          content: emailContent
+        },
+        toRecipients: [{
+          emailAddress: {
+            address: process.env.CONTACT_EMAIL || 'sales@apexwiringsolutions.co.uk'
+          }
+        }]
+      }
     }
 
-    // Send both emails
+    const autoReplyEmailData = {
+      message: {
+        subject: 'Thank you for your PowerFlex enquiry - Apex Wiring Solutions',
+        body: {
+          contentType: "HTML",
+          content: autoReplyHTML
+        },
+        toRecipients: [{
+          emailAddress: {
+            address: email
+          }
+        }]
+      }
+    }
+
+    // Send both emails using Microsoft Graph
     await Promise.all([
-      transporter.sendMail(notificationEmail),
-      transporter.sendMail(autoReplyEmail)
+      sendEmail(accessToken, notificationEmailData),
+      sendEmail(accessToken, autoReplyEmailData)
     ])
 
     // Log the enquiry (in production, you might want to save to database)
