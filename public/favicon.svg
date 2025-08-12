@@ -3,7 +3,7 @@
   <rect width="48" height="48" fill="#1e293b" rx="8"/>
   
   <!-- White "P" from PowerFlex logo, scaled and centered -->
-  <g transform="translate(24, 24) scale(0.8) translate(-9.5, -20.5)">
+  <g transform="translate(8, 8) scale(0.4)">
     <path fill="#ffffff" d="M0,0h19.21c13.05,0,19.45,7.23,19.45,20.52v8.18c0,13.28-6.4,20.52-19.45,20.52h-6.17v33.8H0V0ZM19.21,37.36c4.15,0,6.4-1.9,6.4-7.83v-9.84c0-5.93-2.25-7.83-6.4-7.83h-6.17v25.5h6.17Z"/>
   </g>
 </svg>
