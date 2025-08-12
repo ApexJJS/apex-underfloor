@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 30px; text-align: center;">
-            <div style="color: #f0ea45; font-size: 24px; font-weight: bold; letter-spacing: 1px;">POWERFLEX</div>
+            <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@3x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             <h2 style="margin: 10px 0 0 0; color: #ffffff; font-size: 20px; font-weight: normal;">New Website Enquiry</h2>
         </div>
 
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
 
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0;">
-            <div style="color: #1e293b; font-size: 20px; font-weight: bold; margin-bottom: 10px;">APEX WIRING SOLUTIONS</div>
+            <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoNavy@2x.png" alt="Apex Wiring Solutions" style="height: 50px; width: auto; margin-bottom: 10px;" />
             <p style="margin: 0; font-size: 12px; color: #6b7280;">PowerFlex Enquiry System</p>
         </div>
     </div>
@@ -179,7 +179,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 40px 30px; text-align: center;">
             <div style="margin-bottom: 20px; text-align: center;">
-                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexlogonavy.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
+                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@3x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             </div>
             <h2 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Thank you for your enquiry!</h2>
         </div>
@@ -231,7 +231,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Footer -->
         <div style="background-color: #f8fafc; padding: 30px; border-top: 1px solid #e2e8f0;">
             <div style="text-align: center; margin-bottom: 20px;">
-                <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoWhite.png" alt="Apex Wiring Solutions" style="height: 80px; width: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;" />
+                <img src="https://powerflex.apexwiringsolutions.co.uk/ApexLogoNavy@2x.png" alt="Apex Wiring Solutions" style="height: 80px; width: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto;" />
                 <div style="background-color: #1e293b; display: inline-block; padding: 8px 16px; border-radius: 6px;">
                     <span style="color: #f0ea45; font-size: 14px; font-weight: 600;">Made in Durham, UK since 1980</span>
                 </div>
