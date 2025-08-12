@@ -144,7 +144,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 40px 30px; text-align: center;">
             <div style="margin-bottom: 20px; text-align: center;">
-                <div style="color: #f0ea45; font-size: 32px; font-weight: bold; letter-spacing: 2px; font-family: Arial, sans-serif;">POWERFLEX</div>
+                <img src="https://powerflex.apexwiringsolutions.co.uk/images/powerflex-logo-email.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             </div>
             <h2 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Thank you for your enquiry!</h2>
         </div>
