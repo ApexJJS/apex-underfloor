@@ -64,6 +64,14 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable}`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Favicon set */}
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" href="/favicon.ico" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#1e293b" />
+        
         <link rel="preconnect" href="https://use.typekit.net" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://p.typekit.net" crossOrigin="anonymous" />
         <link rel="stylesheet" href="https://use.typekit.net/nqx5bej.css" />
