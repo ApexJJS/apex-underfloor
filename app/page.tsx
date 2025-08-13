@@ -115,7 +115,10 @@ export default function ApexWiringLanding() {
     if (element) {
       // Use getBoundingClientRect() once instead of offsetTop for better performance
       const rect = element.getBoundingClientRect()
-      const offsetTop = rect.top + window.scrollY - 80 // Account for navigation
+      // Calculate proper offset based on screen size and navigation height
+      const isMobile = window.innerWidth < 1024
+      const navOffset = isMobile ? 100 : 0 // Mobile: 100px, Desktop: no offset
+      const offsetTop = rect.top + window.scrollY - navOffset
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
