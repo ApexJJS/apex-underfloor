@@ -1,9 +1,50 @@
+# Robots.txt for PowerFlex - Underfloor Power Distribution
+# Last updated: 2025-08-12
+
+# Default crawling policy - allow all
 User-agent: *
 Allow: /
-
-
-# Sitemap location
-Sitemap: https://powerflex.apexwiringsolutions.co.uk/sitemap.xml
-
-# Crawl-delay for politeness
 Crawl-delay: 1
+
+# Block specific paths that don't need indexing
+Disallow: /api/
+Disallow: /_next/
+Disallow: /static/
+Disallow: /.well-known/
+
+# Common crawler directives
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Yandex
+User-agent: Yandex
+Allow: /
+Crawl-delay: 2
+
+# Baidu
+User-agent: Baiduspider
+Allow: /
+Crawl-delay: 2
+
+# Bad bots - block completely
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot  
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+# Sitemap locations
+Sitemap: https://powerflex.apexwiringsolutions.co.uk/sitemap.xml
