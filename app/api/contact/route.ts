@@ -96,7 +96,7 @@ export async function POST(request: NextRequest) {
         
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 30px; text-align: center;">
-            <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@3x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
+            <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@2x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             <h2 style="margin: 10px 0 0 0; color: #ffffff; font-size: 20px; font-weight: normal;">New Website Enquiry</h2>
         </div>
 
@@ -179,7 +179,7 @@ Email: sales@apexwiringsolutions.co.uk
         <!-- Header -->
         <div style="background-color: #1e293b; padding: 40px 30px; text-align: center;">
             <div style="margin-bottom: 20px; text-align: center;">
-                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@3x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
+                <img src="https://powerflex.apexwiringsolutions.co.uk/powerflexyellow@2x.png" alt="PowerFlex" style="height: 50px; width: auto; display: inline-block;" />
             </div>
             <h2 style="margin: 0; color: #ffffff; font-size: 24px; font-weight: 600;">Thank you for your enquiry!</h2>
         </div>
