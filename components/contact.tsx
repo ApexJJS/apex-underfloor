@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useToast } from "@/components/ui/use-toast"
 import Link from 'next/link'
 import { getUTMParams, trackLinkedInConversion } from '@/lib/utm'
 import { Button } from "@/components/ui/button"
@@ -16,6 +17,7 @@ import {
 } from "lucide-react"
 
 export function Contact() {
+  const { toast } = useToast()
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -87,7 +89,11 @@ export function Contact() {
         // Success - trigger LinkedIn conversion tracking
         trackLinkedInConversion('CONVERSION_ID_PLACEHOLDER')
         
-        alert('Thank you for your enquiry! We have sent you a confirmation email and will respond within 24 hours.')
+        toast({
+          title: "Thank you for your enquiry!",
+          description: "We have sent you a confirmation email and will respond within 24 hours.",
+          duration: 5000,
+        })
         
         // Reset form
         setFormData({
@@ -103,11 +109,21 @@ export function Contact() {
         setFormErrors({})
       } else {
         // Error from API
-        alert(`Error: ${result.error || 'Failed to send your enquiry. Please try again.'}`)
+        toast({
+          title: "Error sending enquiry",
+          description: result.error || 'Failed to send your enquiry. Please try again.',
+          variant: "destructive",
+          duration: 5000,
+        })
       }
     } catch (error) {
       console.error('Form submission error:', error)
-      alert('Failed to send your enquiry. Please check your connection and try again, or contact us directly at sales@apexwiringsolutions.co.uk')
+      toast({
+        title: "Connection error",
+        description: "Failed to send your enquiry. Please check your connection and try again, or contact us directly at sales@apexwiringsolutions.co.uk",
+        variant: "destructive", 
+        duration: 7000,
+      })
     } finally {
       setIsSubmitting(false)
     }

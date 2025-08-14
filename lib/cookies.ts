@@ -1,5 +1,15 @@
 // Cookie management utilities for GDPR compliance
 
+// TypeScript declarations for third-party tracking scripts
+declare global {
+  interface Window {
+    _linkedin_data_partner_ids?: string[];
+    _linkedin_partner_id?: string;
+    gtag?: (...args: any[]) => void;
+    dataLayer?: any[];
+  }
+}
+
 export interface CookiePreferences {
   necessary: boolean
   analytics: boolean
@@ -80,23 +90,42 @@ export function initializeGoogleAnalytics(measurementId: string) {
   })
 }
 
-// Initialize LinkedIn Insight Tag based on consent
+// Initialize LinkedIn Enhanced Conversion Tracking (2025 Best Practice)
 export function initializeLinkedInTracking(partnerId: string) {
   if (!hasConsentFor('marketing')) return
 
-  // LinkedIn Insight Tag
-  const script = document.createElement('script')
-  script.innerHTML = `
-    _linkedin_partner_id = "${partnerId}";
-    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
-    window._linkedin_data_partner_ids.push(_linkedin_partner_id);
-  `
-  document.head.appendChild(script)
+  try {
+    // LinkedIn Enhanced Conversion Tracking with First-Party Cookies
+    const script = document.createElement('script')
+    script.innerHTML = `
+      // Initialize LinkedIn partner ID
+      _linkedin_partner_id = "${partnerId}";
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+      
+      // Enable enhanced conversion tracking (first-party cookies)
+      window._linkedin_data_partner_ids.forEach(function(id) {
+        window['_linkedin_data_' + id + '_first_party_enabled'] = true;
+      });
+    `
+    document.head.appendChild(script)
 
-  const linkedInScript = document.createElement('script')
-  linkedInScript.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
-  linkedInScript.async = true
-  document.head.appendChild(linkedInScript)
+    const linkedInScript = document.createElement('script')
+    linkedInScript.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js'
+    linkedInScript.async = true
+    linkedInScript.onload = function() {
+      // Enhanced tracking successfully loaded
+      if (window._linkedin_data_partner_ids && window._linkedin_data_partner_ids.length > 0) {
+        console.log('LinkedIn Enhanced Conversion Tracking initialized')
+      }
+    }
+    linkedInScript.onerror = function(error) {
+      console.warn('LinkedIn Insight Tag failed to load - tracking may be impacted:', error)
+    }
+    document.head.appendChild(linkedInScript)
+  } catch (error) {
+    console.warn('LinkedIn Enhanced Conversion Tracking initialization failed:', error)
+  }
 }
 
 // Clean up tracking cookies when consent is withdrawn
@@ -110,10 +139,14 @@ export function cleanupTrackingCookies() {
     document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`
   })
 
-  // LinkedIn cookies
-  const linkedInCookies = ['li_gc', 'lidc', 'li_mc', 'li_at']
+  // LinkedIn cookies (both old third-party and new first-party)
+  const linkedInCookies = ['li_gc', 'lidc', 'li_mc', 'li_at', 'bcookie', 'li_fat_id']
   linkedInCookies.forEach(cookie => {
     deleteCookie(cookie)
+    // Clean up old third-party cookies
     document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.linkedin.com`
+    // Clean up new first-party cookies on our domain
+    document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${window.location.hostname}`
+    document.cookie = `${cookie}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`
   })
 }

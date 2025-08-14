@@ -8,6 +8,11 @@ html {
   overflow-x: hidden;
 }
 
+/* Explicit H1 font-size for Best Practices compliance */
+h1 {
+  font-size: inherit; /* Ensures explicit font-size inheritance */
+}
+
 /* Custom Scrollbar - Full Width */
 ::-webkit-scrollbar {
   width: 16px;
