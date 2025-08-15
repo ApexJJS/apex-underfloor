@@ -439,16 +439,16 @@ function ProductVariantSelector({ product, onVariantSelect, selectedVariant }: {
 
   return (
     <div className="mb-6">
-      <div className="flex flex-wrap gap-2 mb-4">
+      <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
         {product.variants.map((variant: any) => (
           <Button
             key={variant.id}
             variant={localSelectedVariant === variant.id ? "default" : "outline"}
             size="sm"
-            className={localSelectedVariant === variant.id 
+            className={`text-xs sm:text-sm px-2 sm:px-3 ${localSelectedVariant === variant.id 
               ? "bg-brand-navy text-white hover:bg-brand-navy/90" 
               : "border-brand-navy/20 text-brand-navy hover:bg-brand-navy/10"
-            }
+            }`}
             onClick={() => handleVariantChange(variant.id)}
           >
             {variant.name}
@@ -623,30 +623,30 @@ export function ProductSidebar() {
                         )}
                         
                         {/* Image View Toggle */}
-                        <div className="flex gap-2 mb-4">
+                        <div className="flex gap-1 sm:gap-2 mb-4 w-full">
                           <Button
                             variant={imageView === "product" ? "default" : "outline"}
                             size="sm"
-                            className={imageView === "product" 
+                            className={`flex-1 text-xs sm:text-sm px-2 sm:px-3 ${imageView === "product" 
                               ? "bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90" 
                               : "border-brand-yellow/40 text-brand-navy hover:bg-brand-yellow/10"
-                            }
+                            }`}
                             onClick={() => setImageView("product")}
                           >
-                            <Image className="h-4 w-4 mr-1" />
-                            Product Image
+                            <Image className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                            <span className="hidden xs:inline">Product </span>Image
                           </Button>
                           <Button
                             variant={imageView === "technical" ? "default" : "outline"}  
                             size="sm"
-                            className={imageView === "technical" 
+                            className={`flex-1 text-xs sm:text-sm px-2 sm:px-3 ${imageView === "technical" 
                               ? "bg-brand-yellow text-brand-navy hover:bg-brand-yellow/90" 
                               : "border-brand-yellow/40 text-brand-navy hover:bg-brand-yellow/10"
-                            }
+                            }`}
                             onClick={() => setImageView("technical")}
                           >
-                            <FileImage className="h-4 w-4 mr-1" />
-                            Technical Drawing
+                            <FileImage className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
+                            <span className="hidden xs:inline">Technical </span>Drawing
                           </Button>
                         </div>
                       </div>

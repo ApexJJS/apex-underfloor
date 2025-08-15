@@ -19,6 +19,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        'xs': '475px',
+      },
       fontFamily: {
         bebas: ["bebas-neue-pro", "bebas-neue", "sans-serif"],
         inter: ["var(--font-inter)"],
