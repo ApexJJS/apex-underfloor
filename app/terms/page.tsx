@@ -193,7 +193,7 @@ export default function TermsAndConditions() {
                 If you have questions about these Terms, please contact us:
               </p>
               <div className="space-y-2 text-gray-600">
-                <p><strong>Email:</strong> sales@apexwiringsolutions.co.uk</p>
+                <p><strong>Email:</strong> Please use our contact form or call us</p>
                 <p><strong>Phone:</strong> +44 (0) 191 378 7900</p>
                 <p><strong>Address:</strong> St. Johns Road, Meadowfield Industrial Estate, Co. Durham, DH7 8RJ</p>
               </div>

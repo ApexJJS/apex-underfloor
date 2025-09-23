@@ -120,7 +120,7 @@ export function Contact() {
       console.error('Form submission error:', error)
       toast({
         title: "Connection error",
-        description: "Failed to send your enquiry. Please check your connection and try again, or contact us directly at sales@apexwiringsolutions.co.uk",
+        description: "Failed to send your enquiry. Please check your connection and try again, or call us directly at +44 (0) 191 378 7900",
         variant: "destructive", 
         duration: 7000,
       })
@@ -198,7 +198,6 @@ export function Contact() {
               <div className="space-y-6">
                 {[
                   { icon: Phone, title: "Phone", desc: "+44 (0) 191 378 7900" },
-                  { icon: Mail, title: "Email", desc: "sales@apexwiringsolutions.co.uk" },
                   { icon: MapPin, title: "Address", desc: "St. Johns Road, Meadowfield Ind Estate, Co. Durham, DH7 8RJ" },
                 ].map((contact, index) => (
                   <div key={index} className="group flex items-center space-x-4">
