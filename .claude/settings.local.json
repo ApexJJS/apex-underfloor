@@ -4,7 +4,8 @@
       "Read(/C:\\Users\\Work\\Documents\\GitHub\\apex-underfloor\\components/**)",
       "Read(/C:\\Users\\Work\\Documents\\GitHub\\apex-underfloor\\components/**)",
       "Read(/C:\\Users\\Work\\Documents\\GitHub\\apex-underfloor\\components/**)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "mcp__sequential-thinking__sequentialthinking"
     ],
     "deny": [],
     "ask": []
