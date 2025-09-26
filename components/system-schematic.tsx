@@ -28,11 +28,13 @@ export function SystemSchematic() {
               </p>
             </div>
             <div className="bg-white rounded-xl overflow-hidden">
-              <img 
-                src="/images/schematics/powerflexschematicexample.svg" 
-                alt="PowerFlex System Schematic - Complete underfloor power distribution layout" 
+              <img
+                src="/images/schematics/powerflexschematicexample.svg"
+                alt="PowerFlex System Schematic - Complete underfloor power distribution layout"
                 className="w-full h-auto max-w-none"
                 style={{ minHeight: '400px' }}
+                loading="lazy"
+                decoding="async"
               />
             </div>
           </div>
@@ -46,11 +48,13 @@ export function SystemSchematic() {
               </p>
             </div>
             <div className="bg-white rounded-xl overflow-hidden flex justify-center">
-              <img 
-                src="/images/schematics/powerflexschematicexamplekey.svg" 
-                alt="PowerFlex System Schematic Key - Component legend" 
+              <img
+                src="/images/schematics/powerflexschematicexamplekey.svg"
+                alt="PowerFlex System Schematic Key - Component legend"
                 className="max-w-full h-auto"
                 style={{ minHeight: '300px', maxWidth: '800px' }}
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="mt-8 bg-gray-50 rounded-lg p-6">

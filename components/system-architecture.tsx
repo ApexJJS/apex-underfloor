@@ -49,10 +49,12 @@ export function SystemArchitecture() {
             <CardContent className="p-8">
               {/* System Diagram */}
               <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 mb-8">
-                <img 
-                  src="/images/standalone.svg" 
-                  alt="Stand-Alone System Architecture Diagram" 
+                <img
+                  src="/images/standalone.svg"
+                  alt="Stand-Alone System Architecture Diagram"
                   className="w-full h-48 object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
@@ -110,10 +112,12 @@ export function SystemArchitecture() {
             <CardContent className="p-8">
               {/* System Diagram */}
               <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl p-6 mb-8">
-                <img 
-                  src="/images/integrated.svg" 
-                  alt="Integrated System Architecture Diagram" 
+                <img
+                  src="/images/integrated.svg"
+                  alt="Integrated System Architecture Diagram"
                   className="w-full h-48 object-contain"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
 
