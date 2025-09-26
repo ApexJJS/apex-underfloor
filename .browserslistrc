@@ -1,0 +1,8 @@
+# Modern browsers that support baseline web features
+chrome >= 88
+firefox >= 85
+safari >= 14
+edge >= 88
+
+# No IE support - modern browsers only
+not IE 11
